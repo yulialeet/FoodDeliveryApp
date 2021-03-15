@@ -1,15 +1,15 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomePage from '../HomePage';
+import HomeRestaurantList from '../HomeRestaurantList';
 
 const Stack = createStackNavigator()
 
-export  default function HomePageHead() {
+function HomePageHead() {
     return (
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
-          component={HomePage}
+          component={HomeRestaurantList}
           options={{
             title: 'Рестораны',
             headerStyle: {

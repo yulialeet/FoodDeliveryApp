@@ -4,18 +4,28 @@ import {
   View,
   Text,
   FlatList,
+  TouchableOpacity,
 } from 'react-native';
-import {Rests} from './DataRestaurants.js';
+import { connect } from 'react-redux'
+import { Rests } from './DataRestaurants.js';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import {RestaurantsListStyle} from './HomeStyles/RestaurantsListStyle'
+import { RestaurantsListStyle } from './HomeStyles/RestaurantsListStyle'
+import store from '../../store/store'
+import { useNavigation } from '@react-navigation/native'
+import { ActionRestaurantToFoodList } from '../../store/actions/ActionRestaurantToFoodList'
 
-function RestaurantsList() {
+
+const RestaurantsList = ({ dispatch }) => {
+    const navigation = useNavigation();
             return (
                 <View style = {RestaurantsListStyle.firview}>
                     <FlatList
                         data = {Rests}
                         renderItem = {({item}) => (
-                            <View style = {RestaurantsListStyle.container}> 
+                            <TouchableOpacity style = {RestaurantsListStyle.container} onPress = {() => {
+                                dispatch(ActionRestaurantToFoodList(item.name))
+                                navigation.navigate('Food')
+                            }}> 
                                 <View style = {{flex: 3}}>
                                     
                                         <Text style = {RestaurantsListStyle.namerest}>{item.name}</Text>
@@ -33,7 +43,7 @@ function RestaurantsList() {
                                     source = {{uri: item.img}}
                                     style = {RestaurantsListStyle.images}
                                 />
-                            </View>
+                            </TouchableOpacity>
                         )}
                     />
                 </View>
@@ -42,4 +52,4 @@ function RestaurantsList() {
 }
 
 
-export default RestaurantsList
+export default connect()(RestaurantsList)

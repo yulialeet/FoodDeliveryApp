@@ -8,6 +8,8 @@ target 'FoodDelivery' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'react-native-my-sql-connection', :path => '../node_modules/react-native-my-sql-connection'
+
   target 'FoodDeliveryTests' do
     inherit! :complete
     # Pods for testing

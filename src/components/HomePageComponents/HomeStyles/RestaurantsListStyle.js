@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native'
-//import from "@fontsource/montserrat/index.css"
 
 const RestaurantsListStyle = StyleSheet.create({
     firview: {

@@ -4,8 +4,9 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import {AppNavigatorStyle} from './styles/AppNavigatorStyle.js'
-import HomePage from './components/HomePage'
+import HomeRestaurantList from './components/HomeRestaurantList'
 import HomePageHead from './components/HomePageComponents/HomePageHead'
+import HomeScreen from './components/HomeScreen.js';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -16,7 +17,7 @@ export default function AppNavigator() {
       
         <Tab.Screen 
             name = "Home" 
-            component = {HomePageHead}
+            component = {HomeScreen}
             options = {{
                 tabBarLabel: "",
                 tabBarIcon: ({color, focused}) => (
@@ -26,7 +27,7 @@ export default function AppNavigator() {
         />
         <Tab.Screen 
             name = "ShopBasket" 
-            component = {HomePage}
+            component = {HomeScreen}
             options = {{
                 tabBarLabel: "",
                 tabBarIcon: ({color, focused}) => (
@@ -36,7 +37,7 @@ export default function AppNavigator() {
         />
         <Tab.Screen 
             name = 'Profile' 
-            component = {HomePage}
+            component = {HomeScreen}
             options = {{
                 tabBarLabel: "",
                 tabBarIcon: ({color, focused}) => (

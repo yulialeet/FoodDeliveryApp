@@ -10,7 +10,7 @@
          name: 'НеПицца',
          img: 'https://picsum.photos/200/300?id=14',
          worktime: 'с 10:00 до 20:00',
-         delprice: '200',
+         delprice: '12200',
          rating: 3.2,
         },
         {key: '3',
