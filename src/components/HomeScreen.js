@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
-import { Button, View, Text } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeRestaurantList from './HomeRestaurantList';
 import HomeFoodList from './HomeFoodList';
 import store from '../store/store'
 import { connect } from 'react-redux';
 
+
 const Stack = createStackNavigator();
 
 class HomeScreen extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+    
     
     render (){
         return(
             <Stack.Navigator initialRouteName = 'Restaurants'>
+                
                 <Stack.Screen 
                     name="Restaurants"
                     component={HomeRestaurantList}
@@ -37,7 +41,7 @@ class HomeScreen extends React.Component {
                     name = 'Food' 
                     component = {HomeFoodList} 
                     options={{
-                        title: store.getState().key,
+                        title: this.props.nameRestaurant,
                         headerStyle: {
                           backgroundColor: '#ffffff',
                           elevation: 10,
@@ -54,7 +58,13 @@ class HomeScreen extends React.Component {
                       }}
                 />
             </Stack.Navigator>
-        //</NavigationContainer>
         )
 }}
-export default HomeScreen;
+
+const mapStateToProps = (state) => {
+    return{
+        nameRestaurant: state.nameRestaurant.nameRestaurant
+    }
+}
+
+export default connect(mapStateToProps, null)(HomeScreen)

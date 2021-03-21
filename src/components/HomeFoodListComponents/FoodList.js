@@ -16,7 +16,6 @@ import { useNavigation } from '@react-navigation/native'
 //import { ActionRestaurantToFoodList } from '../../store/actions/ActionRestaurantToFoodList'
 
 const FoodList = () => {
-
     return (
         <View style = {FoodListStyle.mainView}>
             <FlatList
