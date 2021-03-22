@@ -19,25 +19,25 @@ import { ActionTakeRestaurantsList } from '../../store/actions/ActionTakeRestaur
 
 
 class RestaurantsList extends React.Component{
-    constructor(props) {
-        super(props)
-        this.state = {
-            list: ''
-        }
-        this.getList();
-        this.props.setRestList(this.state.list)
-    }
+//     constructor(props) {
+//         super(props)
+//         this.state = {
+//             list: ''
+//         }
+//         this.getList();
+//         this.props.setRestList(this.state.list)
+//     }
     
     
-    getList = async() => {
-        try {
-        const res = await fetch('http://192.168.0.4:8082/restaurantsList')
-        const resText = await res.text();
-        this.setState({list: 'resText'})
-        } catch(error) {
-        console.log('err');
-        }
-  }
+//     getList = async() => {
+//         try {
+//         const res = await fetch('http://192.168.0.4:8082/restaurantsList')
+//         const resText = await res.text();
+//         this.setState({list: 'resText'})
+//         } catch(error) {
+//         console.log('err');
+//         }
+//   }
 
    
         

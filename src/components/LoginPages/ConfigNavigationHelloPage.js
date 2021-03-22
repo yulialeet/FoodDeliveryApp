@@ -10,7 +10,6 @@ const Stack = createStackNavigator();
 
 class ConfigNavigationHelloPage extends React.Component {
     
-    
     render (){
         return(
             <NavigationContainer>
@@ -30,14 +29,13 @@ class ConfigNavigationHelloPage extends React.Component {
                         {headerShown: false}
                     }
                 />
-                <Stack.Screen 
+                {/* <Stack.Screen 
                     name = 'EndLogin' 
-                    component = {AppNavigator} 
+                    component = {HelloPage} 
                     options={
-                        {headerShown: false,
-                            swipeEnabled: false,}
+                        {headerShown: false}
                     }
-                />
+                />  */}
             </Stack.Navigator>
             </NavigationContainer>
         )

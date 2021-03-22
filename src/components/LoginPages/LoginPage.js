@@ -7,10 +7,12 @@ import {
     Alert,
     TextInput
   } from 'react-native';
+import { connect } from 'react-redux';
+import { ActionIsLoggedIn } from '../../store/actions/ActionIsLoggedIn';
   import {LoginPageStyle} from './LoginPageStyle'
 
 
-export default class LoginPage extends React.Component {
+class LoginPage extends React.Component {
 
     render(){
         const { navigation } = this.props;
@@ -30,7 +32,7 @@ export default class LoginPage extends React.Component {
                     <TouchableOpacity 
                         style = {LoginPageStyle.buttonOpacity}
                         onPress = {() => {
-                            navigation.navigate('EndLogin')
+                            this.props.userLogIn()
                         }}
                     >
                         <Text style = {LoginPageStyle.textSignIn}>Вход</Text>
@@ -51,3 +53,10 @@ export default class LoginPage extends React.Component {
         )
     }
 }
+const mapDispatchToProps = (dispatch) => {
+    return{
+        userLogIn: () => dispatch(ActionIsLoggedIn())
+    }
+} 
+
+export default connect(null, mapDispatchToProps)(LoginPage)

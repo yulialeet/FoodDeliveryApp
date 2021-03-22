@@ -1,9 +1,8 @@
 import React from 'react';
 import AppNavigator from './src/AppNavigator.js'
-import { Provider } from 'react-redux'
+import { Provider, connect } from 'react-redux'
 import store from './src/store/store'
-import {Alert, Button, Text, View} from 'react-native'
-import ConfigNavigationHelloPage from './src/components/LoginPages/ConfigNavigationHelloPage';
+import HelloPage from './src/components/LoginPages/HelloPage.js';
 
 export default class App extends React.Component {
     // constructor(props){
@@ -29,15 +28,19 @@ export default class App extends React.Component {
     //       Alert.alert(error.message)
     //     }
     //   }
+//assyncstorage
+
+
 
     render() {
         return(
              <Provider store = {store}>
-                 <ConfigNavigationHelloPage/>
+                 <HelloPage/>
              </Provider>
 
             
         )
     }
 }
+
 
