@@ -15,16 +15,6 @@ export default HomeRestaurantList = (props) => {
     )
 }
 
-// getList = async() => {
-//     try {
-//     const res = await fetch('http://192.168.0.4:8082/restaurantsList')
-//     const resText = await res.text();
-//     // this.setState({list: resText})
-//     listOfRestaurants = resText
-//     } catch(error) {
-//     console.log('err');
-//     }
-// }
 
 
 

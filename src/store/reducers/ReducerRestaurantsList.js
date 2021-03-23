@@ -1,4 +1,4 @@
-import {RENDER_RESTAURANTS_LISTT} from '../actions/ActionTakeRestaurtantsList'
+import {RENDER_RESTAURANTS_LISTT} from '../actions/ActionTakeRestaurantsList'
 
 
 const reducerRestaurantsList = (state, action) => {
@@ -10,7 +10,8 @@ const reducerRestaurantsList = (state, action) => {
             }
         default: 
             return {
-                RestaurantsListFromServer: 'gglol'
+                ...state,
+                //RestaurantsListFromServer: state
             }
     }   
     

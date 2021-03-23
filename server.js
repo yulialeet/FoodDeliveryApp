@@ -17,7 +17,7 @@ app.use(express.static(__dirname));
 connection.connect();
 
 app.get('/restaurantsList', function (req, res){
-connection.query('select * from reviews', function (error, results, fields) {
+connection.query('select * from restaurant', function (error, results, fields) {
     if (error) throw error;
     else {
       console.log('The solution is: ', results);

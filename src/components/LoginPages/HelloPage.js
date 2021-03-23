@@ -3,6 +3,7 @@ import AppNavigator from '../../AppNavigator'
 import { Provider, connect } from 'react-redux'
 import {Alert, Button, SafeAreaView, Text, View} from 'react-native'
 import ConfigNavigationHelloPage from './ConfigNavigationHelloPage';
+import {ActionTakeRestaurantsList} from '../../store/actions/ActionTakeRestaurantsList'
 
 
 class Hellopage extends React.Component {
@@ -13,6 +14,15 @@ constructor(props){
     super(props)
 }
 
+async componentDidMount() {
+    try {
+    const res = await fetch('http://192.168.0.105:8082/restaurantsList')
+    const resText = await res.json();
+    await this.props.setRestList(resText)
+    } catch(error) {
+    console.log(error);
+    }
+}
 
 Greeting = () => {
     if (this.props.isUserLoggedIn){
@@ -40,4 +50,11 @@ const mapStateToProps = (store) => {
     }
 }
 
-export default connect(mapStateToProps, null)(Hellopage)
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        setRestList: (listOfRestaurants) => dispatch(ActionTakeRestaurantsList(listOfRestaurants))
+    }
+  }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Hellopage)

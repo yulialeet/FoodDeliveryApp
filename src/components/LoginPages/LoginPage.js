@@ -32,7 +32,7 @@ class LoginPage extends React.Component {
                     <TouchableOpacity 
                         style = {LoginPageStyle.buttonOpacity}
                         onPress = {() => {
-                            this.props.userLogIn()
+                            this.props.userLogIn(true)
                         }}
                     >
                         <Text style = {LoginPageStyle.textSignIn}>Вход</Text>
@@ -55,7 +55,7 @@ class LoginPage extends React.Component {
 }
 const mapDispatchToProps = (dispatch) => {
     return{
-        userLogIn: () => dispatch(ActionIsLoggedIn())
+        userLogIn: (eventt) => dispatch(ActionIsLoggedIn(eventt))
     }
 } 
 

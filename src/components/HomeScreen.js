@@ -12,12 +12,10 @@ class HomeScreen extends React.Component {
     constructor(props) {
         super(props)
     }
-    
-    
+
     render (){
         return(
             <Stack.Navigator initialRouteName = 'Restaurants'>
-                
                 <Stack.Screen 
                     name="Restaurants"
                     component={HomeRestaurantList}
@@ -66,5 +64,7 @@ const mapStateToProps = (state) => {
         nameRestaurant: state.nameRestaurant.nameRestaurant
     }
 }
+
+
 
 export default connect(mapStateToProps, null)(HomeScreen)
