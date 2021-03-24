@@ -12,7 +12,7 @@ var connection = mysql.createConnection({
   password : 'FoodDelivery-11-YVBD!',
   database : 'fooddeliverydb'
 });
-app.use(express.static(__dirname));
+//app.use(express.static(__dirname));
 
 connection.connect();
 
@@ -20,7 +20,6 @@ app.get('/restaurantsList', function (req, res){
 connection.query('select * from restaurant', function (error, results, fields) {
     if (error) throw error;
     else {
-      console.log('The solution is: ', results);
       res.send(results);
     }
   });

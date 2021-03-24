@@ -19,13 +19,16 @@
         "@react-navigation/stack": "^5.14.2",
         "async": "^2.6.3",
         "await": "^0.2.6",
+        "base-64": "^1.0.0",
         "body-parser": "^1.19.0",
+        "buffer": "^6.0.3",
         "express": "^4.17.1",
         "mysql": "github:mysqljs/mysql",
         "mysqli": "^3.0.11",
         "nodemon": "^2.0.7",
         "react": "16.13.1",
         "react-native": "0.63.4",
+        "react-native-base64": "^0.2.1",
         "react-native-gesture-handler": "^1.10.1",
         "react-native-ionicons": "^4.6.5",
         "react-native-my-sql-connection": "^1.0.4",
@@ -36,7 +39,8 @@
         "react-native-vector-icons": "^8.0.0",
         "react-redux": "^7.2.2",
         "redux": "^4.0.5",
-        "request": "^2.88.2"
+        "request": "^2.88.2",
+        "utf8": "^3.0.0"
     },
     "devDependencies": {
         "@babel/core": "^7.8.4",

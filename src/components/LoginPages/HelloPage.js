@@ -1,10 +1,9 @@
 import React from 'react';
 import AppNavigator from '../../AppNavigator'
-import { Provider, connect } from 'react-redux'
-import {Alert, Button, SafeAreaView, Text, View} from 'react-native'
+import { connect } from 'react-redux'
 import ConfigNavigationHelloPage from './ConfigNavigationHelloPage';
 import {ActionTakeRestaurantsList} from '../../store/actions/ActionTakeRestaurantsList'
-
+import myURL from '../../CommonURL/myURL'
 
 class Hellopage extends React.Component {
 
@@ -16,7 +15,7 @@ constructor(props){
 
 async componentDidMount() {
     try {
-    const res = await fetch('http://192.168.0.105:8082/restaurantsList')
+    const res = await fetch(myURL+'/restaurantsList')
     const resText = await res.json();
     await this.props.setRestList(resText)
     } catch(error) {
