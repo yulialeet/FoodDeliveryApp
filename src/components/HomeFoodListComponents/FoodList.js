@@ -9,33 +9,36 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux'
 import { Rests } from '../HomePageComponents/DataRestaurants';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { FoodListStyle } from './HomeFoodStyles/FoodListStyle'
-//import store from '../../store/store'
-import { useNavigation } from '@react-navigation/native'
-//import { ActionRestaurantToFoodList } from '../../store/actions/ActionRestaurantToFoodList'
+import { Buffer } from 'buffer'
 
-const FoodList = () => {
+
+class FoodList extends React.Component {
+
+
+
+    render() {
     return (
         <View style = {FoodListStyle.mainView}>
             <FlatList
-                data = {Rests}
+                data = {this.props.DishesList}
+                keyExtractor={(item, index) => index.toString()}
                 renderItem = {({item}) => (
                     <TouchableOpacity style = {FoodListStyle.mainContainer}>
 
                             <View>
-                                <Text style = {FoodListStyle.nameOfRestaurant}>{item.name}</Text>
+                                <Text style = {FoodListStyle.nameOfRestaurant}>{item.NameDish}</Text>
                                 <View style = {FoodListStyle.buttonAndPriceView}>
                                     <TouchableOpacity style = {FoodListStyle.buttonAdd}>
                                         <Text style = {FoodListStyle.textAdd}>Добавить</Text>
                                     </TouchableOpacity>
-                                    <Text style = {FoodListStyle.priceOfFood}>{item.delprice} р.</Text>
+                                    <Text style = {FoodListStyle.priceOfFood}>{item.PriceDish} р.</Text>
                                 </View>
                             </View>
 
                             <View>
                                 <Image
-                                    source = {{uri: item.img}}
+                                    source = {{uri: "data:image/png;base64,"+Buffer.from(item.PhotoDish).toString('base64')}}
                                     style = {FoodListStyle.pictureFood}
                                 />
                             </View>
@@ -44,7 +47,12 @@ const FoodList = () => {
             />
         </View>
     )
+}}
+
+const mapStateToProps = (state) => {
+    return{
+        DishesList: state.dishesList.DishesList
+    }
 }
 
-
-export default FoodList
+export default connect(mapStateToProps, null)(FoodList)

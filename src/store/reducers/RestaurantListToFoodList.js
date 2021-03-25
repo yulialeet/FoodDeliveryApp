@@ -9,7 +9,7 @@ const restaurantListToFoodList = (state, action) => {
             }
         default: 
             return {
-                nameRestaurant: 'Food'
+                ...state
             }
     }
 }

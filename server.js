@@ -16,14 +16,52 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
+// app.get('/restaurantsList', function (req, res){
+//   console.log(req.query.idRestaurant)
+//   connection.query('select * from restaurant where idRestaurant = ?',req.query.idRestaurant, function (error, results, fields) {
+//     if (error) throw error;
+//     else {
+//       res.send(results);
+//     }
+//   });
+// })
 app.get('/restaurantsList', function (req, res){
-connection.query('select * from restaurant', function (error, results, fields) {
+  connection.query('select * from restaurant', function (error, results, fields) {
     if (error) throw error;
     else {
       res.send(results);
     }
   });
 })
+
+app.get('/dishesList', function (req, res){
+  connection.query('select * from dishes where RestaurantidRestaurant = ?',req.query.idRest, function (error, results, fields) {
+    if (error) throw error;
+    else {
+      res.send(results);
+    }
+  });
+})
+
+app.get('/restaurantsCategory', function (req, res){
+  connection.query('select * from restaurantcategory', function (error, results, fields) {
+    if (error) throw error;
+    else {
+      res.send(results);
+    }
+  });
+})
+
+app.get('/dishesCategory', function (req, res){
+  connection.query('SELECT * FROM dishescategory JOIN dishes ON dishescategory.idCategoryDish=dishes.CategoriesidCategories WHERE RestaurantidRestaurant = ?', req.query.idRest, function (error, results, fields) {
+    if (error) throw error;
+    else {
+      res.send(results);
+    }
+  });
+})
+
+
 
 app.listen(8082, function () {
     console.log('okayyy')

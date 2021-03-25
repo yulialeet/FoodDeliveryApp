@@ -5,11 +5,11 @@ import {
     FlatList,
     TouchableOpacity,
 } from 'react-native';
-import {CategoriesRests} from '../HomePageComponents/CategoriesRests'
 import {FoodCategoriesStyle} from './HomeFoodStyles/FoodCategoriesStyle'
+import { connect } from 'react-redux'
 
 
-export default class ScrollCategories extends React.Component {
+class ScrollCategories extends React.Component {
     state = {
         isCategorySelected: 1
     };
@@ -22,12 +22,13 @@ export default class ScrollCategories extends React.Component {
         return (
             <View style = {FoodCategoriesStyle.styleFlatlist}>
                 <FlatList
-                    data = {CategoriesRests}
+                    data = {this.props.DishesCategories}
                     horizontal = {true}
                     showsHorizontalScrollIndicator={false}
+                    keyExtractor={(item, index) => index.toString()}
                     renderItem = {({item}) => (
-                        <TouchableOpacity onPress = {() => {this.SelectedCategoryState(item.key)}} >
-                            <Text style = {[item.key === this.state.isCategorySelected ? FoodCategoriesStyle.selectedComponentStyle: FoodCategoriesStyle.defaultComponentStyle]} >{item.NameCat}</Text>
+                        <TouchableOpacity onPress = {() => {this.SelectedCategoryState(item.idCategoryDish)}} >
+                            <Text style = {[item.idCategoryDish === this.state.isCategorySelected ? FoodCategoriesStyle.selectedComponentStyle: FoodCategoriesStyle.defaultComponentStyle]} >{item.NameCategory}</Text>
                         </TouchableOpacity>
                     )}
                 />
@@ -35,3 +36,11 @@ export default class ScrollCategories extends React.Component {
         )
         
     }}
+
+    const mapStateToProps = (state) => {
+        return{
+            DishesCategories: state.dishesCategories.DishesCategories
+        }
+      }
+
+export default connect(mapStateToProps, null)(ScrollCategories)

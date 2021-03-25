@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import ConfigNavigationHelloPage from './ConfigNavigationHelloPage';
 import {ActionTakeRestaurantsList} from '../../store/actions/ActionTakeRestaurantsList'
 import myURL from '../../CommonURL/myURL'
+import { ActionRestaurantsCategories } from '../../store/actions/ActionRestaurantsCategories';
 
 class Hellopage extends React.Component {
 
@@ -15,12 +16,21 @@ constructor(props){
 
 async componentDidMount() {
     try {
+//    const res = await fetch(myURL+'/restaurantsList?idRestaurant=1')
     const res = await fetch(myURL+'/restaurantsList')
     const resText = await res.json();
     await this.props.setRestList(resText)
     } catch(error) {
     console.log(error);
     }
+
+    try {
+            const res = await fetch(myURL+'/restaurantsCategory')
+            const resText = await res.json();
+            await this.props.setCategoriesRestaurantsList(resText)
+            } catch(error) {
+            console.log(error);
+            }
 }
 
 Greeting = () => {
@@ -52,7 +62,8 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        setRestList: (listOfRestaurants) => dispatch(ActionTakeRestaurantsList(listOfRestaurants))
+        setRestList: (listOfRestaurants) => dispatch(ActionTakeRestaurantsList(listOfRestaurants)),
+        setCategoriesRestaurantsList: (listOfCategories) => dispatch(ActionRestaurantsCategories(listOfCategories))
     }
   }
 

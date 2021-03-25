@@ -12,6 +12,7 @@ import { RestaurantsListStyle } from './HomeStyles/RestaurantsListStyle'
 import { ActionRestaurantToFoodList } from '../../store/actions/ActionRestaurantToFoodList'
 import { Buffer } from 'buffer'
 
+
 class RestaurantsList extends React.Component{
 
     render(){
@@ -24,7 +25,7 @@ class RestaurantsList extends React.Component{
                         keyExtractor={(item, index) => index.toString()}
                         renderItem = {({item}) => (
                             <TouchableOpacity style = {RestaurantsListStyle.container} onPress = {() => {
-                                this.props.toDoIt(item.idRestaurant)
+                                this.props.toDoIt(item.idRestaurant);
                                 navigation.navigate('Food')
                             }}> 
                                 <View style = {{flex: 3}}>
