@@ -24,7 +24,7 @@ class FoodList extends React.Component {
                 data = {this.props.DishesList}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem = {({item}) => (
-                    <TouchableOpacity style = {FoodListStyle.mainContainer}>
+                    <TouchableOpacity style = {FoodListStyle.mainContainer} >
 
                             <View>
                                 <Text style = {FoodListStyle.nameOfRestaurant}>{item.NameDish}</Text>

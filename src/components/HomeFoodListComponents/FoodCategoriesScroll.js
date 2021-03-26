@@ -16,9 +16,9 @@ class ScrollCategories extends React.Component {
         isCategorySelected: ''
     };
     SelectedCategoryState = (key) => {
-        this.setState(({
+        this.setState({
             isCategorySelected: key
-        }))
+        }, this.changeCategory)
     }
 
     changeCategory = async() => {
@@ -46,8 +46,6 @@ class ScrollCategories extends React.Component {
                     renderItem = {({item}) => (
                         <TouchableOpacity onPress = {() => {
                             this.SelectedCategoryState(item.idCategoryDish)
-                            console.log(this.props.idRest)
-                            this.changeCategory()
                         }} >
                             <Text style = {[item.idCategoryDish === this.state.isCategorySelected ? FoodCategoriesStyle.selectedComponentStyle: FoodCategoriesStyle.defaultComponentStyle]} >{item.NameCategory}</Text>
                         </TouchableOpacity>

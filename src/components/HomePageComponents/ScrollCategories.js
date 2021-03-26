@@ -4,6 +4,7 @@ import {
   View,
   FlatList,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import { ScrollCategoriesStyle } from "./HomeStyles/ScrollCategoriesStyle"
 import { connect } from 'react-redux'
@@ -12,13 +13,20 @@ import { ActionTakeRestaurantsList } from '../../store/actions/ActionTakeRestaur
 
 
 class ScrollCategories extends React.Component {
+
+constructor(props) {
+    super(props)
+    
+}
 state = {
     isCategorySelected: ''
 };
 SelectedCategoryState = (key) => {
     this.setState({
         isCategorySelected: key
-    })
+    }, this.changeCategory
+    )
+
 }
 
 changeCategory = async() => {
@@ -43,7 +51,6 @@ render(){
                     <TouchableOpacity onPress = {() => {
                         this.SelectedCategoryState(item.idCategoryRestaurant)
                         
-                        this.changeCategory()
                     }} >
                         <Text style = {[item.idCategoryRestaurant === this.state.isCategorySelected ? ScrollCategoriesStyle.txte: ScrollCategoriesStyle.txt]} >
                             {item.NameCategoryRestaurant}

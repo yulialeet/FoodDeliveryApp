@@ -55,6 +55,26 @@ class HomeScreen extends React.Component {
                         },
                       }}
                 />
+                <Stack.Screen 
+                    name = 'FoodPage' 
+                    component = {HomeRestaurantList} 
+                    options={{
+                        title: 'Product',
+                        headerStyle: {
+                          backgroundColor: '#ffffff',
+                          elevation: 10,
+                        },
+                        headerTintColor: '#31B9CC',
+                        headerTitleStyle: {
+                          fontFamily: "Montserrat-Medium",
+                          fontSize: 26,
+                          elevation: 2,
+                          alignSelf: 'center',
+                          marginBottom: -10,
+                          marginLeft: -50,
+                        },
+                      }}
+                />
             </Stack.Navigator>
         )
 }}
