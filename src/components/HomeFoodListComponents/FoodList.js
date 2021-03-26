@@ -8,9 +8,9 @@ import {
     Alert,
 } from 'react-native';
 import { connect } from 'react-redux'
-import { Rests } from '../HomePageComponents/DataRestaurants';
 import { FoodListStyle } from './HomeFoodStyles/FoodListStyle'
 import { Buffer } from 'buffer'
+import { ActionIdChosenFood } from '../../store/actions/ActionIdChosenFood';
 
 
 class FoodList extends React.Component {
@@ -18,14 +18,18 @@ class FoodList extends React.Component {
 
 
     render() {
+        const { navigation } = this.props;
     return (
         <View style = {FoodListStyle.mainView}>
             <FlatList
                 data = {this.props.DishesList}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem = {({item}) => (
-                    <TouchableOpacity style = {FoodListStyle.mainContainer} >
-
+                    <TouchableOpacity style = {FoodListStyle.mainContainer} onPress = {() => { 
+                        this.props.setId(item.idDish),
+                        navigation.navigate('FoodPage')
+                    }}
+                    >
                             <View>
                                 <Text style = {FoodListStyle.nameOfRestaurant}>{item.NameDish}</Text>
                                 <View style = {FoodListStyle.buttonAndPriceView}>
@@ -55,4 +59,10 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, null)(FoodList)
+const mapDispatchToProps = (dispatch) => {
+    return{
+        setId: (idDish) => dispatch(ActionIdChosenFood(idDish))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FoodList)

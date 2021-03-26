@@ -6,6 +6,7 @@ import ReducerTakeDishesList from './reducers/ReducerTakeDishesList'
 import ReducerRestaurantsCategories from './reducers/ReducerRestaurantsCategories'
 import ReducerDishesCategories from './reducers/ReducerDishesCategories';
 import ReducerRestaurantNameHeder from './reducers/ReducerRestaurantNameHeader';
+import ReducerIdChosenFood from './reducers/ReducerIdChosenFood';
 
 
 //const store = createStore(restaurantListToFoodList);
@@ -18,6 +19,7 @@ const store = createStore(
         categoriesList: ReducerRestaurantsCategories,
         dishesCategories: ReducerDishesCategories,
         headerRestaurantName: ReducerRestaurantNameHeder,
+        idDish: ReducerIdChosenFood,
     })
 )
 export default store;

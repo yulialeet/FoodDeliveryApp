@@ -7,40 +7,44 @@ import { connect } from 'react-redux'
 import { ActionTakeDishesList } from '../store/actions/ActionTakeDishesList'
 import myURL from '../CommonURL/myURL'
 import { ActionDishesCategories } from '../store/actions/ActionDishesCategories'
+import { useEffect } from 'react'
+import { useNavigation } from '@react-navigation/core'
 
 
-class HomeFoodList extends React.Component {
+HomeFoodList = (props) => {
 
 
-async componentDidMount() {
+useEffect(() => {
+  async function setLists() {
     try {
-    const res = await fetch(myURL+'/dishesList?idRest='+this.props.TakeIdRestaurant)
-    const resText = await res.json();
-    await this.props.takeDishes(resText)
+      const res = await fetch(myURL+'/dishesList?idRest='+props.TakeIdRestaurant)
+      const resText = await res.json();
+    await props.takeDishes(resText)
     } catch(error) {
-    console.log(error);
+      console.log(error);
     }
 
 
     try {
-      const res = await fetch(myURL+'/dishesCategory?idRest='+this.props.TakeIdRestaurant)
+      const res = await fetch(myURL+'/dishesCategory?idRest='+props.TakeIdRestaurant)
       const resText = await res.json();
-      await this.props.takeDishesCategories(resText)
+      await props.takeDishesCategories(resText)
       } catch(error) {
       console.log(error);
       }
-}
-
-  render(){
+    }
+    setLists()
+})
+const navigation = useNavigation();
     return(
       <SafeAreaView style = {{flex: 1}}>
           <ReviewsAndWorkTime/>
           <FoodCategoriesScroll/>
-          <FoodList/>
+          <FoodList navigation = {navigation}/>
       </SafeAreaView>
     )
-  }
 }
+
 
 const mapStateToProps = (state) => {
   return{

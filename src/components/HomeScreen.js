@@ -4,6 +4,7 @@ import HomeRestaurantList from './HomeRestaurantList';
 import HomeFoodList from './HomeFoodList';
 import store from '../store/store'
 import { connect } from 'react-redux';
+import MainPageFood from './PageForFood/MainPageFood';
 
 
 const Stack = createStackNavigator();
@@ -57,7 +58,7 @@ class HomeScreen extends React.Component {
                 />
                 <Stack.Screen 
                     name = 'FoodPage' 
-                    component = {HomeRestaurantList} 
+                    component = {MainPageFood} 
                     options={{
                         title: 'Product',
                         headerStyle: {

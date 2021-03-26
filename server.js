@@ -71,7 +71,6 @@ app.get('/restaurantsForCategory', function (req, res){
   })
 
   app.get('/dishesForCategory', function (req, res){
-      console.log(req.query.idCategory, req.query.idRest)
     connection.query('SELECT dishes.* FROM dishes WHERE CategoriesidCategories = ? AND RestaurantidRestaurant = ?', [req.query.idCategory, req.query.idRest], function (error, results, fields) {
       if (error) throw error;
       else {
@@ -80,6 +79,14 @@ app.get('/restaurantsForCategory', function (req, res){
     });
   })
 
+  app.get('/dishInformation', function (req, res){
+  connection.query('SELECT dishes.* FROM dishes WHERE idDish = ?', req.query.idDish, function (error, results, fields) {
+    if (error) throw error;
+    else {
+      res.send(results);
+    }
+  });
+})
 
 
 
