@@ -53,13 +53,33 @@ app.get('/restaurantsCategory', function (req, res){
 })
 
 app.get('/dishesCategory', function (req, res){
-  connection.query('SELECT * FROM dishescategory JOIN dishes ON dishescategory.idCategoryDish=dishes.CategoriesidCategories WHERE RestaurantidRestaurant = ?', req.query.idRest, function (error, results, fields) {
+  connection.query('SELECT DISTINCT idCategoryDish, NameCategory FROM dishescategory JOIN dishes ON dishescategory.idCategoryDish=dishes.CategoriesidCategories WHERE RestaurantidRestaurant = ?', req.query.idRest, function (error, results, fields) {
     if (error) throw error;
     else {
       res.send(results);
     }
   });
 })
+
+app.get('/restaurantsForCategory', function (req, res){
+    connection.query('SELECT restaurant.* from restaurant JOIN grouprestaurantcategory ON grouprestaurantcategory.Restaurantid = restaurant.idRestaurant JOIN restaurantcategory ON restaurantcategory.idCategoryRestaurant =grouprestaurantcategory.RestaurantCategoryid WHERE idCategoryRestaurant = ?',req.query.idCategory, function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
+
+  app.get('/dishesForCategory', function (req, res){
+      console.log(req.query.idCategory, req.query.idRest)
+    connection.query('SELECT dishes.* FROM dishes WHERE CategoriesidCategories = ? AND RestaurantidRestaurant = ?', [req.query.idCategory, req.query.idRest], function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
+
 
 
 

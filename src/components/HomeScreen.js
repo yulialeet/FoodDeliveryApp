@@ -61,7 +61,7 @@ class HomeScreen extends React.Component {
 
 const mapStateToProps = (state) => {
     return{
-        nameRestaurant: state.nameRestaurant.nameRestaurant
+        nameRestaurant: state.headerRestaurantName.nameRestaurant
     }
 }
 

@@ -11,6 +11,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { RestaurantsListStyle } from './HomeStyles/RestaurantsListStyle'
 import { ActionRestaurantToFoodList } from '../../store/actions/ActionRestaurantToFoodList'
 import { Buffer } from 'buffer'
+import { ActionRestaurantNameHeader } from '../../store/actions/ActionRestaurantNameHeader';
 
 
 class RestaurantsList extends React.Component{
@@ -26,6 +27,7 @@ class RestaurantsList extends React.Component{
                         renderItem = {({item}) => (
                             <TouchableOpacity style = {RestaurantsListStyle.container} onPress = {() => {
                                 this.props.toDoIt(item.idRestaurant);
+                                this.props.setNameRestaurant(item.NameRestaurant)
                                 navigation.navigate('Food')
                             }}> 
                                 <View style = {{flex: 3}}>
@@ -54,8 +56,7 @@ class RestaurantsList extends React.Component{
             )
         
 }}
-//middleware
-//express static
+
 const mapStateToProps = (state) => {
     return{
         RestaurantsListFromServer: state.listOfRestaurants.RestaurantsListFromServer
@@ -64,7 +65,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        toDoIt: (eventt) => dispatch(ActionRestaurantToFoodList(eventt))
+        toDoIt: (eventt) => dispatch(ActionRestaurantToFoodList(eventt)),
+        setNameRestaurant: (nameRest) => dispatch(ActionRestaurantNameHeader(nameRest))
     }
 }
 
