@@ -1,9 +1,7 @@
 const express  = require('express');
 const app = express();
-const path = require('path');
 var mysql      = require('mysql');
 
-const conn = require('connect')
 
 var connection = mysql.createConnection({
   host     : 'db4free.net',

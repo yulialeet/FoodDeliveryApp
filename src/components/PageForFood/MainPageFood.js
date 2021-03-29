@@ -1,37 +1,56 @@
 import React from 'react'
 import { useEffect } from 'react'
-import { Alert, TouchableHighlightBase } from 'react-native'
+import { Alert, Text, TouchableHighlightBase } from 'react-native'
 import FoodOwnPage from './FoodOwnPage'
 import { connect } from 'react-redux'
+import { ActionDishInformation } from '../../store/actions/ActionDishInformation'
 
 
-MainPageFood = () => {
+class MainPageFood extends React.Component {
 
     state = {
-        dishInfo: ''
+        isUpd: false
+    }
+    
+    async componentDidMount() {
+        try {
+            const res = await fetch(myURL+'/dishInformation?idDish='+this.props.idDish)
+            const resText = await res.json();
+            await this.props.setDishInfo(resText)
+            this.setState ({
+                isUpd: true
+            })
+        } catch(error) {
+            console.log(error);
+        }
+    }
+          
+    ShouldRender = () => {
+        if (this.state.isUpd) {
+            return <FoodOwnPage/>
+        } else {
+            return <Text></Text>
+        }
     }
 
 
-    useEffect(() => {
-        async function setLists() {
-          try {
-            const res = await fetch(myURL+'/dishInformation?idDish='+props.idDish)
-            const resText = await res.json();
-            await (state.dishInfo = resText)
-          } catch(error) {
-            console.log(error);
-          }
-          
-        }setLists()
-    })
-
+    render(){
     return(
-        <FoodOwnPage infoDish = {state.dishInfo}/>
+        <this.ShouldRender/>
     )
+    }
 }
+
+
 const mapStateToProps = (state) => {
     return{
         idDish: state.idDish.idFood
     }
 }
-export default connect(mapStateToProps, null)(MainPageFood)
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setDishInfo: (infoDish) => dispatch(ActionDishInformation(infoDish))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(MainPageFood)
