@@ -5,6 +5,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import {AppNavigatorStyle} from './styles/AppNavigatorStyle.js'
 import HomeScreen from './components/HomeScreen.js';
+import MainPageShoppingCart from './components/ShoppingCart/MainPageShoppingCart'
 import LoginPage from './components/LoginPages/LoginPage.js';
 
 const Tab = createMaterialBottomTabNavigator();
@@ -26,7 +27,7 @@ export default function AppNavigator() {
         />
         <Tab.Screen 
             name = "ShopBasket" 
-            component = {LoginPage}
+            component = {MainPageShoppingCart}
             options = {{
                 tabBarLabel: "",
                 tabBarIcon: ({color, focused}) => (
