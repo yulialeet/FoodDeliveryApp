@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect } from 'react'
-import { Alert, Text, TouchableHighlightBase } from 'react-native'
+import { Alert, Text, ActivityIndicator, View } from 'react-native'
 import FoodOwnPage from './FoodOwnPage'
 import { connect } from 'react-redux'
 import { ActionDishInformation } from '../../store/actions/ActionDishInformation'
@@ -29,7 +29,14 @@ class MainPageFood extends React.Component {
         if (this.state.isUpd) {
             return <FoodOwnPage/>
         } else {
-            return <Text></Text>
+            return (
+                <View style = {{flex: 1, justifyContent: 'center'}}>
+                    <ActivityIndicator 
+                        size = "large" 
+                        color="#FECA57"
+                    />
+                </View>
+            )
         }
     }
 

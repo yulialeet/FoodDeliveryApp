@@ -1,9 +1,18 @@
 import React from 'react';
-import { FlatList, SafeAreaView, Text, Image, View, TouchableOpacity } from 'react-native';
+import { 
+        FlatList, 
+        SafeAreaView, 
+        Text, 
+        Image, 
+        View, 
+        TouchableOpacity,
+        Alert
+     } from 'react-native';
 import { connect } from 'react-redux'
-import myURL from '../../CommonURL/myURL'
 import { Buffer } from 'buffer'
 import {StyleFoodOwnPage} from './StyleFoodOwnPage'
+import { AddProduct, RemoveAllProducts } from '../../store/actions/ActionAddToShoppingCart';
+import { ActionCurrentIdRestaurantCart } from '../../store/actions/ActionCurrentIdRestaurantCart';
 
 
 class FoodOwnPage extends React.Component {
@@ -45,6 +54,37 @@ class FoodOwnPage extends React.Component {
         }, this.totalPrice)
     }
 
+    checkIsRestaurantAlreadyInCart = (idRest, idDish, quant) => {
+        
+        console.log(this.props.currentCartRest)   
+        if (idRest == this.props.currentCartRest) {
+            this.props.addToCart(idDish, quant)
+            Alert.alert('Успешно добавлено в Вашу корзину!')
+        } else if (this.props.currentCartRest == undefined){
+            this.props.currentRestaurant(idRest)
+            this.props.addToCart(idDish, quant)
+            Alert.alert('Успешно добавлено в Вашу корзину!')
+        } else {
+            Alert.alert(
+                "Внимание",
+                "В вашей корзине уже есть товары из другого ресторана, очистить корзину?",
+                [
+                    {
+                        text: "Нет",
+                      //style: "cancel"
+                    },
+
+                    { 
+                        text: "Да, очистить", onPress: () => {
+                            this.props.currentRestaurant(undefined)
+                            this.props.removeCart()
+                        }
+                    }
+                ]
+            )
+        }
+    }
+
     render() {
         return(
             <SafeAreaView>
@@ -84,7 +124,12 @@ class FoodOwnPage extends React.Component {
 
                                 <Text style = {StyleFoodOwnPage.bottomText}>{this.state.endPrice} { } руб.</Text>
 
-                                <TouchableOpacity style = {StyleFoodOwnPage.buttonAdd}> 
+                                <TouchableOpacity 
+                                    style = {StyleFoodOwnPage.buttonAdd}
+                                    onPress = {() => {
+                                        this.checkIsRestaurantAlreadyInCart(item.RestaurantidRestaurant, item.idDish, this.state.countDish)
+                                    }}
+                                > 
                                     <Text style = {StyleFoodOwnPage.bottomText}>Добавить</Text>
                                 </TouchableOpacity>
                             </View>
@@ -100,7 +145,17 @@ class FoodOwnPage extends React.Component {
 
 const mapStateToProps = (state) => {
     return{
-        dishInfo: state.dishInfo.dishInfo
+        dishInfo: state.dishInfo.dishInfo,
+        currentCartRest: state.currentIdRest.currentId
     }
 }
-export default connect(mapStateToProps, null)(FoodOwnPage)
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        addToCart: (idDishToCart, countDishes) => dispatch(AddProduct(idDishToCart, countDishes)),
+        currentRestaurant: (idRest) => dispatch(ActionCurrentIdRestaurantCart(idRest)),
+        removeCart: () => dispatch(RemoveAllProducts())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FoodOwnPage)

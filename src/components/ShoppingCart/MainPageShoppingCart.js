@@ -1,13 +1,14 @@
 import React from 'react'
 import {
-    View
+    View,
+    Text
 } from 'react-native'
 import DishesListBasket from './DishesListBasket'
 import { connect } from 'react-redux'
 
 class MainPageShoppingCart extends React.Component {
     state = {
-        isFetch: false
+        isFetch: true
     }
 
     // async componentDidMount() {
@@ -31,6 +32,8 @@ class MainPageShoppingCart extends React.Component {
         }
     }
 
+    
+    
 
     render(){
         console.log(this.props.cartList)
