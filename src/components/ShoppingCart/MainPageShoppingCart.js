@@ -36,7 +36,7 @@ class MainPageShoppingCart extends React.Component {
     
 
     render(){
-        console.log(this.props.cartList)
+        console.log(this.props.cartList[0].productid)
         return (
                 <this.ShouldRender />
         )

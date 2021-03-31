@@ -56,7 +56,6 @@ class FoodOwnPage extends React.Component {
 
     checkIsRestaurantAlreadyInCart = (idRest, idDish, quant) => {
         
-        console.log(this.props.currentCartRest)   
         if (idRest == this.props.currentCartRest) {
             this.props.addToCart(idDish, quant)
             Alert.alert('Успешно добавлено в Вашу корзину!')

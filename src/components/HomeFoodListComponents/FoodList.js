@@ -19,12 +19,13 @@ class FoodList extends React.Component {
 
     checkIsRestaurantAlreadyInCart = (idRest, idDish) => {
         
-        console.log(this.props.currentCartRest)   
         if (idRest == this.props.currentCartRest) {
             this.props.addToCart(idDish, 1)
+            Alert.alert('Успешно добавлено в Вашу корзину!')
         } else if (this.props.currentCartRest == undefined){
             this.props.currentRestaurant(idRest)
             this.props.addToCart(idDish, 1)
+            Alert.alert('Успешно добавлено в Вашу корзину!')
         } else {
             Alert.alert(
                 "Внимание",

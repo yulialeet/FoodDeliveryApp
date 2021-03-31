@@ -60,7 +60,7 @@ class HomeScreen extends React.Component {
                     name = 'FoodPage' 
                     component = {MainPageFood} 
                     options={{
-                        title: 'Product',
+                        title: this.props.nameRestaurant,
                         headerStyle: {
                           backgroundColor: '#ffffff',
                           elevation: 10,
