@@ -8,6 +8,8 @@ import HomeScreen from './components/HomeScreen.js';
 import MainPageShoppingCart from './components/ShoppingCart/MainPageShoppingCart'
 import LoginPage from './components/LoginPages/LoginPage.js';
 
+
+
 const Tab = createMaterialBottomTabNavigator();
 
 export default function AppNavigator() {
@@ -29,6 +31,7 @@ export default function AppNavigator() {
             name = "ShopBasket" 
             component = {MainPageShoppingCart}
             options = {{
+                title: 'Корзина',
                 tabBarLabel: "",
                 tabBarIcon: ({color, focused}) => (
                     <MaterialCommunityIcons style = {focused ? AppNavigatorStyle.focus : AppNavigatorStyle.notfocus} name = 'cart-outline' color = {color} size={26} />

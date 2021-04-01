@@ -7,36 +7,62 @@ import {
 import DishesListBasket from './DishesListBasket'
 import { connect } from 'react-redux'
 import { ActionDishInfoInCart } from '../../store/actions/ActionDishInfoInCart'
+import myURL from '../../CommonURL/myURL'
+
 
 class MainPageShoppingCart extends React.Component {
     state = {
-        isFetch: true
+        isFetch: false
     }
 
     async componentDidMount() {
+        console.log('didd')
         if (this.props.cartList.length != 0) {
-            for (let i = 1; i < this.props.cartList.length-1; i++) {
+            console.log('if')
+            for (let i = 0; i < this.props.cartList.length; i++) {
                 try {
                     const res = await fetch(myURL+'/dishInformation?idDish='+this.props.cartList[i].productid)
                     const resText = await res.json();
                     await this.props.addInListCart(resText, this.props.cartList[i].countDish)
-                    this.setState ({
-                        isFetch: true
-                    })
                 } catch(error) {
                     console.log(error);
                 }
             }
+            this.setState ({
+                isFetch: true
+            })
         } else {
             console.log('emmmmmpty')
         }
     }
-        
+      
+    componentDidUpdate() {
+        console.log('upfate')
+
+        if (this.props.cartList.length != 0) {
+            console.log('if')
+            for (let i = 0; i < this.props.cartList.length; i++) {
+                try {
+                    // const res = await fetch(myURL+'/dishInformation?idDish='+this.props.cartList[i].productid)
+                    // const resText = await res.json();
+                    // await this.props.addInListCart(resText, this.props.cartList[i].countDish)
+                } catch(error) {
+                    console.log(error);
+                }
+            }
+            this.setState ({
+                isFetch: true
+            })
+        } else {
+            console.log('emmmmmpty')
+        }
+    }
           
     ShouldRender = () => {
         if (this.state.isFetch) {
             return <DishesListBasket/>
         } else {
+            console.log(this.props.cartList)
             return (
                 <View style = {{flex: 1, justifyContent: 'center'}}>
                     <ActivityIndicator 
@@ -59,6 +85,7 @@ class MainPageShoppingCart extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log(state);
     return{
         cartList: state.basketList.products
     }
