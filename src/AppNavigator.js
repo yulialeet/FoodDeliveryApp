@@ -7,12 +7,34 @@ import {AppNavigatorStyle} from './styles/AppNavigatorStyle.js'
 import HomeScreen from './components/HomeScreen.js';
 import MainPageShoppingCart from './components/ShoppingCart/MainPageShoppingCart'
 import LoginPage from './components/LoginPages/LoginPage.js';
-
+import { Alert } from 'react-native';
+import { connect } from 'react-redux'
+import myURL from './CommonURL/myURL'
+import { ActionDishInfoInCart } from './store/actions/ActionDishInfoInCart.js';
+import ContainerShopCart from './components/ShoppingCart/ContainerShopCart.js';
 
 
 const Tab = createMaterialBottomTabNavigator();
 
-export default function AppNavigator() {
+//export default function AppNavigator() {
+class AppNavigator extends React.Component {
+
+getThis = async() => {
+    if (this.props.cartList.length != 0) {
+        for (let i = 0; i < this.props.cartList.length; i++) {
+            try {
+                const res = await fetch(myURL+'/dishInformation?idDish='+this.props.cartList[i].productid)
+                const resText = await res.json();
+                await this.props.addInListCart(resText, this.props.cartList[i].countDish)
+            } catch(error) {
+                console.log(error);
+            }
+        }
+    } else {
+        console.log('emmmmmpty')
+    }
+}
+    render(){
   return (
       <NavigationContainer>
       <Tab.Navigator barStyle={{ backgroundColor: '#FFFFFF' }}  activeColor = "#31B9CC" inactiveColor = "#9C9C9C">
@@ -29,7 +51,7 @@ export default function AppNavigator() {
         />
         <Tab.Screen 
             name = "ShopBasket" 
-            component = {MainPageShoppingCart}
+            component = {ContainerShopCart}
             options = {{
                 title: 'Корзина',
                 tabBarLabel: "",
@@ -37,6 +59,12 @@ export default function AppNavigator() {
                     <MaterialCommunityIcons style = {focused ? AppNavigatorStyle.focus : AppNavigatorStyle.notfocus} name = 'cart-outline' color = {color} size={26} />
                 )
             }}
+            listeners={{
+                tabPress: e => {
+                    this.getThis()
+                    Alert.alert('hay')
+                },
+              }}
         />
         <Tab.Screen 
             name = 'Profile' 
@@ -51,4 +79,18 @@ export default function AppNavigator() {
       </Tab.Navigator>
     </NavigationContainer>
   );
+}}
+
+const mapStateToProps = (state) => {
+    return{
+        cartList: state.basketList.products
+    }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addInListCart: (arrInfo, count) => dispatch(ActionDishInfoInCart(arrInfo, count))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppNavigator)

@@ -10,8 +10,6 @@ class DishesListBasket extends React.Component {
 
 
     render(){
-        console.log('down')
-        console.log(this.props.cartList)
         return (
             <View>
                 <Text>Hi</Text>
