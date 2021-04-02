@@ -15,39 +15,12 @@ class MainPageShoppingCart extends React.Component {
         isFetch: true
     }
 
-    componentDidMount() {
-        console.log('didd')
-    }
-      
-    async componentDidUpdate(prevProps) {
-        console.log(prevProps)
-        if (prevProps.cartList !== this.props.cartList) {
-            console.log('upfate')
-            if (this.props.cartList.length != 0) {
-                console.log('if')
-                for (let i = 0; i < this.props.cartList.length; i++) {
-                    try {
-                        const res = await fetch(myURL+'/dishInformation?idDish='+this.props.cartList[i].productid)
-                        const resText = await res.json();
-                        await this.props.addInListCart(resText, this.props.cartList[i].countDish)
-                    } catch(error) {
-                        console.log(error);
-                    }
-                }
-                // this.setState ({
-                //     isFetch: true
-                // })
-            } else {
-                console.log('emmmmmpty')
-            }
-        }
-    }
           
     ShouldRender = () => {
         if (this.state.isFetch) {
             return <DishesListBasket/>
         } else {
-            console.log(this.props.cartList)
+            console.log(this.props.cartList.dishesInfo)
             return (
                 <View style = {{flex: 1, justifyContent: 'center'}}>
                     <ActivityIndicator 
@@ -70,7 +43,6 @@ class MainPageShoppingCart extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    //console.log(state);
     return{
         cartList: state.basketList.products
     }
