@@ -7,6 +7,7 @@ import {AppNavigatorStyle} from './styles/AppNavigatorStyle.js'
 import HomeScreen from './components/HomeScreen.js';
 import MainPageShoppingCart from './components/ShoppingCart/MainPageShoppingCart'
 import LoginPage from './components/LoginPages/LoginPage.js';
+import ContainerShopCart from './components/ShoppingCart/ContainerShopCart.js';
 
 
 
@@ -29,7 +30,7 @@ export default function AppNavigator() {
         />
         <Tab.Screen 
             name = "ShopBasket" 
-            component = {MainPageShoppingCart}
+            component = {ContainerShopCart}
             options = {{
                 title: 'Корзина',
                 tabBarLabel: "",

@@ -12,49 +12,34 @@ import myURL from '../../CommonURL/myURL'
 
 class MainPageShoppingCart extends React.Component {
     state = {
-        isFetch: false
+        isFetch: true
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         console.log('didd')
-        if (this.props.cartList.length != 0) {
-            console.log('if')
-            for (let i = 0; i < this.props.cartList.length; i++) {
-                try {
-                    const res = await fetch(myURL+'/dishInformation?idDish='+this.props.cartList[i].productid)
-                    const resText = await res.json();
-                    await this.props.addInListCart(resText, this.props.cartList[i].countDish)
-                } catch(error) {
-                    console.log(error);
-                }
-            }
-            this.setState ({
-                isFetch: true
-            })
-        } else {
-            console.log('emmmmmpty')
-        }
     }
       
-    componentDidUpdate() {
-        console.log('upfate')
-
-        if (this.props.cartList.length != 0) {
-            console.log('if')
-            for (let i = 0; i < this.props.cartList.length; i++) {
-                try {
-                    // const res = await fetch(myURL+'/dishInformation?idDish='+this.props.cartList[i].productid)
-                    // const resText = await res.json();
-                    // await this.props.addInListCart(resText, this.props.cartList[i].countDish)
-                } catch(error) {
-                    console.log(error);
+    async componentDidUpdate(prevProps) {
+        console.log(prevProps)
+        if (prevProps.cartList !== this.props.cartList) {
+            console.log('upfate')
+            if (this.props.cartList.length != 0) {
+                console.log('if')
+                for (let i = 0; i < this.props.cartList.length; i++) {
+                    try {
+                        const res = await fetch(myURL+'/dishInformation?idDish='+this.props.cartList[i].productid)
+                        const resText = await res.json();
+                        await this.props.addInListCart(resText, this.props.cartList[i].countDish)
+                    } catch(error) {
+                        console.log(error);
+                    }
                 }
+                // this.setState ({
+                //     isFetch: true
+                // })
+            } else {
+                console.log('emmmmmpty')
             }
-            this.setState ({
-                isFetch: true
-            })
-        } else {
-            console.log('emmmmmpty')
         }
     }
           
@@ -85,7 +70,7 @@ class MainPageShoppingCart extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
+    //console.log(state);
     return{
         cartList: state.basketList.products
     }
