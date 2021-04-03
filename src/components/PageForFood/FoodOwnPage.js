@@ -12,7 +12,7 @@ import { connect } from 'react-redux'
 import { Buffer } from 'buffer'
 import {StyleFoodOwnPage} from './StyleFoodOwnPage'
 import { AddProduct, RemoveAllProducts } from '../../store/actions/ActionAddToShoppingCart';
-import { ActionCurrentIdRestaurantCart } from '../../store/actions/ActionCurrentIdRestaurantCart';
+import { ActionCurrentIdRestaurantCart, ActionCurrentNameRestaurantCart } from '../../store/actions/ActionCurrentIdRestaurantCart';
 
 
 class FoodOwnPage extends React.Component {
@@ -54,13 +54,14 @@ class FoodOwnPage extends React.Component {
         }, this.totalPrice)
     }
 
-    checkIsRestaurantAlreadyInCart = (idRest, idDish, quant) => {
+    checkIsRestaurantAlreadyInCart = (idRest, idDish, quant, nameRest) => {
         
         if (idRest == this.props.currentCartRest) {
             this.props.addToCart(idDish, quant)
             Alert.alert('Успешно добавлено в Вашу корзину!')
         } else if (this.props.currentCartRest == undefined){
             this.props.currentRestaurant(idRest)
+            this.props.currentNameRest(nameRest)
             this.props.addToCart(idDish, quant)
             Alert.alert('Успешно добавлено в Вашу корзину!')
         } else {
@@ -126,7 +127,7 @@ class FoodOwnPage extends React.Component {
                                 <TouchableOpacity 
                                     style = {StyleFoodOwnPage.buttonAdd}
                                     onPress = {() => {
-                                        this.checkIsRestaurantAlreadyInCart(item.RestaurantidRestaurant, item.idDish, this.state.countDish)
+                                        this.checkIsRestaurantAlreadyInCart(item.RestaurantidRestaurant, item.idDish, this.state.countDish, this.props.currentNameRestaurant)
                                     }}
                                 > 
                                     <Text style = {StyleFoodOwnPage.bottomText}>Добавить</Text>
@@ -145,7 +146,8 @@ class FoodOwnPage extends React.Component {
 const mapStateToProps = (state) => {
     return{
         dishInfo: state.dishInfo.dishInfo,
-        currentCartRest: state.currentIdRest.currentId
+        currentCartRest: state.currentIdRest.currentId,
+        currentNameRestaurant: state.headerRestaurantName.nameRestaurant
     }
 }
 
@@ -153,7 +155,8 @@ const mapDispatchToProps = (dispatch) => {
     return{
         addToCart: (idDishToCart, countDishes) => dispatch(AddProduct(idDishToCart, countDishes)),
         currentRestaurant: (idRest) => dispatch(ActionCurrentIdRestaurantCart(idRest)),
-        removeCart: () => dispatch(RemoveAllProducts())
+        removeCart: () => dispatch(RemoveAllProducts()),
+        currentNameRest: (nameRest) => dispatch(ActionCurrentNameRestaurantCart(nameRest))
     }
 }
 

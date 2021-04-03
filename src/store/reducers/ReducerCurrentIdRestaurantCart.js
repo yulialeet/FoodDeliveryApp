@@ -1,4 +1,4 @@
-import {CURRENT_ID} from '../actions/ActionCurrentIdRestaurantCart'
+import {CURRENT_ID, CURRENT_NAMERESTAURANT} from '../actions/ActionCurrentIdRestaurantCart'
 
 
 const ReducerCurrentIdRestaurantCart = (state, action) => {
@@ -7,6 +7,11 @@ const ReducerCurrentIdRestaurantCart = (state, action) => {
             return {
                 ...state,
                 currentId: action.payload
+            }
+        case CURRENT_NAMERESTAURANT:
+            return {
+                ...state,
+                currentName: action.payload
             }
         default: 
             return {

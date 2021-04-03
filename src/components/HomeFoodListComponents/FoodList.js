@@ -12,17 +12,18 @@ import { FoodListStyle } from './HomeFoodStyles/FoodListStyle'
 import { Buffer } from 'buffer'
 import { ActionIdChosenFood } from '../../store/actions/ActionIdChosenFood';
 import { AddProduct, RemoveAllProducts } from '../../store/actions/ActionAddToShoppingCart';
-import { ActionCurrentIdRestaurantCart } from '../../store/actions/ActionCurrentIdRestaurantCart';
+import { ActionCurrentIdRestaurantCart, ActionCurrentNameRestaurantCart } from '../../store/actions/ActionCurrentIdRestaurantCart';
 
 
 class FoodList extends React.Component {
 
-    checkIsRestaurantAlreadyInCart = (idRest, idDish) => {
+    checkIsRestaurantAlreadyInCart = (idRest, idDish, nameRest) => {
         
         if (idRest == this.props.currentCartRest) {
             this.props.addToCart(idDish, 1)
             Alert.alert('Успешно добавлено в Вашу корзину!')
         } else if (this.props.currentCartRest == undefined){
+            this.props.currentNameRest(nameRest)
             this.props.currentRestaurant(idRest)
             this.props.addToCart(idDish, 1)
             Alert.alert('Успешно добавлено в Вашу корзину!')
@@ -67,7 +68,7 @@ class FoodList extends React.Component {
                                     <TouchableOpacity 
                                         style = {FoodListStyle.buttonAdd}
                                         onPress = {() => {
-                                            this.checkIsRestaurantAlreadyInCart(item.RestaurantidRestaurant, item.idDish)
+                                            this.checkIsRestaurantAlreadyInCart(item.RestaurantidRestaurant, item.idDish, this.props.currentNameRestaurant)
                                         }}
                                     >
                                         <Text style = {FoodListStyle.textAdd}>Добавить</Text>
@@ -92,7 +93,8 @@ class FoodList extends React.Component {
 const mapStateToProps = (state) => {
     return{
         DishesList: state.dishesList.DishesList,
-        currentCartRest: state.currentIdRest.currentId
+        currentCartRest: state.currentIdRest.currentId,
+        currentNameRestaurant: state.headerRestaurantName.nameRestaurant
     }
 }
 
@@ -101,7 +103,8 @@ const mapDispatchToProps = (dispatch) => {
         setId: (idDish) => dispatch(ActionIdChosenFood(idDish)),
         addToCart: (idDishToCart, countDishes) => dispatch(AddProduct(idDishToCart, countDishes)),
         currentRestaurant: (idRest) => dispatch(ActionCurrentIdRestaurantCart(idRest)),
-        removeCart: () => dispatch(RemoveAllProducts())
+        removeCart: () => dispatch(RemoveAllProducts()),
+        currentNameRest: (nameRest) => dispatch(ActionCurrentNameRestaurantCart(nameRest))
     }
 }
 
