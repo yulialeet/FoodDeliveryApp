@@ -11,23 +11,33 @@ import myURL from '../../CommonURL/myURL'
 
 
 class MainPageShoppingCart extends React.Component {
-    state = {
-        isFetch: true
+    
+    someMethod = () => {
+        console.log('hello')
     }
-
           
     ShouldRender = () => {
-        if (this.state.isFetch) {
-            return <DishesListBasket/>
-        } else {
-            console.log(this.props.cartList.dishesInfo)
+    
+        if (this.props.isCartEmpty) {
             return (
+                <View style = {{flex: 1, justifyContent: 'center'}}>
+                    <Text
+                        style = {{fontFamily: "Montserrat-Light", textAlign: 'center', fontSize: 23, color: '#ABABAB'}}
+                    >Тут пока пусто :(</Text>
+                </View>
+            )
+        } else if (this.props.isLoad) {
+            return(
                 <View style = {{flex: 1, justifyContent: 'center'}}>
                     <ActivityIndicator 
                         size = "large" 
                         color="#FECA57"
                     />
                 </View>
+            )
+        } else {
+            return (
+                <DishesListBasket parentMethod={this.someMethod}/>
             )
         }
     }

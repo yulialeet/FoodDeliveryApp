@@ -7,7 +7,7 @@ import {AppNavigatorStyle} from './styles/AppNavigatorStyle.js'
 import HomeScreen from './components/HomeScreen.js';
 import MainPageShoppingCart from './components/ShoppingCart/MainPageShoppingCart'
 import LoginPage from './components/LoginPages/LoginPage.js';
-import { Alert } from 'react-native';
+import { Alert, Text } from 'react-native';
 import { connect } from 'react-redux'
 import myURL from './CommonURL/myURL'
 import { ActionDishInfoInCart, ActionRemoveAllFromCart } from './store/actions/ActionDishInfoInCart.js';
@@ -19,9 +19,15 @@ const Tab = createMaterialBottomTabNavigator();
 //export default function AppNavigator() {
 class AppNavigator extends React.Component {
 
+
+    state = {
+        isEmpty: false,
+        isLoading: true
+    }
 getThis = async() => {
     this.props.removeCart()
     if (this.props.cartList.length != 0) {
+        this.setState({isEmpty: false, isLoading: true})
         for (let i = 0; i < this.props.cartList.length; i++) {
             try {
                 const res = await fetch(myURL+'/dishInformation?idDish='+this.props.cartList[i].productid)
@@ -31,10 +37,12 @@ getThis = async() => {
                 console.log(error);
             }
         }
+        this.setState({isLoading: false})
     } else {
-        console.log('emmmmmpty')
+        this.setState({isLoading: false, isEmpty: true})
     }
 }
+
     render(){
   return (
       <NavigationContainer>
@@ -52,7 +60,8 @@ getThis = async() => {
         />
         <Tab.Screen 
             name = "ShopBasket" 
-            component = {ContainerShopCart}
+            //component = {ContainerShopCart}
+            children = {() => <ContainerShopCart isCartEmpty = {this.state.isEmpty} isLoad = {this.state.isLoading}/>}
             options = {{
                 title: 'Корзина',
                 tabBarLabel: "",

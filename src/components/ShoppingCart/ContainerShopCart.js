@@ -16,7 +16,7 @@ export default class ContainerShopCart extends React.Component {
             <Stack.Navigator initialRouteName = 'ShopCart'>
                 <Stack.Screen 
                     name="ShopCart"
-                    component={MainPageShoppingCart}
+                    children = {() => <MainPageShoppingCart isCartEmpty = {this.props.isCartEmpty} isLoad = {this.props.isLoad}/>}
                     options={{
                       title: 'Корзина',
                       headerStyle: {

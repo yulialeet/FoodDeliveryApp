@@ -19,7 +19,9 @@ class DishesListBasket extends React.Component {
     }
 
     state = {
-        testState: false
+        testState: false,
+        isEmpty: false,
+        isLoading: true
     }
 
     deleteFromCart = (itemId) => {
@@ -44,6 +46,7 @@ class DishesListBasket extends React.Component {
     getThis = async() => {
         this.props.removeCart()
         if (this.props.cartListFirst.length != 0) {
+            this.setState({isEmpty: false, isLoading: true})
             for (let i = 0; i < this.props.cartListFirst.length; i++) {
                 try {
                     const res = await fetch(myURL+'/dishInformation?idDish='+this.props.cartListFirst[i].productid)
@@ -53,8 +56,9 @@ class DishesListBasket extends React.Component {
                     console.log(error);
                 }
             }
+            this.setState({isLoading: false})
         } else {
-            console.log('emmmmmpty')
+            this.setState({isLoading: false, isEmpty: true})
         }
     }
 
@@ -85,6 +89,7 @@ class DishesListBasket extends React.Component {
                                         }
                                         if (item.count == 1) {
                                             this.deleteFromCart(item[0].idDish)
+                                            this.props.parentMethod();
                                         }
                                         
                                     }}

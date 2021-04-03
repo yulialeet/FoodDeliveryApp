@@ -39,8 +39,10 @@ class FoodList extends React.Component {
 
                     { 
                         text: "Да, очистить", onPress: () => {
-                            this.props.currentRestaurant(undefined)
+                            this.props.currentRestaurant(idRest)
+                            this.props.currentNameRest(nameRest)
                             this.props.removeCart()
+                            this.props.addToCart(idDish, quant)
                         }
                     }
                 ]
