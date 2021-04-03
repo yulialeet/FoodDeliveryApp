@@ -12,10 +12,7 @@ import myURL from '../../CommonURL/myURL'
 
 class MainPageShoppingCart extends React.Component {
     
-    someMethod = () => {
-        console.log('hello')
-    }
-          
+        
     ShouldRender = () => {
     
         if (this.props.isCartEmpty) {
@@ -37,7 +34,7 @@ class MainPageShoppingCart extends React.Component {
             )
         } else {
             return (
-                <DishesListBasket parentMethod={this.someMethod}/>
+                <DishesListBasket />
             )
         }
     }

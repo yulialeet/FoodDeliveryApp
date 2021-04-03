@@ -5,7 +5,8 @@ import {
     FlatList,
     Image,
     TouchableOpacity,
-    Alert
+    Alert,
+    ActivityIndicator
 } from 'react-native'
 import { connect } from 'react-redux'
 import { StyleDishesListBasket } from './StyleDishesListBasket'
@@ -21,7 +22,7 @@ class DishesListBasket extends React.Component {
     state = {
         testState: false,
         isEmpty: false,
-        isLoading: true
+        isLoading: false
     }
 
     deleteFromCart = (itemId) => {
@@ -62,7 +63,27 @@ class DishesListBasket extends React.Component {
         }
     }
 
-    render(){
+
+    ShouldRender = () => {
+    
+        if (this.state.isEmpty) {
+            return (
+                <View style = {{flex: 1, justifyContent: 'center'}}>
+                    <Text
+                        style = {{fontFamily: "Montserrat-Light", textAlign: 'center', fontSize: 23, color: '#ABABAB'}}
+                    >Тут пока пусто :(</Text>
+                </View>
+            )
+        } else if (this.state.isLoading) {
+            return(
+                <View style = {{flex: 1, justifyContent: 'center'}}>
+                    <ActivityIndicator 
+                        size = "large" 
+                        color="#FECA57"
+                    />
+                </View>
+            )
+        }  else {
         return (
             <View style = {{flex: 1}}>
                 <Text style = {StyleDishesListBasket.nameRestaurant}>{this.props.nameOfRestaurant.currentName}</Text>
@@ -89,7 +110,6 @@ class DishesListBasket extends React.Component {
                                         }
                                         if (item.count == 1) {
                                             this.deleteFromCart(item[0].idDish)
-                                            this.props.parentMethod();
                                         }
                                         
                                     }}
@@ -125,6 +145,11 @@ class DishesListBasket extends React.Component {
                 )}
                 />
             </View>
+        )
+    }}
+    render() {
+        return (
+            <this.ShouldRender/>
         )
     }
 }
