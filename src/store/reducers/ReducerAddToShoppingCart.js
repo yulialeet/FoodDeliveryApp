@@ -22,10 +22,7 @@ const ReducerAddToShoppingCart = (state = initialState, action) => {
             
             const newProduct = added ? { ...added, countDish: added.countDish + action.payload.countDish } : action.payload;
             
-            
-
             if (AddedIndex != -1) {
-                //NewProducts = [...state.products][AddedIndex] = newProduct;
                 NewProducts[AddedIndex] = newProduct
             } else {
                 NewProducts = NewProducts.push(action.payload)
@@ -36,10 +33,18 @@ const ReducerAddToShoppingCart = (state = initialState, action) => {
                 ...state,
                 productToAdd: state.products = NewProducts
             };
+
+
         case REMOVE_PRODUCT:
+
+            const RemoveIndex = state.products.findIndex(product => {
+                return product.productid === action.payload.productid
+            })
+
+            
             return {
                 ...state,
-                productToRemove: state.products.splice(indexOf(action.payload), 1)
+                productToRemove: state.products.splice(RemoveIndex, 1)
             };
         case REMOVE_ALL_PRODUCTS:
             return {

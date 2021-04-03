@@ -4,11 +4,14 @@ import {
     View,
     FlatList,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    Alert
 } from 'react-native'
 import { connect } from 'react-redux'
 import { StyleDishesListBasket } from './StyleDishesListBasket'
 import { Buffer } from 'buffer'
+import { AddProduct, RemoveProduct } from '../../store/actions/ActionAddToShoppingCart'
+import { ActionDishInfoInCart, ActionRemoveAllFromCart } from '../../store/actions/ActionDishInfoInCart'
 
 class DishesListBasket extends React.Component {
     constructor(props) {
@@ -19,6 +22,41 @@ class DishesListBasket extends React.Component {
         testState: false
     }
 
+    deleteFromCart = (itemId) => {
+        Alert.alert(
+            "",
+            "Удалить из корзины?",
+            [
+                {
+                    text: "Отмена",
+                  //style: "cancel"
+                },
+                { 
+                    text: "Да, удалить", onPress: () => {
+                        this.props.removeProd(itemId)
+                        this.getThis()
+                    }
+                }
+            ]
+        )
+    }
+
+    getThis = async() => {
+        this.props.removeCart()
+        if (this.props.cartListFirst.length != 0) {
+            for (let i = 0; i < this.props.cartListFirst.length; i++) {
+                try {
+                    const res = await fetch(myURL+'/dishInformation?idDish='+this.props.cartListFirst[i].productid)
+                    const resText = await res.json();
+                    await this.props.addInListCart(Object.assign({ ...resText, count: this.props.cartListFirst[i].countDish }))
+                } catch(error) {
+                    console.log(error);
+                }
+            }
+        } else {
+            console.log('emmmmmpty')
+        }
+    }
 
     render(){
         return (
@@ -38,9 +76,15 @@ class DishesListBasket extends React.Component {
                                 <TouchableOpacity
                                     style = {StyleDishesListBasket.buttonsChange}
                                     onPress = {() => {
+                                        this.setState({testState: true})
                                         if (item.count !== 1) {
-                                            this.setState({testState: true})
+                                            this.props.removeProd(item[0].idDish)
+                                            this.props.addToCart(item[0].idDish, item.count-1)
                                             return item.count = item.count-1
+                
+                                        }
+                                        if (item.count == 1) {
+                                            this.deleteFromCart(item[0].idDish)
                                         }
                                         
                                     }}
@@ -54,6 +98,8 @@ class DishesListBasket extends React.Component {
                                     style = {StyleDishesListBasket.buttonsChange}
                                     onPress = {() => {
                                             this.setState({testState: true})
+                                            this.props.removeProd(item[0].idDish)
+                                            this.props.addToCart(item[0].idDish, item.count+1)
                                             return item.count = item.count+1
                                     }}
                                 >
@@ -81,7 +127,17 @@ class DishesListBasket extends React.Component {
 const mapStateToProps = (state) => {
     return{
         cartList: state.dishInfoCart,
-        nameOfRestaurant: state.currentIdRest
+        nameOfRestaurant: state.currentIdRest,
+        cartListFirst: state.basketList.products
     }
 }
-export default connect(mapStateToProps, null) (DishesListBasket)
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        addToCart: (idDishToCart, countDishes) => dispatch(AddProduct(idDishToCart, countDishes)),
+        removeProd: (idProduct) => dispatch(RemoveProduct(idProduct)),
+        removeCart: () => dispatch(ActionRemoveAllFromCart()),
+        addInListCart: (arrInfo) => dispatch(ActionDishInfoInCart(arrInfo))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps) (DishesListBasket)

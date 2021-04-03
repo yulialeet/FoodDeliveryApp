@@ -13,9 +13,9 @@ export const RemoveProduct = (productid, countDish) => ({
         payload: {productid, countDish}
 })
 
-export const AllProducts = (productid, countDish) => ({
+export const AllProducts = (productid) => ({
         type: ALL_PRODUCTS,
-        payload: {productid, countDish}
+        payload: {productid}
 })
 
 export const RemoveAllProducts = () => ({
