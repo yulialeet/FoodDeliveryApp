@@ -6,7 +6,8 @@ import {
     Image,
     TouchableOpacity,
     Alert,
-    ActivityIndicator
+    ActivityIndicator,
+    ScrollView
 } from 'react-native'
 import { connect } from 'react-redux'
 import { StyleDishesListBasket } from './StyleDishesListBasket'
@@ -91,10 +92,12 @@ class DishesListBasket extends React.Component {
         }  else {
         return (
             <View style = {{flex: 1}}>
+                <ScrollView>
                 <Text style = {StyleDishesListBasket.nameRestaurant}>{this.props.nameOfRestaurant.currentName}</Text>
 
-
+                <View>
                 <FlatList
+                scrollEnabled = {false}
                 data = {this.props.cartList.dishesInfo}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem = {({item}) => (
@@ -151,6 +154,7 @@ class DishesListBasket extends React.Component {
                 )}
                 
                 />
+                </View>
             <View style = {StyleDishesListBasket.viewBox}>
                 <Text style = {StyleDishesListBasket.deliveryText}>Доставка</Text>
                 <Text style = {StyleDishesListBasket.deliveryPrice}>{this.props.deliveryPrices.map((e) => e.DeliveryPrice).toString()} руб. </Text>
@@ -159,6 +163,8 @@ class DishesListBasket extends React.Component {
                 <Text style = {StyleDishesListBasket.deliveryText}>Бесплатная доставка от</Text>
                 <Text style = {StyleDishesListBasket.deliveryPrice}>{this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom).toString()} руб. </Text>
             </View>
+
+            </ScrollView>
 
             <View style = {StyleDishesListBasket.bottomStyle}>
                 <View style = {StyleDishesListBasket.totalPriceView}>

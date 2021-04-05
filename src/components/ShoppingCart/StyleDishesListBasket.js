@@ -67,7 +67,8 @@ const StyleDishesListBasket = StyleSheet.create({
         marginRight: 10
     },
     bottomStyle: {
-        padding: 20,
+        padding: 10,
+        paddingHorizontal: 20,
         backgroundColor: 'white'
     },
     totalPriceView: {
@@ -76,11 +77,11 @@ const StyleDishesListBasket = StyleSheet.create({
     },
     payButtonView: {
         alignSelf: 'center',
-        padding: 10,
-        marginTop: 30,
+        padding: 5,
+        marginTop: 20,
         backgroundColor: '#31B9CC',
         borderRadius: 20,
-        paddingHorizontal: 50
+        paddingHorizontal: 70
     },
     bottomViewText: {
         fontFamily: "Montserrat-Regular",
