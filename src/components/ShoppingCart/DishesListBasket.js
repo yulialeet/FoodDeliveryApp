@@ -27,18 +27,7 @@ class DishesListBasket extends React.Component {
     }
 
 
-    componentDidMount() {
-        let totPrice = 0
-        this.props.cartList.dishesInfo.forEach((item) => {
-            totPrice += item.count * item[0].PriceDish;
-        })
-        //this.isFreeDelivery(totPrice, Number(this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom)))
-        console.log(this.state.isDeliveryFree)
-        this.isFreeDelivery(totPrice, Number(this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom)))
-        if (!this.state.isDeliveryFree) {
-            totPrice = totPrice + Number(this.props.deliveryPrices.map((e) => e.DeliveryPrice))
-        }
-    }
+
     deleteFromCart = (itemId) => {
         Alert.alert(
             "",
@@ -77,22 +66,11 @@ class DishesListBasket extends React.Component {
         }
     }
 
-    isFreeDelivery = (totalPrice, freeDel) => {
-        console.log('work')
-        console.log(totalPrice)
-        console.log(freeDel)
-        if (totalPrice >= freeDel) {
-            this.setState({isDeliveryFree: true})
-        }
-        else {
-            this.setState({isDeliveryFree: false})
-        }
-    }
 
 
     ShouldRender = (totalPrice) => {
     
-        console.log(totalPrice)
+        
         if (this.state.isEmpty) {
             return (
                 <View style = {{flex: 1, justifyContent: 'center'}}>
@@ -131,7 +109,7 @@ class DishesListBasket extends React.Component {
                                         if (item.count !== 1) {
                                             this.props.removeProd(item[0].idDish)
                                             this.props.addToCart(item[0].idDish, item.count-1)
-                                            this.isFreeDelivery(totalPrice, Number(this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom)))
+                                            //this.isFreeDelivery(Number(this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom)))
                                             return item.count = item.count-1
                 
                                         }
@@ -151,7 +129,7 @@ class DishesListBasket extends React.Component {
                                     onPress = {() => {
                                             this.props.removeProd(item[0].idDish)
                                             this.props.addToCart(item[0].idDish, item.count+1)
-                                            this.isFreeDelivery(totalPrice, Number(this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom)))
+                                            //this.isFreeDelivery(Number(this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom)))
                                             return item.count = item.count+1
                                             
                                     }}
@@ -167,19 +145,31 @@ class DishesListBasket extends React.Component {
                             style = {StyleDishesListBasket.imgStyle}       
                         />
 
-
+                    
 
                     </View>
                 )}
+                
                 />
             <View style = {StyleDishesListBasket.viewBox}>
                 <Text style = {StyleDishesListBasket.deliveryText}>Доставка</Text>
                 <Text style = {StyleDishesListBasket.deliveryPrice}>{this.props.deliveryPrices.map((e) => e.DeliveryPrice).toString()} руб. </Text>
             </View>
-            <View>
-                <Text>ст доставки:{this.props.deliveryPrices.map((e) => e.DeliveryPrice).toString()}</Text>
-                <Text>бесп доставка от:{this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom).toString()}</Text>
-                <Text>Итого: {totalPrice.totalPrice}</Text>
+            <View style = {StyleDishesListBasket.viewBox}>
+                <Text style = {StyleDishesListBasket.deliveryText}>Бесплатная доставка от</Text>
+                <Text style = {StyleDishesListBasket.deliveryPrice}>{this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom).toString()} руб. </Text>
+            </View>
+
+            <View style = {StyleDishesListBasket.bottomStyle}>
+                <View style = {StyleDishesListBasket.totalPriceView}>
+                    <Text style = {StyleDishesListBasket.bottomViewText}>Итого к оплате: </Text>
+                    <Text style = {StyleDishesListBasket.bottomViewText}>{totalPrice.totalPrice}</Text>
+                </View>
+                <View>
+                    <TouchableOpacity style = {StyleDishesListBasket.payButtonView}>
+                        <Text style = {StyleDishesListBasket.bottomViewText}>Оплатить</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
 
 
@@ -191,17 +181,27 @@ class DishesListBasket extends React.Component {
     }}
     render() {
         
-        let totPrice = 0
+        let totalPrice = 0
         this.props.cartList.dishesInfo.forEach((item) => {
-            totPrice += item.count * item[0].PriceDish;
+            totalPrice += item.count * item[0].PriceDish;
         })
-        //this.isFreeDelivery(totPrice, Number(this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom)))
-        console.log(this.state.isDeliveryFree)
-        if (!this.state.isDeliveryFree) {
-            totPrice = totPrice + Number(this.props.deliveryPrices.map((e) => e.DeliveryPrice))
+        
+        
+        let isDeliveryFree = false
+        if (totalPrice >= (Number(this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom)))) {
+            isDeliveryFree = true
         }
-
-        console.log('render')
+        else {
+            isDeliveryFree = false
+        }
+        
+        
+        if (!isDeliveryFree) {
+            totPrice = totalPrice + Number(this.props.deliveryPrices.map((e) => e.DeliveryPrice))
+        } else {
+            totPrice = totalPrice
+        }
+        //this.isFreeDelivery(Number(this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom)))
         return (
             <this.ShouldRender totalPrice = {totPrice}/>
         )

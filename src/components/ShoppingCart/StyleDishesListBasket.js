@@ -56,7 +56,7 @@ const StyleDishesListBasket = StyleSheet.create({
     },
     deliveryText: {
         fontFamily: "Montserrat-Regular",
-        fontSize: 18,
+        fontSize: 16,
         margin: 4,
         marginLeft: 10
     },
@@ -65,6 +65,26 @@ const StyleDishesListBasket = StyleSheet.create({
         fontSize: 16,
         alignSelf: 'center',
         marginRight: 10
+    },
+    bottomStyle: {
+        padding: 20,
+        backgroundColor: 'white'
+    },
+    totalPriceView: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    payButtonView: {
+        alignSelf: 'center',
+        padding: 10,
+        marginTop: 30,
+        backgroundColor: '#31B9CC',
+        borderRadius: 20,
+        paddingHorizontal: 50
+    },
+    bottomViewText: {
+        fontFamily: "Montserrat-Regular",
+        fontSize: 17
     }
 })
 
