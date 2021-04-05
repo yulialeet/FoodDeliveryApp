@@ -1,4 +1,4 @@
-import {CURRENT_ID, CURRENT_NAMERESTAURANT} from '../actions/ActionCurrentIdRestaurantCart'
+import {CURRENT_ID, CURRENT_NAMERESTAURANT, CURRENT_DELIVERYPRICES} from '../actions/ActionCurrentIdRestaurantCart'
 
 
 const ReducerCurrentIdRestaurantCart = (state, action) => {
@@ -12,6 +12,11 @@ const ReducerCurrentIdRestaurantCart = (state, action) => {
             return {
                 ...state,
                 currentName: action.payload
+            }
+        case CURRENT_DELIVERYPRICES:
+            return {
+                ...state,
+                deliveryPrice: action.payload
             }
         default: 
             return {

@@ -12,6 +12,7 @@ import { connect } from 'react-redux'
 import myURL from './CommonURL/myURL'
 import { ActionDishInfoInCart, ActionRemoveAllFromCart } from './store/actions/ActionDishInfoInCart.js';
 import ContainerShopCart from './components/ShoppingCart/ContainerShopCart.js';
+import { ActionCurrentRestaurantDeliveryPrice } from './store/actions/ActionCurrentIdRestaurantCart.js';
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -37,6 +38,9 @@ getThis = async() => {
                 console.log(error);
             }
         }
+        const deliveryPrices = await fetch(myURL+'/deliveryPrices?idRest='+this.props.currentIdRestaurant)
+        const result = await deliveryPrices.json();
+        await this.props.addDeliveryPrices(result)
         this.setState({isLoading: false})
     } else {
         this.setState({isLoading: false, isEmpty: true})
@@ -92,14 +96,16 @@ getThis = async() => {
 
 const mapStateToProps = (state) => {
     return{
-        cartList: state.basketList.products
+        cartList: state.basketList.products,
+        currentIdRestaurant: state.currentIdRest.currentId
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         removeCart: () => dispatch(ActionRemoveAllFromCart()),
-        addInListCart: (arrInfo) => dispatch(ActionDishInfoInCart(arrInfo))
+        addInListCart: (arrInfo) => dispatch(ActionDishInfoInCart(arrInfo)),
+        addDeliveryPrices: (delPrice) => dispatch(ActionCurrentRestaurantDeliveryPrice(delPrice))
     }
 }
 

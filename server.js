@@ -86,6 +86,15 @@ app.get('/restaurantsForCategory', function (req, res){
   });
 })
 
+app.get('/deliveryPrices', function (req, res){
+    connection.query('SELECT DeliveryPrice, FreeDeliveryFrom, TimeToDelivery FROM restaurant WHERE idRestaurant = ?', req.query.idRest, function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
+
 
 
 

@@ -20,11 +20,25 @@ class DishesListBasket extends React.Component {
     }
 
     state = {
-        testState: false,
         isEmpty: false,
-        isLoading: false
+        isLoading: false,
+        totalPrice: 0,
+        isDeliveryFree: false
     }
 
+
+    componentDidMount() {
+        let totPrice = 0
+        this.props.cartList.dishesInfo.forEach((item) => {
+            totPrice += item.count * item[0].PriceDish;
+        })
+        //this.isFreeDelivery(totPrice, Number(this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom)))
+        console.log(this.state.isDeliveryFree)
+        this.isFreeDelivery(totPrice, Number(this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom)))
+        if (!this.state.isDeliveryFree) {
+            totPrice = totPrice + Number(this.props.deliveryPrices.map((e) => e.DeliveryPrice))
+        }
+    }
     deleteFromCart = (itemId) => {
         Alert.alert(
             "",
@@ -63,9 +77,22 @@ class DishesListBasket extends React.Component {
         }
     }
 
+    isFreeDelivery = (totalPrice, freeDel) => {
+        console.log('work')
+        console.log(totalPrice)
+        console.log(freeDel)
+        if (totalPrice >= freeDel) {
+            this.setState({isDeliveryFree: true})
+        }
+        else {
+            this.setState({isDeliveryFree: false})
+        }
+    }
 
-    ShouldRender = () => {
+
+    ShouldRender = (totalPrice) => {
     
+        console.log(totalPrice)
         if (this.state.isEmpty) {
             return (
                 <View style = {{flex: 1, justifyContent: 'center'}}>
@@ -101,10 +128,10 @@ class DishesListBasket extends React.Component {
                                 <TouchableOpacity
                                     style = {StyleDishesListBasket.buttonsChange}
                                     onPress = {() => {
-                                        this.setState({testState: true})
                                         if (item.count !== 1) {
                                             this.props.removeProd(item[0].idDish)
                                             this.props.addToCart(item[0].idDish, item.count-1)
+                                            this.isFreeDelivery(totalPrice, Number(this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom)))
                                             return item.count = item.count-1
                 
                                         }
@@ -122,10 +149,11 @@ class DishesListBasket extends React.Component {
                                 <TouchableOpacity
                                     style = {StyleDishesListBasket.buttonsChange}
                                     onPress = {() => {
-                                            this.setState({testState: true})
                                             this.props.removeProd(item[0].idDish)
                                             this.props.addToCart(item[0].idDish, item.count+1)
+                                            this.isFreeDelivery(totalPrice, Number(this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom)))
                                             return item.count = item.count+1
+                                            
                                     }}
                                 >
                                     <Text style = {StyleDishesListBasket.buttonsText}>+</Text>
@@ -144,12 +172,38 @@ class DishesListBasket extends React.Component {
                     </View>
                 )}
                 />
+            <View style = {StyleDishesListBasket.viewBox}>
+                <Text style = {StyleDishesListBasket.deliveryText}>Доставка</Text>
+                <Text style = {StyleDishesListBasket.deliveryPrice}>{this.props.deliveryPrices.map((e) => e.DeliveryPrice).toString()} руб. </Text>
             </View>
+            <View>
+                <Text>ст доставки:{this.props.deliveryPrices.map((e) => e.DeliveryPrice).toString()}</Text>
+                <Text>бесп доставка от:{this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom).toString()}</Text>
+                <Text>Итого: {totalPrice.totalPrice}</Text>
+            </View>
+
+
+
+            </View>
+
+            
         )
     }}
     render() {
+        
+        let totPrice = 0
+        this.props.cartList.dishesInfo.forEach((item) => {
+            totPrice += item.count * item[0].PriceDish;
+        })
+        //this.isFreeDelivery(totPrice, Number(this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom)))
+        console.log(this.state.isDeliveryFree)
+        if (!this.state.isDeliveryFree) {
+            totPrice = totPrice + Number(this.props.deliveryPrices.map((e) => e.DeliveryPrice))
+        }
+
+        console.log('render')
         return (
-            <this.ShouldRender/>
+            <this.ShouldRender totalPrice = {totPrice}/>
         )
     }
 }
@@ -158,7 +212,8 @@ const mapStateToProps = (state) => {
     return{
         cartList: state.dishInfoCart,
         nameOfRestaurant: state.currentIdRest,
-        cartListFirst: state.basketList.products
+        cartListFirst: state.basketList.products,
+        deliveryPrices: state.currentIdRest.deliveryPrice
     }
 }
 

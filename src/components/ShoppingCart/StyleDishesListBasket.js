@@ -53,6 +53,18 @@ const StyleDishesListBasket = StyleSheet.create({
     defaultText: {
         fontFamily: 'Montserrat-Light',
         fontSize: 15
+    },
+    deliveryText: {
+        fontFamily: "Montserrat-Regular",
+        fontSize: 18,
+        margin: 4,
+        marginLeft: 10
+    },
+    deliveryPrice: {
+        fontFamily: 'Montserrat-Light',
+        fontSize: 16,
+        alignSelf: 'center',
+        marginRight: 10
     }
 })
 
