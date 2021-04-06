@@ -1,1 +1,1 @@
-export default myURL = 'http://192.168.0.4:8082'
+export default myURL = 'http://192.168.0.105:8082'

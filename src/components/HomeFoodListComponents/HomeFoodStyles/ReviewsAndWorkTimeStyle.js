@@ -10,20 +10,19 @@ const ReviewsAndWorkTimeStyle = StyleSheet.create({
     childContainer: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
         marginHorizontal: -10,
-        paddingVertical: 2,
+        paddingVertical: 5,
         paddingHorizontal: 10,
-        backgroundColor: '#31B9CC',
+        backgroundColor: '#FECA57',
+        justifyContent: 'center',
         elevation: 3,
-        borderRadius: 10,
-        alignItems: 'center',
-        width: 140,
+        borderRadius: 15,
+        width: 300,
     },
     textStyle: {
-        fontFamily: "Montserrat-Regular",
+        fontFamily: "Montserrat-Light",
+        textAlign: 'center',
         fontSize: 17,
-        alignSelf: 'flex-end'
     }
 })
 

@@ -9,8 +9,7 @@ const ReducerLoggedIn = (state, action) => {
             }
         default: 
             return {
-                ...state,
-                isUserLoggedIn: state
+                ...state
             }
     }
 }

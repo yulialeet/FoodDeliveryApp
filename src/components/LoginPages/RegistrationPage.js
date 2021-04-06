@@ -7,6 +7,7 @@ import {
     Alert,
     TextInput
   } from 'react-native';
+  import { connect } from 'react-redux';
   import {RegistrationPageStyle} from './RegistrationPageStyle'
 
 

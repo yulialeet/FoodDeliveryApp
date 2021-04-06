@@ -6,25 +6,58 @@ import {
     Alert
 } from 'react-native'
 import {ReviewsAndWorkTimeStyle} from './HomeFoodStyles/ReviewsAndWorkTimeStyle'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { connect } from 'react-redux'
+import { ActionInfoAboutRestaurant } from '../../store/actions/ActionInfoAboutRestaurant'
+import  myURL  from '../../CommonURL/myURL'
 
-function ReviewsAndWorkTime() {
+class ReviewsAndWorkTime extends React.Component {
+
+    showInfo = async() => {
+        const { navigation } = this.props;
+        try {
+            const res = await fetch(myURL+'/infoAboutRestaurant?idRest='+this.props.TakeIdRestaurant)
+            const resText = await res.json();
+            await this.props.setInfoRest(resText)
+            navigation.navigate('AboutRestaurant')
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+
+    render() {
+        const { navigation } = this.props;
     return(
         <View>
                 <View style = {ReviewsAndWorkTimeStyle.mainContainer}>
-                    <TouchableOpacity style = {ReviewsAndWorkTimeStyle.childContainer}>
-                        <MaterialCommunityIcons name = 'star' color = {"#FECA57"} borderWidth = {2} size={24}/>
-                        <Text style = {ReviewsAndWorkTimeStyle.textStyle}>Отзывы</Text>
+                    <TouchableOpacity 
+                        style = {ReviewsAndWorkTimeStyle.childContainer}
+                        onPress = {() => {
+                            this.showInfo()
+                            
+                        }}
+                    >
+                        <Text style = {ReviewsAndWorkTimeStyle.textStyle}>О ресторане, отзывы</Text>
                     </TouchableOpacity>
             
 
-                    <View style = {ReviewsAndWorkTimeStyle.childContainer}>
-                        <MaterialCommunityIcons name = 'clock-outline' color = {"#FECA57"} size={24}  />
-                        <Text style = {ReviewsAndWorkTimeStyle.textStyle}>Ворктайм</Text>
-                    </View>
                 </View>
         </View>
     )
+}}
+
+const mapStateToProps = (state) => {
+    return{
+        TakeIdRestaurant: state.nameRestaurant.nameRestaurant
+    }
 }
 
-export default ReviewsAndWorkTime
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setInfoRest: (infoRest) => dispatch(ActionInfoAboutRestaurant(infoRest))
+    }
+}
+
+
+  
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewsAndWorkTime)

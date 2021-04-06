@@ -6,6 +6,7 @@ import {ActionTakeRestaurantsList} from '../../store/actions/ActionTakeRestauran
 import myURL from '../../CommonURL/myURL'
 import { ActionRestaurantsCategories } from '../../store/actions/ActionRestaurantsCategories';
 import { ActionIsLoggedIn } from '../../store/actions/ActionIsLoggedIn';
+import MainPage from '../ManagerComponents/MainPage';
 
 class Hellopage extends React.Component {
 
@@ -16,7 +17,6 @@ constructor(props){
 }
 
 async componentDidMount() {
-    this.props.userLogIn(false)
     try {
 //    const res = await fetch(myURL+'/restaurantsList?idRestaurant=1')
     const res = await fetch(myURL+'/restaurantsList')
@@ -36,10 +36,12 @@ async componentDidMount() {
 }
 
 Greeting = () => {
-    if (this.props.isUserLoggedIn){
-        return <ConfigNavigationHelloPage />
+    if (this.props.isUserLoggedIn && this.props.userRole==0){
+        return <AppNavigator/>
+    } else if (this.props.isUserLoggedIn && this.props.userRole==1){
+        return <MainPage />
     } else {
-        return <ConfigNavigationHelloPage/>
+        return <ConfigNavigationHelloPage />
     }
 }
 
@@ -57,7 +59,8 @@ Greeting = () => {
 
 const mapStateToProps = (store) => { 
     return{
-        isUserLoggedIn: store.isUserLoggedIn.isUserLoggedIn
+        isUserLoggedIn: store.isUserLoggedIn.isUserLoggedIn,
+        userRole: store.userRole.UserRole
     }
 }
 
@@ -65,8 +68,7 @@ const mapStateToProps = (store) => {
 const mapDispatchToProps = (dispatch) => {
     return{
         setRestList: (listOfRestaurants) => dispatch(ActionTakeRestaurantsList(listOfRestaurants)),
-        setCategoriesRestaurantsList: (listOfCategories) => dispatch(ActionRestaurantsCategories(listOfCategories)),
-        userLogIn: (eventt) => dispatch(ActionIsLoggedIn(eventt))
+        setCategoriesRestaurantsList: (listOfCategories) => dispatch(ActionRestaurantsCategories(listOfCategories))    
     }
   }
 

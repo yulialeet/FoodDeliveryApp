@@ -9,6 +9,7 @@ import {
   } from 'react-native';
 import { connect } from 'react-redux';
 import { ActionIsLoggedIn } from '../../store/actions/ActionIsLoggedIn';
+import { ActionUserRole } from '../../store/actions/ActionUserRole';
   import {LoginPageStyle} from './LoginPageStyle'
 
 
@@ -25,11 +26,12 @@ class LoginPage extends React.Component {
                 password: passw
             }))
             const resText = await res.json();
-            console.log(resText)
             if (resText.length !== 0) {
-                console.log('okay')
+                this.props.userLogIn(true)
+                this.props.setUserRole(Number(resText.map((e) => e.UserRole)))
             } else {
-                console.log('incorrect')
+                this.props.userLogIn(false)
+                Alert.alert('Неправильный логин или пароль')
             }
         } catch(error) {
             console.log(error);
@@ -50,14 +52,13 @@ class LoginPage extends React.Component {
                     <TextInput 
                         style = {LoginPageStyle.areaInput}
                         placeholder="Пароль"
-                        //secureTextEntry={true}
+                        secureTextEntry={true}
                         onChangeText={(text) => this.setState({password:text})}
                     />
                     <TouchableOpacity 
                         style = {LoginPageStyle.buttonOpacity}
                         onPress = {() => {
                             this.LogInPress(this.state.login, this.state.password)
-                            //this.props.userLogIn(true)
                         }}
                     >
                         <Text style = {LoginPageStyle.textSignIn}>Вход</Text>
@@ -80,7 +81,8 @@ class LoginPage extends React.Component {
 }
 const mapDispatchToProps = (dispatch) => {
     return{
-        userLogIn: (eventt) => dispatch(ActionIsLoggedIn(eventt))
+        userLogIn: (eventt) => dispatch(ActionIsLoggedIn(eventt)),
+        setUserRole: (role) => dispatch(ActionUserRole(role))
     }
 } 
 

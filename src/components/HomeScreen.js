@@ -5,6 +5,7 @@ import HomeFoodList from './HomeFoodList';
 import store from '../store/store'
 import { connect } from 'react-redux';
 import MainPageFood from './PageForFood/MainPageFood';
+import MainRestaurantsInfo from './RestaurantsInfo/MainRestaurantsInfo';
 
 
 const Stack = createStackNavigator();
@@ -59,6 +60,26 @@ class HomeScreen extends React.Component {
                 <Stack.Screen 
                     name = 'FoodPage' 
                     component = {MainPageFood} 
+                    options={{
+                        title: this.props.nameRestaurant,
+                        headerStyle: {
+                          backgroundColor: '#ffffff',
+                          elevation: 10,
+                        },
+                        headerTintColor: '#31B9CC',
+                        headerTitleStyle: {
+                          fontFamily: "Montserrat-Medium",
+                          fontSize: 26,
+                          elevation: 2,
+                          alignSelf: 'center',
+                          marginBottom: -10,
+                          marginLeft: -50,
+                        },
+                      }}
+                />
+                <Stack.Screen 
+                    name = 'AboutRestaurant' 
+                    component = {MainRestaurantsInfo} 
                     options={{
                         title: this.props.nameRestaurant,
                         headerStyle: {

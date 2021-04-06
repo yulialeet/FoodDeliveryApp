@@ -46,7 +46,7 @@ const navigation = useNavigation();
   if (isRender && isRender2) {
     return(
       <SafeAreaView style = {{flex: 1}}>
-          <ReviewsAndWorkTime/>
+          <ReviewsAndWorkTime navigation = {navigation}/>
           <FoodCategoriesScroll/>
           <FoodList navigation = {navigation}/>
       </SafeAreaView>

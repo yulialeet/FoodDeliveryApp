@@ -11,6 +11,8 @@ import ReducerDishInformation from './reducers/ReducerDishInformation'
 import ReducerAddToShoppingCart from './reducers/ReducerAddToShoppingCart'
 import ReducerCurrentIdRestaurantCart from './reducers/ReducerCurrentIdRestaurantCart';
 import ReducerDishInfoInCart from './reducers/ReducerDishInfoInCart';
+import ReducerUserRole from './reducers/ReducerUserRole';
+import ReducerInfoAboutRestaurant from './reducers/ReducerInfoAboutRestaurant';
 
 
 //const store = createStore(restaurantListToFoodList);
@@ -27,7 +29,9 @@ const store = createStore(
         dishInfo: ReducerDishInformation,
         basketList: ReducerAddToShoppingCart,
         currentIdRest: ReducerCurrentIdRestaurantCart,
-        dishInfoCart: ReducerDishInfoInCart
+        dishInfoCart: ReducerDishInfoInCart,
+        userRole: ReducerUserRole,
+        infoAboutRest: ReducerInfoAboutRestaurant
     })
 )
 export default store;

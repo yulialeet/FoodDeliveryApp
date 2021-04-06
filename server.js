@@ -10,21 +10,21 @@ var connection = mysql.createConnection({
   password : 'FoodDelivery-11-YVBD!',
   database : 'fooddeliverydb'
 });
-//app.use(express.static(__dirname));
 
 connection.connect();
 
-// app.get('/restaurantsList', function (req, res){
-//   console.log(req.query.idRestaurant)
-//   connection.query('select * from restaurant where idRestaurant = ?',req.query.idRestaurant, function (error, results, fields) {
-//     if (error) throw error;
-//     else {
-//       res.send(results);
-//     }
-//   });
-// })
+
 app.get('/restaurantsList', function (req, res){
   connection.query('select * from restaurant', function (error, results, fields) {
+    if (error) throw error;
+    else {
+      res.send(results);
+    }
+  });
+})
+
+app.get('/infoAboutRestaurant', function (req, res){
+  connection.query('select * from restaurant WHERE idRestaurant = ?', req.query.idRest, function (error, results, fields) {
     if (error) throw error;
     else {
       res.send(results);
