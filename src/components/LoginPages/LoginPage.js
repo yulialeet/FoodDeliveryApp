@@ -14,6 +14,28 @@ import { ActionIsLoggedIn } from '../../store/actions/ActionIsLoggedIn';
 
 class LoginPage extends React.Component {
 
+    state = {
+        login: '',
+        password: ''
+    }
+    LogInPress = async(loginuser, passw) => {
+        try {
+            const res = await fetch(myURL+'/loginuser?' + new URLSearchParams({
+                login: loginuser,
+                password: passw
+            }))
+            const resText = await res.json();
+            console.log(resText)
+            if (resText.length !== 0) {
+                console.log('okay')
+            } else {
+                console.log('incorrect')
+            }
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
     render(){
         const { navigation } = this.props;
         return(
@@ -22,17 +44,20 @@ class LoginPage extends React.Component {
                     <TextInput 
                         style = {LoginPageStyle.areaInput}
                         placeholder="Номер телефона"
+                        onChangeText={(text) => this.setState({login:text})}
                     />
 
                     <TextInput 
                         style = {LoginPageStyle.areaInput}
                         placeholder="Пароль"
-                        secureTextEntry={true}
+                        //secureTextEntry={true}
+                        onChangeText={(text) => this.setState({password:text})}
                     />
                     <TouchableOpacity 
                         style = {LoginPageStyle.buttonOpacity}
                         onPress = {() => {
-                            this.props.userLogIn(true)
+                            this.LogInPress(this.state.login, this.state.password)
+                            //this.props.userLogIn(true)
                         }}
                     >
                         <Text style = {LoginPageStyle.textSignIn}>Вход</Text>

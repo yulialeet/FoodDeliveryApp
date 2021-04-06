@@ -95,6 +95,14 @@ app.get('/deliveryPrices', function (req, res){
     });
   })
 
+  app.get('/loginuser', function (req, res){
+    connection.query('SELECT * FROM usersapp WHERE UserLogin = ? AND UserPassword = ?', [req.query.login, req.query.password], function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
 
 
 

@@ -39,9 +39,11 @@
         "react-native-vector-icons": "^8.0.0",
         "react-navigation": "^4.4.4",
         "react-redux": "^7.2.2",
+        "react-validation": "^3.0.7",
         "redux": "^4.0.5",
         "request": "^2.88.2",
-        "utf8": "^3.0.0"
+        "utf8": "^3.0.0",
+        "validator": "^13.5.2"
     },
     "devDependencies": {
         "@babel/core": "^7.8.4",

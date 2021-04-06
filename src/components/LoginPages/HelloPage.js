@@ -5,6 +5,7 @@ import ConfigNavigationHelloPage from './ConfigNavigationHelloPage';
 import {ActionTakeRestaurantsList} from '../../store/actions/ActionTakeRestaurantsList'
 import myURL from '../../CommonURL/myURL'
 import { ActionRestaurantsCategories } from '../../store/actions/ActionRestaurantsCategories';
+import { ActionIsLoggedIn } from '../../store/actions/ActionIsLoggedIn';
 
 class Hellopage extends React.Component {
 
@@ -15,6 +16,7 @@ constructor(props){
 }
 
 async componentDidMount() {
+    this.props.userLogIn(false)
     try {
 //    const res = await fetch(myURL+'/restaurantsList?idRestaurant=1')
     const res = await fetch(myURL+'/restaurantsList')
@@ -35,7 +37,7 @@ async componentDidMount() {
 
 Greeting = () => {
     if (this.props.isUserLoggedIn){
-        return <AppNavigator />
+        return <ConfigNavigationHelloPage />
     } else {
         return <ConfigNavigationHelloPage/>
     }
@@ -63,7 +65,8 @@ const mapStateToProps = (store) => {
 const mapDispatchToProps = (dispatch) => {
     return{
         setRestList: (listOfRestaurants) => dispatch(ActionTakeRestaurantsList(listOfRestaurants)),
-        setCategoriesRestaurantsList: (listOfCategories) => dispatch(ActionRestaurantsCategories(listOfCategories))
+        setCategoriesRestaurantsList: (listOfCategories) => dispatch(ActionRestaurantsCategories(listOfCategories)),
+        userLogIn: (eventt) => dispatch(ActionIsLoggedIn(eventt))
     }
   }
 
