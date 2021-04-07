@@ -9,6 +9,7 @@ import {ReviewsAndWorkTimeStyle} from './HomeFoodStyles/ReviewsAndWorkTimeStyle'
 import { connect } from 'react-redux'
 import { ActionInfoAboutRestaurant } from '../../store/actions/ActionInfoAboutRestaurant'
 import  myURL  from '../../CommonURL/myURL'
+import { ActionReviewsRestaurant } from '../../store/actions/ActionReviewsRestaurant'
 
 class ReviewsAndWorkTime extends React.Component {
 
@@ -18,7 +19,18 @@ class ReviewsAndWorkTime extends React.Component {
             const res = await fetch(myURL+'/infoAboutRestaurant?idRest='+this.props.TakeIdRestaurant)
             const resText = await res.json();
             await this.props.setInfoRest(resText)
+            this.reviewsRestaurants()
             navigation.navigate('AboutRestaurant')
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    reviewsRestaurants = async() => {
+        try {
+            const res = await fetch(myURL+'/reviewsList?idRest='+this.props.TakeIdRestaurant)
+            const resText = await res.json();
+            await this.props.setReviewsList(resText)
         } catch(error) {
             console.log(error);
         }
@@ -54,7 +66,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setInfoRest: (infoRest) => dispatch(ActionInfoAboutRestaurant(infoRest))
+        setInfoRest: (infoRest) => dispatch(ActionInfoAboutRestaurant(infoRest)),
+        setReviewsList: (reviews) => dispatch(ActionReviewsRestaurant(reviews))
     }
 }
 

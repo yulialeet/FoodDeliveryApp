@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     Alert,
     ActivityIndicator,
-    ScrollView
+    ScrollView,
+    LogBox 
 } from 'react-native'
 import { connect } from 'react-redux'
 import { StyleDishesListBasket } from './StyleDishesListBasket'
@@ -28,6 +29,9 @@ class DishesListBasket extends React.Component {
     }
 
 
+    componentDidMount() {
+        LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    }
 
     deleteFromCart = (itemId) => {
         Alert.alert(
@@ -67,6 +71,38 @@ class DishesListBasket extends React.Component {
         }
     }
 
+    newOrder = async(totalPrice) => {
+        //console.log(this.props.cartList.dishesInfo.length)
+        //for (let i = 0; i < this.props.cartList.dishesInfo.length; i++) {
+            this.setState({isLoading: true})
+            try {
+                const resk = await fetch(myURL+'/createNewOrder?' + new URLSearchParams({
+                    idClient: this.props.idClient,
+                    idRest: this.props.idOfRestaurant,
+                    priceTotal: totalPrice
+                }))
+                const resTextk = await resk.json();
+                for (let i = 0; i < this.props.cartList.dishesInfo.length; i++) {
+                    try {
+                        const res = await fetch(myURL+'/dishesInNewOrder?' + new URLSearchParams({
+                            idDish: this.props.cartList.dishesInfo[i][0].idDish,
+                            quant: this.props.cartList.dishesInfo[i].count,
+                            order: resTextk.insertId
+                        }))
+                        const resText = await res.json();
+                    } catch(error) {
+                        console.log(error);
+                    }
+                }
+                this.props.removeCart()
+                Alert.alert('Заказ успешно оформлен!')
+                this.setState({isLoading: false, isEmpty: true})
+                
+            } catch(error) {
+                console.log(error);
+            }
+
+    }
 
 
     ShouldRender = (totalPrice) => {
@@ -172,7 +208,12 @@ class DishesListBasket extends React.Component {
                     <Text style = {StyleDishesListBasket.bottomViewText}>{totalPrice.totalPrice}</Text>
                 </View>
                 <View>
-                    <TouchableOpacity style = {StyleDishesListBasket.payButtonView}>
+                    <TouchableOpacity 
+                        style = {StyleDishesListBasket.payButtonView}
+                        onPress = {() => {
+                            this.newOrder(totalPrice.totalPrice)
+                        }}
+                    >
                         <Text style = {StyleDishesListBasket.bottomViewText}>Оплатить</Text>
                     </TouchableOpacity>
                 </View>
@@ -219,7 +260,9 @@ const mapStateToProps = (state) => {
         cartList: state.dishInfoCart,
         nameOfRestaurant: state.currentIdRest,
         cartListFirst: state.basketList.products,
-        deliveryPrices: state.currentIdRest.deliveryPrice
+        deliveryPrices: state.currentIdRest.deliveryPrice,
+        idClient: state.userRole.clientId,
+        idOfRestaurant: state.currentIdRest.currentId
     }
 }
 

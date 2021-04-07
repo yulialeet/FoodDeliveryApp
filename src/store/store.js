@@ -13,6 +13,7 @@ import ReducerCurrentIdRestaurantCart from './reducers/ReducerCurrentIdRestauran
 import ReducerDishInfoInCart from './reducers/ReducerDishInfoInCart';
 import ReducerUserRole from './reducers/ReducerUserRole';
 import ReducerInfoAboutRestaurant from './reducers/ReducerInfoAboutRestaurant';
+import ReducerReviewsRestaurant from './reducers/ReducerReviewsRestaurant';
 
 
 //const store = createStore(restaurantListToFoodList);
@@ -31,7 +32,8 @@ const store = createStore(
         currentIdRest: ReducerCurrentIdRestaurantCart,
         dishInfoCart: ReducerDishInfoInCart,
         userRole: ReducerUserRole,
-        infoAboutRest: ReducerInfoAboutRestaurant
+        infoAboutRest: ReducerInfoAboutRestaurant,
+        reviewsList: ReducerReviewsRestaurant
     })
 )
 export default store;

@@ -42,7 +42,7 @@ class FoodList extends React.Component {
                             this.props.currentRestaurant(idRest)
                             this.props.currentNameRest(nameRest)
                             this.props.removeCart()
-                            this.props.addToCart(idDish, quant)
+                            this.props.addToCart(idDish, 1)
                         }
                     }
                 ]

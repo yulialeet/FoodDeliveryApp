@@ -4,6 +4,7 @@ const StyleDescription = StyleSheet.create({
     commonView: {
         padding: 10,
         backgroundColor: 'white',
+        elevation: 3
     },
     textDefault: {
         fontFamily: "Montserrat-Light",

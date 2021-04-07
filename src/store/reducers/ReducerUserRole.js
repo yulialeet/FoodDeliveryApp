@@ -1,4 +1,4 @@
-import {USER_ROLE} from '../actions/ActionUserRole'
+import {USER_ROLE, USER_ID, CLIENT_ID} from '../actions/ActionUserRole'
 
 
 const ReducerUserRole = (state, action) => {
@@ -7,6 +7,16 @@ const ReducerUserRole = (state, action) => {
             return {
                 ...state,
                 UserRole: action.payload
+            }
+        case USER_ID:
+            return {
+                ...state,
+                UserId: action.payload
+            }
+        case CLIENT_ID:
+            return {
+                ...state,
+                clientId: action.payload
             }
         default: 
             return {

@@ -104,7 +104,44 @@ app.get('/deliveryPrices', function (req, res){
     });
   })
 
+  app.get('/reviewsList', function (req, res){
+    connection.query('SELECT clientsapp.FIO, clientsapp.idClient, reviews.* FROM reviews,clientsapp WHERE reviews.ClientsAppidClient=clientsapp.idClient AND RestaurantidRestaurant = ?', req.query.idRest, function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
 
+  app.get('/getClientId', function (req, res){
+    connection.query('SELECT clientsapp.idClient FROM clientsapp WHERE clientsapp.UsersAppIdUser = ?', req.query.idUser, function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
+
+  app.get('/createNewOrder', function (req, res){
+    connection.query('INSERT INTO `orders` (`idOrder`, `ClientsAppidClient`, `RestaurantidRestaurant`, `OrderTime`, `TotalPrice`, `DescriptionToOrder`, `OrderStatus`) VALUES (NULL, ?, ?, CURRENT_TIMESTAMP, ?, NULL, NULL)', [req.query.idClient, req.query.idRest, req.query.priceTotal], function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
+
+  app.get('/dishesInNewOrder', function (req, res){
+    connection.query('INSERT INTO `groupdishes` (`idGroupDishes`, `DishesidDish`, `AmountDishes`, `OrdersidOrder`) VALUES (NULL, ?, ?, ?)', [req.query.idDish, req.query.quant, req.query.order], function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
+
+
+  //INSERT INTO `orders` (`idOrder`, `ClientsAppidClient`, `RestaurantidRestaurant`, `OrderTime`, `TotalPrice`, `DescriptionToOrder`, `OrderStatus`) VALUES (NULL, '1', '1', CURRENT_TIMESTAMP, '2250', NULL, NULL);
 
 app.listen(8082, function () {
     console.log('okayyy')
