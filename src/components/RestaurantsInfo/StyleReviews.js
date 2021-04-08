@@ -41,6 +41,33 @@ const StyleReviews = StyleSheet.create({
     descriptionText: {
         fontFamily: 'Montserrat-Regular',
         fontSize: 15
+    },
+    emptyBox: {
+        fontFamily: "Montserrat-Light",
+        textAlign: 'center',
+        fontSize: 23,
+        color: '#ABABAB'
+    },
+    TextToAdd: {
+        fontFamily: "Montserrat-Light",
+        fontSize: 18
+    },
+    AddReviewMainView: {
+        borderWidth: 2,
+        borderColor: "#FECA57",
+        marginBottom: 20
+    },
+    buttonAdd: {
+        backgroundColor: '#FECA57',
+        alignSelf: 'flex-end',
+        paddingVertical: 8,
+        paddingHorizontal: 30,
+        marginVertical: 7,
+        borderRadius: 15
+    },
+    textButtonAdd: {
+        fontFamily: "Montserrat-Regular",
+        fontSize: 16
     }
 }) 
 

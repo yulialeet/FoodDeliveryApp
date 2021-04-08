@@ -13,24 +13,30 @@ import { ActionReviewsRestaurant } from '../../store/actions/ActionReviewsRestau
 
 class ReviewsAndWorkTime extends React.Component {
 
+    state = {
+        isLoad1: false,
+        isLoad2: false
+    }
     showInfo = async() => {
-        const { navigation } = this.props;
         try {
             const res = await fetch(myURL+'/infoAboutRestaurant?idRest='+this.props.TakeIdRestaurant)
             const resText = await res.json();
             await this.props.setInfoRest(resText)
             this.reviewsRestaurants()
-            navigation.navigate('AboutRestaurant')
+            
         } catch(error) {
             console.log(error);
         }
     }
 
     reviewsRestaurants = async() => {
+        
+        const { navigation } = this.props;
         try {
             const res = await fetch(myURL+'/reviewsList?idRest='+this.props.TakeIdRestaurant)
             const resText = await res.json();
             await this.props.setReviewsList(resText)
+            navigation.navigate('AboutRestaurant')
         } catch(error) {
             console.log(error);
         }

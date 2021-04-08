@@ -8,37 +8,51 @@ import {
 import {connect} from 'react-redux'
 import { StyleReviews } from './StyleReviews'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { Rating, AirbnbRating } from 'react-native-ratings';
 
 class ReviewsRestaurant extends React.Component {
 
-    render() {
-        console.log(this.props.reviewsList)
-        return (
-            <View>
-                <View style = {StyleReviews.headerReviews}>
-                    <Text style = {StyleReviews.headerText}>Отзывы</Text>
+
+    isReviewsEmpty = () => {
+        if (this.props.reviewsList.length == 0) {
+            return (
+                <View style = {{flex: 1, justifyContent: 'center'}}>
+                    <Text style = {StyleReviews.emptyBox}>Отзывов пока нет, станьте первым!</Text>
                 </View>
+            )
+        } else {
+            return (
                 <View>
-                    <FlatList
-                    data = {this.props.reviewsList}
-                    keyExtractor={(item, index) => index.toString()}
-                    renderItem = {({item}) => (
-                        <View style = {StyleReviews.viewList}>
-                            <View style = {StyleReviews.nameAndRating}>
-                                <Text style = {StyleReviews.nameRateText}>{item.FIO}</Text>
-                                <View style = {StyleReviews.rateNum}>
-                                    <Text style = {StyleReviews.nameRateText}>{item.RateOfRestaurant} </Text>
-                                    <MaterialCommunityIcons name = 'star' color = {"#FECA57"} borderWidth = {2} borderColor = {'#FFFFFF'}size={18}/>
+                    <View style = {StyleReviews.headerReviews}>
+                        <Text style = {StyleReviews.headerText}>Отзывы</Text>
+                    </View>
+                    <View>
+                        <FlatList
+                        data = {this.props.reviewsList}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem = {({item}) => (
+                            <View style = {StyleReviews.viewList}>
+                                <View style = {StyleReviews.nameAndRating}>
+                                    <Text style = {StyleReviews.nameRateText}>{item.FIO}</Text>
+                                    <View style = {StyleReviews.rateNum}>
+                                        <Text style = {StyleReviews.nameRateText}>{item.RateOfRestaurant} </Text>
+                                        <MaterialCommunityIcons name = 'star' color = {"#FECA57"} borderWidth = {2} borderColor = {'#FFFFFF'}size={18}/>
+                                    </View>
+                                </View>
+                                <View style = {StyleReviews.descriptionView}>
+                                    <Text style = {StyleReviews.descriptionText}>{item.DescriptionReview}</Text>
                                 </View>
                             </View>
-                            <View style = {StyleReviews.descriptionView}>
-                                <Text style = {StyleReviews.descriptionText}>{item.DescriptionReview}</Text>
-                            </View>
-                        </View>
-                    )}
-                    />
+                        )}
+                        />
+                    </View>
                 </View>
-            </View>
+            )
+        }
+    }
+    render() {
+        return (
+            <this.isReviewsEmpty />
         )
     }
 }
