@@ -35,8 +35,11 @@ class ReviewsRestaurant extends React.Component {
                                 <View style = {StyleReviews.nameAndRating}>
                                     <Text style = {StyleReviews.nameRateText}>{item.FIO}</Text>
                                     <View style = {StyleReviews.rateNum}>
-                                        <Text style = {StyleReviews.nameRateText}>{item.RateOfRestaurant} </Text>
-                                        <MaterialCommunityIcons name = 'star' color = {"#FECA57"} borderWidth = {2} borderColor = {'#FFFFFF'}size={18}/>
+                                        <Rating
+                                            imageSize={18}
+                                            readonly = {true}
+                                            startingValue = {item.RateOfRestaurant}
+                                        />
                                     </View>
                                 </View>
                                 <View style = {StyleReviews.descriptionView}>

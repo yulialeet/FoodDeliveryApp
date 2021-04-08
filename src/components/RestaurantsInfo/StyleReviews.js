@@ -54,7 +54,7 @@ const StyleReviews = StyleSheet.create({
     },
     AddReviewMainView: {
         borderWidth: 2,
-        borderColor: "#FECA57",
+        borderColor: "#31B9CC",
         marginBottom: 20
     },
     buttonAdd: {

@@ -140,6 +140,15 @@ app.get('/deliveryPrices', function (req, res){
     });
   })
 
+  app.get('/addNewReview', function (req, res){
+    connection.query('INSERT INTO `reviews` (`idReview`, `ClientsAppidClient`, `RestaurantidRestaurant`, `DescriptionReview`, `RateOfRestaurant`) VALUES (NULL, ?, ?, ?, ?)', [req.query.idClient, req.query.idRest, req.query.description, req.query.rating], function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
+
 
   //INSERT INTO `orders` (`idOrder`, `ClientsAppidClient`, `RestaurantidRestaurant`, `OrderTime`, `TotalPrice`, `DescriptionToOrder`, `OrderStatus`) VALUES (NULL, '1', '1', CURRENT_TIMESTAMP, '2250', NULL, NULL);
 

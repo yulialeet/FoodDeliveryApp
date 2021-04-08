@@ -2,16 +2,39 @@ import React from 'react'
 import { View, 
         Text,
         TextInput,
-        TouchableOpacity
+        TouchableOpacity,
+        Alert
 } from 'react-native'
 import { StyleReviews } from './StyleReviews'
 import { connect } from 'react-redux'
 import { Rating, AirbnbRating } from 'react-native-ratings';
+import myURL from '../../CommonURL/myURL'
 
 class AddReview extends React.Component {
 
     state = {
-        textReview: ''
+        textReview: '',
+        rating: 4
+    }
+
+    sendReview = async() => {
+        try {
+            const res = await fetch(myURL+'/addNewReview?' + new URLSearchParams({
+                idClient: this.props.clientId,
+                idRest: this.props.restaurantId,
+                description: this.state.textReview,
+                rating: this.state.rating
+            }))
+            const resText = await res.json();
+            Alert.alert('Отзыв успешно отправлен!')
+            this.setState({textReview: ''})
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    setRating = (rating) => {
+        this.setState({rating: rating})
     }
     render() {
         return (
@@ -34,16 +57,19 @@ class AddReview extends React.Component {
                         <AirbnbRating
                             count={5}
                             reviews={["", "", "", "", ""]}
-                            defaultRating={5}
+                            defaultRating={4}
                             size={25}
                             reviewSize = {0}
+                            onFinishRating = {this.setRating}
                         />
                     </View>
-                    <TouchableOpacity style = {StyleReviews.buttonAdd}>
+                    <TouchableOpacity 
+                        style = {StyleReviews.buttonAdd}
+                        onPress = {() => {this.sendReview()}}
+                    >
                         <Text style = {StyleReviews.textButtonAdd}>Отправить</Text>
                     </TouchableOpacity>
                 </View>
-                
             </View>
         )
     }
