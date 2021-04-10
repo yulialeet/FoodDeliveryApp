@@ -7,12 +7,13 @@ const RegistrationPageStyle = StyleSheet.create({
         flex: 1,
     },
     viewForInputs: {
-        paddingTop: 225,
+        paddingTop: 100,
         marginHorizontal: 20,
     },
     textsOptions: {
         fontFamily: "Montserrat-Light",
-        fontSize: 21
+        fontSize: 16,
+        marginLeft: 5
     },
     loginInput: {
         fontFamily: "Montserrat-Light",
@@ -35,6 +36,22 @@ const RegistrationPageStyle = StyleSheet.create({
         textAlign: 'center',
         textShadowColor: 'black',
         textShadowRadius: 2
+    },
+    addressView: {
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    addressInputs: {
+        fontFamily: "Montserrat-Light",
+        fontSize: 16,
+        textAlign: 'center',
+        borderWidth: 2,
+        borderColor: '#FECA57',
+        marginBottom: 30,
+        borderRadius: 7,
+        backgroundColor: 'white',
+        width: 97,
+        marginHorizontal: 8
     }
 })
 

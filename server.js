@@ -149,6 +149,41 @@ app.get('/deliveryPrices', function (req, res){
     });
   })
 
+  app.get('/userOrdersList', function (req, res){
+    connection.query('SELECT orders.idOrder, restaurant.NameRestaurant, orders.OrderTime, orders.TotalPrice, orders.DescriptionToOrder, orders.OrderStatus, dishes.NameDish, groupdishes.AmountDishes FROM orders INNER JOIN restaurant ON restaurant.idRestaurant=orders.RestaurantidRestaurant INNER JOIN groupdishes ON groupdishes.OrdersidOrder=orders.idOrder INNER JOIN dishes ON groupdishes.DishesidDish=dishes.idDish WHERE orders.ClientsAppidClient=?', req.query.idClient, function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
+
+  app.get('/registrationUser', function (req, res){
+    connection.query('INSERT INTO `usersapp` (`idUser`, `UserLogin`, `UserPassword`, `UserRole`) VALUES (NULL, ?, ?, 0)', [req.query.login, req.query.password], function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
+
+  app.get('/registrationClient', function (req, res){
+    connection.query('INSERT INTO `clientsapp` (`idClient`, `FIO`, `PhoneNumber`, `DeliveryAddress`, `UsersAppIdUser`) VALUES (NULL, ?, ?, ?, ?)', [req.query.nameclient, req.query.phonenumber, req.query.address, req.query.iduser], function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
+
+  app.get('/checkisuserregistered', function (req, res){
+    connection.query('SELECT * FROM usersapp where UserLogin = ?', req.query.login, function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
 
   //INSERT INTO `orders` (`idOrder`, `ClientsAppidClient`, `RestaurantidRestaurant`, `OrderTime`, `TotalPrice`, `DescriptionToOrder`, `OrderStatus`) VALUES (NULL, '1', '1', CURRENT_TIMESTAMP, '2250', NULL, NULL);
 

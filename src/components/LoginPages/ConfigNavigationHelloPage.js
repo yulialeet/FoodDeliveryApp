@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import { createStackNavigator, HeaderTitle } from '@react-navigation/stack';
 import ClassToCallLoginPage from './ClassToCallLoginPage';
 import RegistrationPage from './RegistrationPage';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import AppNavigator from '../../AppNavigator';
+import ContainerRegistration from './ContainerRegistration';
 
 
 const Stack = createStackNavigator();
 
-class ConfigNavigationHelloPage extends React.Component {
-    
-    render (){
+ConfigNavigationHelloPage = () => {
         return(
             <NavigationContainer>
             <Stack.Navigator initialRouteName = 'Login'>
@@ -24,22 +23,16 @@ class ConfigNavigationHelloPage extends React.Component {
                 />
                 <Stack.Screen 
                     name = 'Registration' 
-                    component = {RegistrationPage} 
+                    component = {ContainerRegistration}
                     options={
                         {headerShown: false}
                     }
                 />
-                {/* <Stack.Screen 
-                    name = 'EndLogin' 
-                    component = {HelloPage} 
-                    options={
-                        {headerShown: false}
-                    }
-                />  */}
+                
             </Stack.Navigator>
             </NavigationContainer>
         )
-}}
+}
 
 
 export default ConfigNavigationHelloPage

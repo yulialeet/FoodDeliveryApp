@@ -16,7 +16,7 @@ class ReviewsRestaurant extends React.Component {
     isReviewsEmpty = () => {
         if (this.props.reviewsList.length == 0) {
             return (
-                <View style = {{flex: 1, justifyContent: 'center'}}>
+                <View style = {{flex: 1, justifyContent: 'center', marginTop: 50}}>
                     <Text style = {StyleReviews.emptyBox}>Отзывов пока нет, станьте первым!</Text>
                 </View>
             )

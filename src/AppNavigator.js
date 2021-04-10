@@ -13,6 +13,8 @@ import myURL from './CommonURL/myURL'
 import { ActionDishInfoInCart, ActionRemoveAllFromCart } from './store/actions/ActionDishInfoInCart.js';
 import ContainerShopCart from './components/ShoppingCart/ContainerShopCart.js';
 import { ActionCurrentRestaurantDeliveryPrice } from './store/actions/ActionCurrentIdRestaurantCart.js';
+import MainProfilePage from './components/ProfilePage/MainProfilePage.js';
+import NavigatorProfilePage from './components/ProfilePage/NavigatorProfilePage.js';
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -81,8 +83,9 @@ getThis = async() => {
         />
         <Tab.Screen 
             name = 'Profile' 
-            component = {HomeScreen}
+            component = {NavigatorProfilePage}
             options = {{
+                title: 'Профиль',
                 tabBarLabel: "",
                 tabBarIcon: ({color, focused}) => (
                     <MaterialCommunityIcons style = {focused ? AppNavigatorStyle.focus : AppNavigatorStyle.notfocus} name = 'account-outline' color = {color} size={26} />
