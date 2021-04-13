@@ -5,6 +5,7 @@ import OrdersRestaurant from './OrdersRestaurant';
 import MainPage from './MainPage';
 import { NavigationContainer } from '@react-navigation/native';
 import MainPageContainer from './MainPageContainer';
+import ContainerOrdersRestaurant from './ContainerOrdersRestaurant';
 
 
 const Stack = createStackNavigator();
@@ -20,7 +21,7 @@ MainContainer = () => {
             <Stack.Navigator initialRouteName = 'StartPage'>
                 <Stack.Screen 
                     name="Orders"
-                    component={OrdersRestaurant}
+                    component={ContainerOrdersRestaurant}
                     options={{
                       title: 'Заказы',
                       headerStyle: {

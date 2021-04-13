@@ -16,6 +16,10 @@ import { ActionRestaurantNameHeader } from '../../store/actions/ActionRestaurant
 
 class RestaurantsList extends React.Component{
 
+    isRestaurantWork = (restTime) => {
+        let dat = new Date(restTime)
+        console.log(dat)
+    }
     render(){
     const { navigation } = this.props;
             return (
@@ -28,6 +32,7 @@ class RestaurantsList extends React.Component{
                             <TouchableOpacity style = {RestaurantsListStyle.container} onPress = {() => {
                                 this.props.toDoIt(item.idRestaurant);
                                 this.props.setNameRestaurant(item.NameRestaurant)
+                                this.isRestaurantWork(item.WorkTimeTo)
                                 navigation.navigate('Food')
                             }}> 
                                 <View style = {{flex: 3}}>

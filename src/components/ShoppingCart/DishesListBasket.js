@@ -14,7 +14,7 @@ import {
 import { connect } from 'react-redux'
 import { StyleDishesListBasket } from './StyleDishesListBasket'
 import { Buffer } from 'buffer'
-import { AddProduct, RemoveProduct } from '../../store/actions/ActionAddToShoppingCart'
+import { AddProduct, RemoveAllProducts, RemoveProduct } from '../../store/actions/ActionAddToShoppingCart'
 import { ActionDishInfoInCart, ActionRemoveAllFromCart } from '../../store/actions/ActionDishInfoInCart'
 
 class DishesListBasket extends React.Component {
@@ -98,6 +98,7 @@ class DishesListBasket extends React.Component {
                     }
                 }
                 this.props.removeCart()
+                this.props.removeAllCart()
                 Alert.alert('Заказ успешно оформлен!')
                 this.setState({isLoading: false, isEmpty: true})
                 
@@ -288,6 +289,7 @@ const mapDispatchToProps = (dispatch) => {
         addToCart: (idDishToCart, countDishes) => dispatch(AddProduct(idDishToCart, countDishes)),
         removeProd: (idProduct) => dispatch(RemoveProduct(idProduct)),
         removeCart: () => dispatch(ActionRemoveAllFromCart()),
+        removeAllCart: () => dispatch(RemoveAllProducts()),
         addInListCart: (arrInfo) => dispatch(ActionDishInfoInCart(arrInfo))
     }
 }
