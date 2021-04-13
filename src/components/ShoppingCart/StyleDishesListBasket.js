@@ -86,6 +86,13 @@ const StyleDishesListBasket = StyleSheet.create({
     bottomViewText: {
         fontFamily: "Montserrat-Regular",
         fontSize: 17
+    },
+    descrView: {
+        padding: 5,
+        backgroundColor: 'white',
+        marginVertical: 6,
+        marginHorizontal: 15,
+        elevation: 5,
     }
 })
 

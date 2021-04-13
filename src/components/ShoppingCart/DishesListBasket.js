@@ -8,7 +8,8 @@ import {
     Alert,
     ActivityIndicator,
     ScrollView,
-    LogBox 
+    LogBox, 
+    TextInput
 } from 'react-native'
 import { connect } from 'react-redux'
 import { StyleDishesListBasket } from './StyleDishesListBasket'
@@ -25,7 +26,8 @@ class DishesListBasket extends React.Component {
         isEmpty: false,
         isLoading: false,
         totalPrice: 0,
-        isDeliveryFree: false
+        isDeliveryFree: false,
+        descriptionToOrder: ''
     }
 
 
@@ -79,7 +81,8 @@ class DishesListBasket extends React.Component {
                 const resk = await fetch(myURL+'/createNewOrder?' + new URLSearchParams({
                     idClient: this.props.idClient,
                     idRest: this.props.idOfRestaurant,
-                    priceTotal: totalPrice
+                    priceTotal: totalPrice,
+                    description: this.state.descriptionToOrder
                 }))
                 const resTextk = await resk.json();
                 for (let i = 0; i < this.props.cartList.dishesInfo.length; i++) {
@@ -191,6 +194,18 @@ class DishesListBasket extends React.Component {
                 
                 />
                 </View>
+
+
+            <View style = {StyleDishesListBasket.descrView}>
+                <TextInput
+                    placeholder = 'Комментарий к заказу'
+                    maxLength = {50}
+                    numberOfLines = {2}
+                    textAlignVertical = 'top'
+                    fontFamily = 'Montserrat-Light'
+                    onChangeText = {(text) => this.setState({descriptionToOrder: text})}
+                ></TextInput>
+            </View>    
             <View style = {StyleDishesListBasket.viewBox}>
                 <Text style = {StyleDishesListBasket.deliveryText}>Доставка</Text>
                 <Text style = {StyleDishesListBasket.deliveryPrice}>{this.props.deliveryPrices.map((e) => e.DeliveryPrice).toString()} руб. </Text>
@@ -199,6 +214,8 @@ class DishesListBasket extends React.Component {
                 <Text style = {StyleDishesListBasket.deliveryText}>Бесплатная доставка от</Text>
                 <Text style = {StyleDishesListBasket.deliveryPrice}>{this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom).toString()} руб. </Text>
             </View>
+            
+            
 
             </ScrollView>
 

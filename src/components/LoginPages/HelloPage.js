@@ -7,6 +7,7 @@ import myURL from '../../CommonURL/myURL'
 import { ActionRestaurantsCategories } from '../../store/actions/ActionRestaurantsCategories';
 import { ActionIsLoggedIn } from '../../store/actions/ActionIsLoggedIn';
 import MainPage from '../ManagerComponents/MainPage';
+import MainContainer from '../ManagerComponents/MainContainer';
 
 class Hellopage extends React.Component {
 
@@ -39,7 +40,7 @@ Greeting = () => {
     if (this.props.isUserLoggedIn && this.props.userRole==0){
         return <AppNavigator/>
     } else if (this.props.isUserLoggedIn && this.props.userRole==1){
-        return <MainPage />
+        return <MainContainer />
     } else {
         return <ConfigNavigationHelloPage />
     }

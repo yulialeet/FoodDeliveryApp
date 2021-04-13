@@ -10,6 +10,7 @@ import {
   } from 'react-native';
 import { connect } from 'react-redux';
 import { ActionIsLoggedIn } from '../../store/actions/ActionIsLoggedIn';
+import { ActionManagerInfo } from '../../store/actions/ActionManagerInfo';
 import { ActionClientId, ActionUserId, ActionUserRole } from '../../store/actions/ActionUserRole';
   import {LoginPageStyle} from './LoginPageStyle'
 
@@ -28,11 +29,10 @@ class LoginPage extends React.Component {
             }))
             const resText = await res.json();
             if (resText.length !== 0) {
-                this.props.userLogIn(true)
+                
                 this.props.setUserRole(Number(resText.map((e) => e.UserRole)))
                 this.props.setUserId(Number(resText.map((e) => e.idUser)))
                 if (Number(resText.map((e) => e.UserRole)) == 0) {
-                    console.log('its client')
                     try {
                         const resk = await fetch(myURL+'/getClientId?idUser='+Number(resText.map((e) => e.idUser)))
                         const resTextk = await resk.json();
@@ -40,7 +40,16 @@ class LoginPage extends React.Component {
                     } catch(error) {
                         console.log(error);
                     }
+                } else {
+                    try {
+                        const infomanager = await fetch(myURL+'/infoAboutManager?idUser='+Number(resText.map((e) => e.idUser)))
+                        const infoManag = await infomanager.json()
+                        this.props.setManagerInfo(infoManag)
+                    } catch (error) {
+                        console.log(error)
+                    }
                 }
+                this.props.userLogIn(true)
             } else {
                 this.props.userLogIn(false)
                 Alert.alert('Неправильный логин или пароль')
@@ -96,7 +105,8 @@ const mapDispatchToProps = (dispatch) => {
         userLogIn: (eventt) => dispatch(ActionIsLoggedIn(eventt)),
         setUserRole: (role) => dispatch(ActionUserRole(role)),
         setUserId: (userId) => dispatch(ActionUserId(userId)),
-        setClientId: (clientId) => dispatch(ActionClientId(clientId))
+        setClientId: (clientId) => dispatch(ActionClientId(clientId)),
+        setManagerInfo: (inf) => dispatch(ActionManagerInfo(inf))
     }
 } 
 

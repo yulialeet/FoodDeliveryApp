@@ -123,7 +123,7 @@ app.get('/deliveryPrices', function (req, res){
   })
 
   app.get('/createNewOrder', function (req, res){
-    connection.query('INSERT INTO `orders` (`idOrder`, `ClientsAppidClient`, `RestaurantidRestaurant`, `OrderTime`, `TotalPrice`, `DescriptionToOrder`, `OrderStatus`) VALUES (NULL, ?, ?, CURRENT_TIMESTAMP, ?, NULL, NULL)', [req.query.idClient, req.query.idRest, req.query.priceTotal], function (error, results, fields) {
+    connection.query('INSERT INTO `orders` (`idOrder`, `ClientsAppidClient`, `RestaurantidRestaurant`, `OrderTime`, `TotalPrice`, `DescriptionToOrder`, `OrderStatus`) VALUES (NULL, ?, ?, CURRENT_TIMESTAMP, ?, ?, "Обрабатывается")', [req.query.idClient, req.query.idRest, req.query.priceTotal, req.query.description], function (error, results, fields) {
       if (error) throw error;
       else {
         res.send(results);
@@ -184,6 +184,35 @@ app.get('/deliveryPrices', function (req, res){
       }
     });
   })
+
+  app.get('/updateOrderStatus', function (req, res){
+    connection.query('UPDATE `orders` SET `OrderStatus` = ? WHERE `orders`.`idOrder` = ?', [req.query.orderStatus, req.query.idOrder], function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
+
+  app.get('/infoAboutManager', function (req, res){
+    connection.query('SELECT * FROM restaurantmanagers WHERE UsersAppidUser = ?', req.query.idUser, function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
+
+  app.get('/managerOrdersList', function (req, res){
+    connection.query('SELECT orders.idOrder, restaurant.NameRestaurant, orders.OrderTime, orders.TotalPrice, orders.DescriptionToOrder, orders.OrderStatus, dishes.NameDish, groupdishes.AmountDishes, clientsapp.FIO FROM orders INNER JOIN restaurant ON restaurant.idRestaurant=orders.RestaurantidRestaurant INNER JOIN groupdishes ON groupdishes.OrdersidOrder=orders.idOrder INNER JOIN dishes ON groupdishes.DishesidDish=dishes.idDish INNER JOIN clientsapp ON orders.ClientsAppidClient=clientsapp.idClient WHERE orders.RestaurantidRestaurant=?', req.query.idRest, function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
+
+  //UPDATE `orders` SET `OrderStatus` = 'Hissss' WHERE `orders`.`idOrder` = 1;
 
   //INSERT INTO `orders` (`idOrder`, `ClientsAppidClient`, `RestaurantidRestaurant`, `OrderTime`, `TotalPrice`, `DescriptionToOrder`, `OrderStatus`) VALUES (NULL, '1', '1', CURRENT_TIMESTAMP, '2250', NULL, NULL);
 

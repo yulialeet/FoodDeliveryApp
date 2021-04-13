@@ -1,13 +1,11 @@
 import React from 'react'
-import { FlatList, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Modal, Text, TouchableOpacity, View } from 'react-native'
 import { StyleUserOrders } from './StyleUserOrders'
 
 
 class UserOrders extends React.Component {
 
-    componentDidMount() {
-        console.log(this.props.ordersList)
-    }
+    
     render() {
         return(
             <View>
@@ -17,6 +15,7 @@ class UserOrders extends React.Component {
                     renderItem = {({item}) => (
                         <View style = {StyleUserOrders.elementsView}>
                             <View>
+                                <Text style = {StyleUserOrders.defaultText}>Статус заказа: {item.OrderStatus}</Text>
                                 <Text style = {StyleUserOrders.defaultText}>Заказ №{item.idOrder}</Text>
                                 <Text style = {StyleUserOrders.defaultText}>Ресторан: {item.NameRestaurant}</Text>
                                 <Text style = {StyleUserOrders.defaultText}>Время заказа: {item.OrderTime.split('-').join('.').split('T').join(' в ').slice(0, 18)}</Text>
@@ -43,6 +42,9 @@ class UserOrders extends React.Component {
 
                             <View style = {{marginTop: 15}}>
                                 <Text style = {StyleUserOrders.defaultText}>Сумма заказа: {item.TotalPrice} руб.</Text>
+                            </View>
+                            <View>
+                                <Text style = {StyleUserOrders.defaultText}>Описание к заказу: {item.DescriptionToOrder}</Text>
                             </View>
                         </View>
                     )}
