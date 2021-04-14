@@ -19,21 +19,21 @@ constructor(props){
 
 async componentDidMount() {
     try {
-//    const res = await fetch(myURL+'/restaurantsList?idRestaurant=1')
-    const res = await fetch(myURL+'/restaurantsList')
-    const resText = await res.json();
-    await this.props.setRestList(resText)
+        const res1 = await fetch(myURL+'/updateRatingRestaurants')
+        const res = await fetch(myURL+'/restaurantsList')
+        const resText = await res.json();
+        await this.props.setRestList(resText)
     } catch(error) {
-    console.log(error);
+        console.log(error);
     }
 
     try {
-            const res = await fetch(myURL+'/restaurantsCategory')
-            const resText = await res.json();
-            await this.props.setCategoriesRestaurantsList(resText)
-            } catch(error) {
-            console.log(error);
-            }
+        const res = await fetch(myURL+'/restaurantsCategory')
+        const resText = await res.json();
+        await this.props.setCategoriesRestaurantsList(resText)
+    } catch(error) {
+        console.log(error);
+    }
 }
 
 Greeting = () => {

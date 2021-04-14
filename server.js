@@ -212,6 +212,16 @@ app.get('/deliveryPrices', function (req, res){
     });
   })
 
+  app.get('/updateRatingRestaurants', function (req, res){
+    connection.query('UPDATE restaurant SET restaurant.RatingRest=(SELECT AVG(RateOfRestaurant) FROM reviews WHERE restaurant.idRestaurant=reviews.RestaurantidRestaurant GROUP BY reviews.RestaurantidRestaurant)', function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
+
+  //UPDATE restaurant SET restaurant.RatingRest=(SELECT AVG(RateOfRestaurant) FROM reviews WHERE restaurant.idRestaurant=reviews.RestaurantidRestaurant GROUP BY reviews.RestaurantidRestaurant)
   //UPDATE `orders` SET `OrderStatus` = 'Hissss' WHERE `orders`.`idOrder` = 1;
 
   //INSERT INTO `orders` (`idOrder`, `ClientsAppidClient`, `RestaurantidRestaurant`, `OrderTime`, `TotalPrice`, `DescriptionToOrder`, `OrderStatus`) VALUES (NULL, '1', '1', CURRENT_TIMESTAMP, '2250', NULL, NULL);
