@@ -48,9 +48,9 @@ class RestaurantsList extends React.Component{
                         renderItem = {({item}) => (
                             <TouchableOpacity style = {RestaurantsListStyle.container} onPress = {() => {
                                 this.props.toDoIt(item.idRestaurant);
-                                console.log(item.RatingRest)
                                 this.props.setNameRestaurant(item.NameRestaurant)
                                 this.isRestaurantWork(item.WorkTimeFrom, item.WorkTimeTo)
+                                
                                 //navigation.navigate('Food')
                             }}> 
                                 <View style = {{flex: 3}}>

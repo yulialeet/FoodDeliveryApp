@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {connect} from 'react-redux'
 import MainProfilePage from './MainProfilePage';
 import ContainerUserOrders from './ContainerUserOrders';
+import NewDeliveryAddress from './NewDeliveryAddress';
 
 const Stack = createStackNavigator();
 class NavigatorProfilePage extends React.Component {
@@ -37,6 +38,25 @@ class NavigatorProfilePage extends React.Component {
                     component={ContainerUserOrders}
                     options={{
                       title: 'Мои заказы',
+                      headerStyle: {
+                        backgroundColor: '#ffffff',
+                        elevation: 10,
+                      },
+                      headerTintColor: '#31B9CC',
+                      headerTitleStyle: {
+                        fontFamily: "Montserrat-Medium",
+                        fontSize: 26,
+                        elevation: 2,
+                        alignSelf: 'center',
+                        marginBottom: -10,
+                      },
+                    }}
+                />
+                <Stack.Screen 
+                    name="DeliveryAddress"
+                    component={NewDeliveryAddress}
+                    options={{
+                      title: 'Адрес доставки',
                       headerStyle: {
                         backgroundColor: '#ffffff',
                         elevation: 10,

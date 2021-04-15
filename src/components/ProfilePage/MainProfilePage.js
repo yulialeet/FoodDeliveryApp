@@ -21,7 +21,11 @@ export default MainProfilePage = () => {
                     </TouchableOpacity>
                 </View>
                 <View style = {StyleMainProfilePage.viewComp}>
-                    <TouchableOpacity style = {StyleMainProfilePage.components}>
+                    <TouchableOpacity 
+                        style = {StyleMainProfilePage.components}
+                        onPress = {() => {
+                            navigation.navigate('DeliveryAddress')
+                        }}>
                         <MaterialCommunityIcons name = 'map-marker-outline' color = {"#FECA57"} size={30} />
                         <Text style = {StyleMainProfilePage.textComponents}>Изменить адрес доставки</Text>
                     </TouchableOpacity>

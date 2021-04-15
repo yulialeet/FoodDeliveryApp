@@ -213,7 +213,25 @@ app.get('/deliveryPrices', function (req, res){
   })
 
   app.get('/updateRatingRestaurants', function (req, res){
-    connection.query('UPDATE restaurant SET restaurant.RatingRest=(SELECT AVG(RateOfRestaurant) FROM reviews WHERE restaurant.idRestaurant=reviews.RestaurantidRestaurant GROUP BY reviews.RestaurantidRestaurant)', function (error, results, fields) {
+    connection.query('UPDATE restaurant SET restaurant.RatingRest=(SELECT ROUND(AVG(RateOfRestaurant), 2) FROM reviews WHERE restaurant.idRestaurant=reviews.RestaurantidRestaurant GROUP BY reviews.RestaurantidRestaurant)', function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
+
+  app.get('/getDeliveryAddress', function (req, res){
+    connection.query('SELECT `DeliveryAddress` FROM `clientsapp` WHERE `clientsapp`.`idClient` = ?', req.query.idClient, function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
+
+  app.get('/updateDeliveryAddress', function (req, res){
+    connection.query('UPDATE `clientsapp` SET `DeliveryAddress` = ? WHERE `clientsapp`.`idClient` = ?', [req.query.deladdress, req.query.idClient], function (error, results, fields) {
       if (error) throw error;
       else {
         res.send(results);
