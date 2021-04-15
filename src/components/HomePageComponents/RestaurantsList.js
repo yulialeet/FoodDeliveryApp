@@ -5,6 +5,7 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import { connect } from 'react-redux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -16,9 +17,25 @@ import { ActionRestaurantNameHeader } from '../../store/actions/ActionRestaurant
 
 class RestaurantsList extends React.Component{
 
-    isRestaurantWork = (restTime) => {
-        let dat = new Date(restTime)
-        console.log(dat)
+    isRestaurantWork = (workFrom, workTo) => {
+        const { navigation } = this.props;
+        let currentHour = new Date().getHours()
+        let currentMinutes = new Date().getMinutes()
+        let workFrom1 = workFrom.slice(0, workFrom.lastIndexOf(':'))
+        let workTo1 = workTo.slice(0, workTo.lastIndexOf(':'))
+        let workToHours = workTo1.slice(0, 2)
+        let workToMinutes = workTo1.slice(3, 5)
+        let workFromHours = workFrom1.slice(0, 2)
+        let workFromMinutes = workFrom1.slice(3, 5)
+            if ((currentHour < workFromHours && currentHour > workToHours) || 
+            (currentHour == workToHours && currentMinutes > workToMinutes) ||
+            (currentHour == workFromHours && currentMinutes < workFromMinutes)) {
+                Alert.alert('Ресторан уже закрылся, выберите другой')
+            }
+            else {
+                navigation.navigate('Food')
+            }
+            
     }
     render(){
     const { navigation } = this.props;
@@ -31,9 +48,10 @@ class RestaurantsList extends React.Component{
                         renderItem = {({item}) => (
                             <TouchableOpacity style = {RestaurantsListStyle.container} onPress = {() => {
                                 this.props.toDoIt(item.idRestaurant);
+                                console.log(item.RatingRest)
                                 this.props.setNameRestaurant(item.NameRestaurant)
-                                this.isRestaurantWork(item.WorkTimeTo)
-                                navigation.navigate('Food')
+                                this.isRestaurantWork(item.WorkTimeFrom, item.WorkTimeTo)
+                                //navigation.navigate('Food')
                             }}> 
                                 <View style = {{flex: 3}}>
                                         <Text style = {RestaurantsListStyle.namerest}>{item.NameRestaurant}</Text>

@@ -38,7 +38,7 @@ useEffect(() => {
       }
     }
     setLists()
-})
+}, [])
 
 
 
