@@ -12,6 +12,7 @@ class MainRestaurantsInfo extends React.Component {
         LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     }
     render() {
+        
         return (
             <ScrollView style = {{flex: 1}}>
                 <DescriptionAboutRestaurant/>

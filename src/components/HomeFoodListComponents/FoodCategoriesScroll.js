@@ -8,7 +8,6 @@ import {
 import {FoodCategoriesStyle} from './HomeFoodStyles/FoodCategoriesStyle'
 import { connect } from 'react-redux'
 import myURL from '../../CommonURL/myURL'
-import  { ActionRestaurantToFoodList }  from '../../store/actions/ActionRestaurantToFoodList'
 import { ActionTakeDishesList } from '../../store/actions/ActionTakeDishesList';
 
 class ScrollCategories extends React.Component {

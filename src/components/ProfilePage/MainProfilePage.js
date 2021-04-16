@@ -1,12 +1,14 @@
 import React from 'react'
 import { useNavigation } from '@react-navigation/core';
 import { Text, TouchableOpacity, View } from 'react-native'
-import {connect} from 'react-redux'
+import {connect, useDispatch} from 'react-redux'
 import { StyleMainProfilePage } from './StyleMainProfilePage'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { ActionIsLoggedIn } from '../../store/actions/ActionIsLoggedIn';
 
 export default MainProfilePage = () => {
     const navigation = useNavigation();
+    const dispatch = useDispatch()
         return (
             <View style = {{flex: 1}}>
                 <View style = {StyleMainProfilePage.viewComp}>
@@ -34,6 +36,18 @@ export default MainProfilePage = () => {
                     <TouchableOpacity style = {StyleMainProfilePage.components}>
                         <MaterialCommunityIcons name = 'podium' color = {"#FECA57"} size={30}/>
                         <Text style = {StyleMainProfilePage.textComponents}>Моя статистика</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style = {StyleMainProfilePage.viewComp}>
+                    <TouchableOpacity
+                        style = {StyleMainProfilePage.components}
+                        onPress = {() => {
+                            dispatch(ActionIsLoggedIn(false))
+                        }}
+                    >
+                        <MaterialCommunityIcons name = 'exit-to-app' color = {"#FECA57"} size={30}/>
+                        <Text style = {StyleMainProfilePage.textComponents}>Выход</Text>
                     </TouchableOpacity>
                 </View>
             </View>

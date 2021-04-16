@@ -213,7 +213,7 @@ app.get('/deliveryPrices', function (req, res){
   })
 
   app.get('/updateRatingRestaurants', function (req, res){
-    connection.query('UPDATE restaurant SET restaurant.RatingRest=(SELECT ROUND(AVG(RateOfRestaurant), 2) FROM reviews WHERE restaurant.idRestaurant=reviews.RestaurantidRestaurant GROUP BY reviews.RestaurantidRestaurant)', function (error, results, fields) {
+    connection.query('UPDATE restaurant SET restaurant.RatingRest=(SELECT ROUND(AVG(RateOfRestaurant),1) FROM reviews WHERE restaurant.idRestaurant=reviews.RestaurantidRestaurant GROUP BY reviews.RestaurantidRestaurant)', function (error, results, fields) {
       if (error) throw error;
       else {
         res.send(results);
@@ -238,6 +238,16 @@ app.get('/deliveryPrices', function (req, res){
       }
     });
   })
+
+  app.get('/nameRestaurant', function (req, res){
+    connection.query('SELECT NameRestaurant FROM restaurant where idRestaurant=?', req.query.idRest, function (error, results, fields) {
+      if (error) throw error;
+      else {
+        res.send(results);
+      }
+    });
+  })
+
 
   //UPDATE restaurant SET restaurant.RatingRest=(SELECT AVG(RateOfRestaurant) FROM reviews WHERE restaurant.idRestaurant=reviews.RestaurantidRestaurant GROUP BY reviews.RestaurantidRestaurant)
   //UPDATE `orders` SET `OrderStatus` = 'Hissss' WHERE `orders`.`idOrder` = 1;

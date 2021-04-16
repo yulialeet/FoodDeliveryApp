@@ -16,7 +16,7 @@ const StyleMainProfilePage = StyleSheet.create({
         borderBottomWidth: 3, 
         borderColor: '#31B9CC', 
         backgroundColor: 'white'
-    }
+    },
 })
 
 export {StyleMainProfilePage}

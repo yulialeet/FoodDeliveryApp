@@ -50,7 +50,7 @@ ContainerUserOrders = (props) => {
       if (isRender && list.length !== 0) {
         return(
           <SafeAreaView style = {{flex: 1}}>
-              <UserOrders ordersList = {list}/>
+              <UserOrders ordersList = {list.reverse()}/>
           </SafeAreaView>
         )
       }
