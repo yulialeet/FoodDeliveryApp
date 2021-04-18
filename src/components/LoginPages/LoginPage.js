@@ -13,7 +13,7 @@ import { ActionIsLoggedIn } from '../../store/actions/ActionIsLoggedIn';
 import { ActionManagerInfo } from '../../store/actions/ActionManagerInfo';
 import { ActionClientId, ActionUserId, ActionUserRole } from '../../store/actions/ActionUserRole';
   import {LoginPageStyle} from './LoginPageStyle'
-
+import myURL from '../../CommonURL/myURL'
 
 class LoginPage extends React.Component {
 
