@@ -254,7 +254,7 @@ app.get('/deliveryPrices', function (req, res){
 
   //INSERT INTO `orders` (`idOrder`, `ClientsAppidClient`, `RestaurantidRestaurant`, `OrderTime`, `TotalPrice`, `DescriptionToOrder`, `OrderStatus`) VALUES (NULL, '1', '1', CURRENT_TIMESTAMP, '2250', NULL, NULL);
 
-app.listen(8082, function () {
+app.listen(process.env.PORT || PORT, function () {
     console.log('okayyy')
 });
 console.log('App is listening on port ');
