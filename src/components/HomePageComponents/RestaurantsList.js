@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   Alert,
+  ActivityIndicator
 } from 'react-native';
 import { connect } from 'react-redux'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -37,8 +38,18 @@ class RestaurantsList extends React.Component{
             }
             
     }
-    render(){
-    const { navigation } = this.props;
+
+    shouldRender = () => {
+        if (this.props.isLoading) {
+            return (
+                <View style = {{flex: 1, justifyContent: 'center'}}>
+                    <ActivityIndicator 
+                        size = "large" 
+                        color="#FECA57"
+                    />
+                </View>
+            )
+        } else {
             return (
                 <View style = {RestaurantsListStyle.firview}>
                     <FlatList
@@ -50,8 +61,6 @@ class RestaurantsList extends React.Component{
                                 this.props.toDoIt(item.idRestaurant);
                                 this.props.setNameRestaurant(item.NameRestaurant)
                                 this.isRestaurantWork(item.WorkTimeFrom, item.WorkTimeTo)
-                                
-                                //navigation.navigate('Food')
                             }}> 
                                 <View style = {{flex: 3}}>
                                         <Text style = {RestaurantsListStyle.namerest}>{item.NameRestaurant}</Text>
@@ -77,12 +86,19 @@ class RestaurantsList extends React.Component{
                     />
                 </View>
             )
-        
-}}
+        }
+    }
+    render(){
+        return (
+            <this.shouldRender />
+        )
+    }
+}
 
 const mapStateToProps = (state) => {
     return{
-        RestaurantsListFromServer: state.listOfRestaurants.RestaurantsListFromServer
+        RestaurantsListFromServer: state.listOfRestaurants.RestaurantsListFromServer,
+        isLoading: state.isLoading.isLoading
     }
 }
 

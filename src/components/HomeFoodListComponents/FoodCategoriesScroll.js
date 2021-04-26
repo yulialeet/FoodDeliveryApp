@@ -9,6 +9,7 @@ import {FoodCategoriesStyle} from './HomeFoodStyles/FoodCategoriesStyle'
 import { connect } from 'react-redux'
 import myURL from '../../CommonURL/myURL'
 import { ActionTakeDishesList } from '../../store/actions/ActionTakeDishesList';
+import { ActionIsLoading } from '../../store/actions/ActionIsLoading';
 
 class ScrollCategories extends React.Component {
     state = {
@@ -31,6 +32,7 @@ class ScrollCategories extends React.Component {
         } catch(error) {
         console.log(error);
         }
+        this.props.setLoading(false)
     }
 
 
@@ -44,6 +46,7 @@ class ScrollCategories extends React.Component {
                     keyExtractor={(item, index) => index.toString()}
                     renderItem = {({item}) => (
                         <TouchableOpacity onPress = {() => {
+                            this.props.setLoading(true)
                             this.SelectedCategoryState(item.idCategoryDish)
                         }} >
                             <Text style = {[item.idCategoryDish === this.state.isCategorySelected ? FoodCategoriesStyle.selectedComponentStyle: FoodCategoriesStyle.defaultComponentStyle]} >{item.NameCategory}</Text>
@@ -65,6 +68,7 @@ class ScrollCategories extends React.Component {
     const mapDispatchToProps = (dispatch) => {
         return{
             setDishList: (eventt) => dispatch(ActionTakeDishesList(eventt)),
+            setLoading: (isLoad) => dispatch(ActionIsLoading(isLoad))
         }
     }
 

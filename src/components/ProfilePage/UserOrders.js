@@ -5,6 +5,19 @@ import { StyleUserOrders } from './StyleUserOrders'
 
 class UserOrders extends React.Component {
 
+    setStatusOrder = (statOrd) => {
+        if (statOrd == 'Обрабатывается') {
+            return (<Text style = {{fontFamily: 'Montserrat-Medium', fontSize: 16, color: '#31B9CC'}}>Обрабатывается</Text>)
+        } else if (statOrd == 'Готовится'){
+            return (<Text style = {{fontFamily: 'Montserrat-Medium', fontSize: 16, color: 'orange'}}>Готовится</Text>)
+        } else if (statOrd == 'Курьер выехал'){
+            return (<Text style = {{fontFamily: 'Montserrat-Medium', fontSize: 16, color: '#FECA57'}}>Курьер выехал</Text>)
+        } else if (statOrd == 'Выполнен'){
+            return (<Text style = {{fontFamily: 'Montserrat-Medium', fontSize: 16, color: 'green'}}>Выполнен</Text>)
+        } else {
+            return (<Text>{statOrd}</Text>)
+        }
+    }
     
     render() {
         return(
@@ -15,7 +28,7 @@ class UserOrders extends React.Component {
                     renderItem = {({item}) => (
                         <View style = {StyleUserOrders.elementsView}>
                             <View>
-                                <Text style = {StyleUserOrders.defaultText}>Статус заказа: {item.OrderStatus}</Text>
+                                <Text style = {StyleUserOrders.defaultText}>Статус заказа: {this.setStatusOrder(item.OrderStatus)}</Text>
                                 <Text style = {StyleUserOrders.defaultText}>Заказ №{item.idOrder}</Text>
                                 <Text style = {StyleUserOrders.defaultText}>Ресторан: {item.NameRestaurant}</Text>
                                 <Text style = {StyleUserOrders.defaultText}>Время заказа: {item.OrderTime.split('-').join('.').split('T').join(' в ').slice(0, 18)}</Text>

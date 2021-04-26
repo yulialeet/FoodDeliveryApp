@@ -4,7 +4,7 @@ const StyleMainPage = StyleSheet.create({
     mainCont: {
         display: 'flex',
         justifyContent: 'center',
-        marginTop: 120
+        marginTop: 50
     },
     defaultText: {
         fontFamily: 'Montserrat-Light',
@@ -23,7 +23,7 @@ const StyleMainPage = StyleSheet.create({
         fontFamily: 'Montserrat-Light',
         fontSize: 40,
         textAlign: 'center',
-        marginTop: 80
+        marginTop: 50
     }
 })
 

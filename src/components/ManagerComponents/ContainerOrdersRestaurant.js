@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux'
+import { useNavigation } from '@react-navigation/core';
 import { SafeAreaView, View,  ActivityIndicator, Text} from 'react-native'
 import OrdersRestaurant from './OrdersRestaurant'
 import myURL from '../../CommonURL/myURL'
@@ -27,6 +28,7 @@ ContainerOrdersRestaurant = (props) => {
                                 DescriptionToOrder: item.DescriptionToOrder, 
                                 OrderStatus: item.OrderStatus,
                                 ClientName: item.FIO,
+                                deliveryAddress: item.DeliveryAddress,
                                 data : [] };
                     sections.push(section);
                  }
@@ -46,11 +48,11 @@ ContainerOrdersRestaurant = (props) => {
           setList()
       }, [])
       
-
+      const navigation = useNavigation();
       if (isRender && list.length !== 0) {
         return(
           <SafeAreaView style = {{flex: 1}}>
-              <OrdersRestaurant ordersList = {list.reverse()}/>
+              <OrdersRestaurant ordersList = {list} navigation = {navigation}/>
           </SafeAreaView>
         )
       }

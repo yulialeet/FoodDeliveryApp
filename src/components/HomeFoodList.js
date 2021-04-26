@@ -67,7 +67,8 @@ const navigation = useNavigation();
 
 const mapStateToProps = (state) => {
   return{
-      TakeIdRestaurant: state.nameRestaurant.nameRestaurant
+      TakeIdRestaurant: state.nameRestaurant.nameRestaurant,
+      isLoad: state.isLoading.isLoadingR
   }
 }
 

@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     Alert,
     TextInput,
-    TouchableNativeFeedbackBase
+    ActivityIndicator
   } from 'react-native';
 import { connect } from 'react-redux';
 import { ActionIsLoggedIn } from '../../store/actions/ActionIsLoggedIn';
@@ -19,9 +19,11 @@ class LoginPage extends React.Component {
 
     state = {
         login: '',
-        password: ''
+        password: '',
+        isLoad: false
     }
     LogInPress = async(loginuser, passw) => {
+        this.setState({isLoad: true})
         try {
             const res = await fetch(myURL+'/loginuser?' + new URLSearchParams({
                 login: loginuser,
@@ -57,46 +59,68 @@ class LoginPage extends React.Component {
         } catch(error) {
             console.log(error);
         }
+        
     }
 
-    render(){
-        const { navigation } = this.props;
-        return(
-            <View style = {LoginPageStyle.defaultView}>
-                <View style = {LoginPageStyle.viewForInputs}>
-                    <TextInput 
-                        style = {LoginPageStyle.areaInput}
-                        placeholder="Номер телефона"
-                        onChangeText={(text) => this.setState({login:text})}
+
+    componentWillUnmount() {
+        this.setState({isLoad: false})
+    }
+
+    shouldRender = () => {
+        if (this.state.isLoad) {
+            return (
+                <View style = {{flex: 1, justifyContent: 'center'}}>
+                    <ActivityIndicator 
+                        size = "large" 
+                        color="#FECA57"
                     />
-
-                    <TextInput 
-                        style = {LoginPageStyle.areaInput}
-                        placeholder="Пароль"
-                        secureTextEntry={true}
-                        onChangeText={(text) => this.setState({password:text})}
-                    />
-                    <TouchableOpacity 
-                        style = {LoginPageStyle.buttonOpacity}
-                        onPress = {() => {
-                            this.LogInPress(this.state.login, this.state.password)
-                        }}
-                    >
-                        <Text style = {LoginPageStyle.textSignIn}>Вход</Text>
-                    </TouchableOpacity>
-
-
-                    <Text style = {LoginPageStyle.textForRegistration}>Еще нет аккаунта?</Text>
-                    <TouchableOpacity 
-                        style = {LoginPageStyle.buttonOpacity}
-                        onPress = {() => {
-                            navigation.navigate('Registration')
-                        }}
-                    >
-                        <Text style = {LoginPageStyle.textSignIn}>Регистрация</Text>
-                    </TouchableOpacity>
                 </View>
-            </View>
+            )
+        } else {
+            const { navigation } = this.props;
+                return(
+                    <View style = {LoginPageStyle.defaultView}>
+                        <View style = {LoginPageStyle.viewForInputs}>
+                            <TextInput 
+                                style = {LoginPageStyle.areaInput}
+                                placeholder="Номер телефона"
+                                onChangeText={(text) => this.setState({login:text})}
+                            />
+
+                            <TextInput 
+                                style = {LoginPageStyle.areaInput}
+                                placeholder="Пароль"
+                                secureTextEntry={true}
+                                onChangeText={(text) => this.setState({password:text})}
+                            />
+                            <TouchableOpacity 
+                                style = {LoginPageStyle.buttonOpacity}
+                                onPress = {() => {
+                                    this.LogInPress(this.state.login, this.state.password)
+                                }}
+                            >
+                                <Text style = {LoginPageStyle.textSignIn}>Вход</Text>
+                            </TouchableOpacity>
+
+
+                            <Text style = {LoginPageStyle.textForRegistration}>Еще нет аккаунта?</Text>
+                            <TouchableOpacity 
+                                style = {LoginPageStyle.buttonOpacity}
+                                onPress = {() => {
+                                    navigation.navigate('Registration')
+                                }}
+                            >
+                                <Text style = {LoginPageStyle.textSignIn}>Регистрация</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                )
+        }
+    }
+    render(){
+        return( 
+            <this.shouldRender />
         )
     }
 }

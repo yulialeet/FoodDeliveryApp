@@ -10,6 +10,7 @@ import { ScrollCategoriesStyle } from "./HomeStyles/ScrollCategoriesStyle"
 import { connect } from 'react-redux'
 import myURL from '../../CommonURL/myURL'
 import { ActionTakeRestaurantsList } from '../../store/actions/ActionTakeRestaurantsList'
+import { ActionIsLoading } from '../../store/actions/ActionIsLoading';
 
 
 class ScrollCategories extends React.Component {
@@ -34,6 +35,7 @@ changeCategory = async() => {
     const res = await fetch(myURL+'/restaurantsForCategory?idCategory='+this.state.isCategorySelected)
     const resText = await res.json();
     await this.props.setRestList(resText)
+    this.props.setLoading(false)
     } catch(error) {
     console.log(error);
     }
@@ -49,6 +51,7 @@ render(){
                 keyExtractor={(item, index) => index.toString()}
                 renderItem = {({item}) => (
                     <TouchableOpacity onPress = {() => {
+                        this.props.setLoading(true)
                         this.SelectedCategoryState(item.idCategoryRestaurant)
                         
                     }} >
@@ -71,7 +74,8 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        setRestList: (listOfRestaurants) => dispatch(ActionTakeRestaurantsList(listOfRestaurants))
+        setRestList: (listOfRestaurants) => dispatch(ActionTakeRestaurantsList(listOfRestaurants)),
+        setLoading: (isLoad) => dispatch(ActionIsLoading(isLoad))
     }
   }
 

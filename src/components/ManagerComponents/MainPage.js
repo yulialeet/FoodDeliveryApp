@@ -2,6 +2,7 @@ import React from 'react'
 import { Text, View, ActivityIndicator, TouchableOpacity} from 'react-native'
 import { connect } from 'react-redux';
 import myURL from '../../CommonURL/myURL';
+import { ActionIsLoggedIn } from '../../store/actions/ActionIsLoggedIn';
 import { StyleMainPage } from './StyleMainPage';
 
 class MainPage extends React.Component {
@@ -46,11 +47,29 @@ class MainPage extends React.Component {
                     >
                         <Text style = {StyleMainPage.defaultText}>Заказы</Text>
                     </TouchableOpacity>
+
                     <TouchableOpacity
                         style = {StyleMainPage.touchBox}
-                    
+                        onPress = {() => {
+                            navigation.navigate('EditMenu')
+                        }}
+                    >
+                        <Text style = {StyleMainPage.defaultText}>Редактировать меню</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style = {StyleMainPage.touchBox}
                     >
                         <Text style = {StyleMainPage.defaultText}>Статистика</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style = {StyleMainPage.touchBox}
+                        onPress = {() => {
+                            this.props.signOut(false)
+                        }}
+                    >
+                        <Text style = {StyleMainPage.defaultText}>Выйти</Text>
                     </TouchableOpacity>
                 </View>
                 </View>
@@ -67,10 +86,16 @@ class MainPage extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    return{
+    return {
         infoManager: state.infoManager.infoManager
     }
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signOut: (par) => dispatch(ActionIsLoggedIn(par))
+    }
+}
 
-export default connect(mapStateToProps)(MainPage)
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage)

@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native'
 
-const StyleUserOrders = StyleSheet.create({
+const StyleOrdersRestaurant = StyleSheet.create({
     elementsView: {
         backgroundColor: 'white',
         margin: 10,
@@ -12,11 +12,13 @@ const StyleUserOrders = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginLeft: 40
+        borderBottomWidth: 1,
+        borderColor: '#C1C1C1',
+        margin: 7
     },
     defaultText: {
-        fontFamily: 'Montserrat-Light',
-        fontSize: 16
+        fontFamily: 'Montserrat-Regular',
+        fontSize: 18
     },
     elementsViewReady: {
         backgroundColor: '#DCFFDD',
@@ -27,4 +29,4 @@ const StyleUserOrders = StyleSheet.create({
     },
 })
 
-export {StyleUserOrders}
+export {StyleOrdersRestaurant}

@@ -44,6 +44,7 @@
         "react-validation": "^3.0.7",
         "redux": "^4.0.5",
         "request": "^2.88.2",
+        "rn-fetch-blob": "^0.12.0",
         "utf8": "^3.0.0",
         "validator": "^13.5.2"
     },

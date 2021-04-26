@@ -8,8 +8,9 @@ import {
 import {ReviewsAndWorkTimeStyle} from './HomeFoodStyles/ReviewsAndWorkTimeStyle'
 import { connect } from 'react-redux'
 import { ActionInfoAboutRestaurant } from '../../store/actions/ActionInfoAboutRestaurant'
-import  myURL  from '../../CommonURL/myURL'
+
 import { ActionReviewsRestaurant } from '../../store/actions/ActionReviewsRestaurant'
+import { ActionPressReviews } from '../../store/actions/ActionIsLoading'
 
 class ReviewsAndWorkTime extends React.Component {
 
@@ -17,30 +18,7 @@ class ReviewsAndWorkTime extends React.Component {
         isLoad1: false,
         isLoad2: false
     }
-    showInfo = async() => {
-        try {
-            const res = await fetch(myURL+'/infoAboutRestaurant?idRest='+this.props.TakeIdRestaurant)
-            const resText = await res.json();
-            await this.props.setInfoRest(resText)
-            this.reviewsRestaurants()
-            
-        } catch(error) {
-            console.log(error);
-        }
-    }
-
-    reviewsRestaurants = async() => {
-        
-        const { navigation } = this.props;
-        try {
-            const res = await fetch(myURL+'/reviewsList?idRest='+this.props.TakeIdRestaurant)
-            const resText = await res.json();
-            await this.props.setReviewsList(resText)
-            navigation.navigate('AboutRestaurant')
-        } catch(error) {
-            console.log(error);
-        }
-    }
+    
 
 
     render() {
@@ -51,8 +29,8 @@ class ReviewsAndWorkTime extends React.Component {
                     <TouchableOpacity 
                         style = {ReviewsAndWorkTimeStyle.childContainer}
                         onPress = {() => {
-                            this.showInfo()
-                            
+                            this.props.setLoading(true)
+                            navigation.navigate('AboutRestaurant')
                         }}
                     >
                         <Text style = {ReviewsAndWorkTimeStyle.textStyle}>О ресторане, отзывы</Text>
@@ -73,7 +51,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         setInfoRest: (infoRest) => dispatch(ActionInfoAboutRestaurant(infoRest)),
-        setReviewsList: (reviews) => dispatch(ActionReviewsRestaurant(reviews))
+        setReviewsList: (reviews) => dispatch(ActionReviewsRestaurant(reviews)),
+        setLoading: (isLoad) => dispatch(ActionPressReviews(isLoad))
     }
 }
 

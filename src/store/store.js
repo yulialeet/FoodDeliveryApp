@@ -15,6 +15,7 @@ import ReducerUserRole from './reducers/ReducerUserRole';
 import ReducerInfoAboutRestaurant from './reducers/ReducerInfoAboutRestaurant';
 import ReducerReviewsRestaurant from './reducers/ReducerReviewsRestaurant';
 import ReducerManagerInfo from './reducers/ReducerManagerInfo';
+import ReducerIsLoading from './reducers/ReducerIsLoading';
 
 
 //const store = createStore(restaurantListToFoodList);
@@ -35,7 +36,8 @@ const store = createStore(
         userRole: ReducerUserRole,
         infoAboutRest: ReducerInfoAboutRestaurant,
         reviewsList: ReducerReviewsRestaurant,
-        infoManager: ReducerManagerInfo
+        infoManager: ReducerManagerInfo,
+        isLoading: ReducerIsLoading
     })
 )
 export default store;

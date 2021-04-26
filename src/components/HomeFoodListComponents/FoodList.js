@@ -6,6 +6,7 @@ import {
     FlatList,
     TouchableOpacity,
     Alert,
+    ActivityIndicator
 } from 'react-native';
 import { connect } from 'react-redux'
 import { FoodListStyle } from './HomeFoodStyles/FoodListStyle'
@@ -50,53 +51,70 @@ class FoodList extends React.Component {
         }
     }
 
-    render() {
-        const { navigation } = this.props;
-    return (
-        <View style = {FoodListStyle.mainView}>
-            <FlatList
-                data = {this.props.DishesList}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem = {({item}) => (
-                    <TouchableOpacity style = {FoodListStyle.mainContainer} onPress = {() => { 
-                        
-                        this.props.setId(item.idDish),
-                        navigation.navigate('FoodPage')
-                    }}
-                    >
-                            <View>
-                                <Text style = {FoodListStyle.nameOfRestaurant}>{item.NameDish}</Text>
-                                <View style = {FoodListStyle.buttonAndPriceView}>
-                                    <TouchableOpacity 
-                                        style = {FoodListStyle.buttonAdd}
-                                        onPress = {() => {
-                                            this.checkIsRestaurantAlreadyInCart(item.RestaurantidRestaurant, item.idDish, this.props.currentNameRestaurant)
-                                        }}
-                                    >
-                                        <Text style = {FoodListStyle.textAdd}>Добавить</Text>
-                                    </TouchableOpacity>
-                                    <Text style = {FoodListStyle.priceOfFood}>{item.PriceDish} р.</Text>
-                                </View>
-                            </View>
+    shouldRender = () => {
+        if (this.props.isLoad) {
+            return (
+                <View style = {{flex: 1, justifyContent: 'center'}}>
+                    <ActivityIndicator 
+                        size = "large" 
+                        color="#FECA57"
+                    />
+                </View>
+            )
+        } else {
+            const { navigation } = this.props;
+            return (
+                <View style = {FoodListStyle.mainView}>
+                    <FlatList
+                        data = {this.props.DishesList}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem = {({item}) => (
+                            <TouchableOpacity style = {FoodListStyle.mainContainer} onPress = {() => { 
+                                
+                                this.props.setId(item.idDish),
+                                navigation.navigate('FoodPage')
+                            }}
+                            >
+                                    <View>
+                                        <Text style = {FoodListStyle.nameOfRestaurant}>{item.NameDish}</Text>
+                                        <View style = {FoodListStyle.buttonAndPriceView}>
+                                            <TouchableOpacity 
+                                                style = {FoodListStyle.buttonAdd}
+                                                onPress = {() => {
+                                                    this.checkIsRestaurantAlreadyInCart(item.RestaurantidRestaurant, item.idDish, this.props.currentNameRestaurant)
+                                                }}
+                                            >
+                                                <Text style = {FoodListStyle.textAdd}>Добавить</Text>
+                                            </TouchableOpacity>
+                                            <Text style = {FoodListStyle.priceOfFood}>{item.PriceDish} р.</Text>
+                                        </View>
+                                    </View>
 
-                            <View>
-                                <Image
-                                    source = {{uri: "data:image/png;base64,"+Buffer.from(item.PhotoDish).toString('base64')}}
-                                    style = {FoodListStyle.pictureFood}
-                                />
-                            </View>
-                    </TouchableOpacity>
-                )}
-            />
-        </View>
-    )
+                                    <View>
+                                        <Image
+                                            source = {{uri: "data:image/png;base64,"+Buffer.from(item.PhotoDish).toString('base64')}}
+                                            style = {FoodListStyle.pictureFood}
+                                        />
+                                    </View>
+                            </TouchableOpacity>
+                        )}
+                    />
+                </View>
+            )
+        }
+    }
+    render() {
+        return(
+            <this.shouldRender />
+        )
 }}
 
 const mapStateToProps = (state) => {
     return{
         DishesList: state.dishesList.DishesList,
         currentCartRest: state.currentIdRest.currentId,
-        currentNameRestaurant: state.headerRestaurantName.nameRestaurant
+        currentNameRestaurant: state.headerRestaurantName.nameRestaurant,
+        isLoad: state.isLoading.isLoading
     }
 }
 

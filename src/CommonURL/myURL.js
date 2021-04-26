@@ -1,1 +1,1 @@
-export default myURL = 'https://fooddeliveryappyulia.herokuapp.com'
+export default myURL = 'https://fooddeliveryappserveryulia.herokuapp.com'

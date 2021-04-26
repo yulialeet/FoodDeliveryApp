@@ -74,8 +74,6 @@ class DishesListBasket extends React.Component {
     }
 
     newOrder = async(totalPrice) => {
-        //console.log(this.props.cartList.dishesInfo.length)
-        //for (let i = 0; i < this.props.cartList.dishesInfo.length; i++) {
             this.setState({isLoading: true})
             try {
                 const resk = await fetch(myURL+'/createNewOrder?' + new URLSearchParams({
@@ -152,7 +150,6 @@ class DishesListBasket extends React.Component {
                                         if (item.count !== 1) {
                                             this.props.removeProd(item[0].idDish)
                                             this.props.addToCart(item[0].idDish, item.count-1)
-                                            //this.isFreeDelivery(Number(this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom)))
                                             return item.count = item.count-1
                 
                                         }
@@ -172,7 +169,6 @@ class DishesListBasket extends React.Component {
                                     onPress = {() => {
                                             this.props.removeProd(item[0].idDish)
                                             this.props.addToCart(item[0].idDish, item.count+1)
-                                            //this.isFreeDelivery(Number(this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom)))
                                             return item.count = item.count+1
                                             
                                     }}
@@ -266,7 +262,6 @@ class DishesListBasket extends React.Component {
         } else {
             totPrice = totalPrice
         }
-        //this.isFreeDelivery(Number(this.props.deliveryPrices.map((e) => e.FreeDeliveryFrom)))
         return (
             <this.ShouldRender totalPrice = {totPrice}/>
         )

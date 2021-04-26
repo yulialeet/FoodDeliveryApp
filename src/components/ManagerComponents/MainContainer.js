@@ -6,6 +6,8 @@ import MainPage from './MainPage';
 import { NavigationContainer } from '@react-navigation/native';
 import MainPageContainer from './MainPageContainer';
 import ContainerOrdersRestaurant from './ContainerOrdersRestaurant';
+import ContainerComponent from './DishesEdit/ContainerComponent';
+import AddDish from './DishesEdit/AddDish';
 
 
 const Stack = createStackNavigator();
@@ -35,6 +37,7 @@ MainContainer = () => {
                         elevation: 2,
                         alignSelf: 'center',
                         marginBottom: -10,
+                        marginLeft: -50,
                       },
                     }}
                 />
@@ -54,6 +57,7 @@ MainContainer = () => {
                         elevation: 2,
                         alignSelf: 'center',
                         marginBottom: -10,
+                        marginLeft: -50,
                       },
                     }}
                 />
@@ -76,6 +80,48 @@ MainContainer = () => {
                       },
                     }}
                 />
+
+                <Stack.Screen 
+                    name="EditMenu"
+                    component={ContainerComponent}
+                    options={{
+                      title: 'Меню',
+                      headerStyle: {
+                        backgroundColor: '#ffffff',
+                        elevation: 10,
+                      },
+                      headerTintColor: '#31B9CC',
+                      headerTitleStyle: {
+                        fontFamily: "Montserrat-Medium",
+                        fontSize: 26,
+                        elevation: 2,
+                        alignSelf: 'center',
+                        marginBottom: -10,
+                        marginLeft: -50,
+                      },
+                    }}
+                />  
+
+                <Stack.Screen 
+                    name="AddDish"
+                    component={AddDish}
+                    options={{
+                      title: 'Добавить блюдо',
+                      headerStyle: {
+                        backgroundColor: '#ffffff',
+                        elevation: 10,
+                      },
+                      headerTintColor: '#31B9CC',
+                      headerTitleStyle: {
+                        fontFamily: "Montserrat-Medium",
+                        fontSize: 26,
+                        elevation: 2,
+                        alignSelf: 'center',
+                        marginBottom: -10,
+                        marginLeft: -50,
+                      },
+                    }}
+                />  
                 
             </Stack.Navigator>
             </NavigationContainer>
