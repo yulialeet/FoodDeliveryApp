@@ -8,6 +8,8 @@ import MainPageContainer from './MainPageContainer';
 import ContainerOrdersRestaurant from './ContainerOrdersRestaurant';
 import ContainerComponent from './DishesEdit/ContainerComponent';
 import AddDish from './DishesEdit/AddDish';
+import DeleteDishes from './DishesEdit/DeleteDishes';
+import MainPageStatistic from './Statistic/MainPageStatistic';
 
 
 const Stack = createStackNavigator();
@@ -123,6 +125,46 @@ MainContainer = () => {
                     }}
                 />  
                 
+                <Stack.Screen 
+                    name="DeleteDish"
+                    component={DeleteDishes}
+                    options={{
+                      title: 'Удалить блюда',
+                      headerStyle: {
+                        backgroundColor: '#ffffff',
+                        elevation: 10,
+                      },
+                      headerTintColor: '#31B9CC',
+                      headerTitleStyle: {
+                        fontFamily: "Montserrat-Medium",
+                        fontSize: 26,
+                        elevation: 2,
+                        alignSelf: 'center',
+                        marginBottom: -10,
+                        marginLeft: -50,
+                      },
+                    }}
+                />  
+                <Stack.Screen 
+                    name="Statistic"
+                    component={MainPageStatistic}
+                    options={{
+                      title: 'Статистика',
+                      headerStyle: {
+                        backgroundColor: '#ffffff',
+                        elevation: 10,
+                      },
+                      headerTintColor: '#31B9CC',
+                      headerTitleStyle: {
+                        fontFamily: "Montserrat-Medium",
+                        fontSize: 26,
+                        elevation: 2,
+                        alignSelf: 'center',
+                        marginBottom: -10,
+                        marginLeft: -50,
+                      },
+                    }}
+                /> 
             </Stack.Navigator>
             </NavigationContainer>
         )

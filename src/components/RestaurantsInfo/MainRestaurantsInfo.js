@@ -56,7 +56,7 @@ class MainRestaurantsInfo extends React.Component {
             return (
                 <ScrollView style = {{flex: 1}}>
                     <DescriptionAboutRestaurant/>
-                    <AddReview/>
+                    <AddReview updFunc = {this.showInfo}/>
                     <ReviewsRestaurant/>
                 </ScrollView>
             )

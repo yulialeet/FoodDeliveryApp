@@ -28,6 +28,7 @@ ContainerOrdersRestaurant = (props) => {
                                 DescriptionToOrder: item.DescriptionToOrder, 
                                 OrderStatus: item.OrderStatus,
                                 ClientName: item.FIO,
+                                PhoneNumber: item.PhoneNumber,
                                 deliveryAddress: item.DeliveryAddress,
                                 data : [] };
                     sections.push(section);

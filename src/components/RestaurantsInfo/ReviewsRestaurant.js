@@ -2,13 +2,11 @@ import React from 'react'
 import { 
     Text, 
     View,
-    FlatList,
-    TouchableOpacity 
+    FlatList
 } from 'react-native'
 import {connect} from 'react-redux'
 import { StyleReviews } from './StyleReviews'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { Rating, AirbnbRating } from 'react-native-ratings';
+import { Rating } from 'react-native-ratings';
 
 class ReviewsRestaurant extends React.Component {
 

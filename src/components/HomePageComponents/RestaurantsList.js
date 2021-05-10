@@ -32,6 +32,7 @@ class RestaurantsList extends React.Component{
             (currentHour == workToHours && currentMinutes > workToMinutes) ||
             (currentHour == workFromHours && currentMinutes < workFromMinutes)) {
                 Alert.alert('Ресторан уже закрылся, выберите другой')
+                navigation.navigate('Food')
             }
             else {
                 navigation.navigate('Food')
@@ -62,7 +63,7 @@ class RestaurantsList extends React.Component{
                                 this.props.setNameRestaurant(item.NameRestaurant)
                                 this.isRestaurantWork(item.WorkTimeFrom, item.WorkTimeTo)
                             }}> 
-                                <View style = {{flex: 3}}>
+                                <View style = {{maxWidth: 195}}>
                                         <Text style = {RestaurantsListStyle.namerest}>{item.NameRestaurant}</Text>
                                         <View style = {RestaurantsListStyle.ratingcontainer}>
                                             <MaterialCommunityIcons name = 'star' color = {"#FECA57"} borderWidth = {2} borderColor = {'#FFFFFF'}size={20}/> 
@@ -77,10 +78,12 @@ class RestaurantsList extends React.Component{
                                         </Text>
                                     </View>
                                 </View>
-                                <Image 
-                                    source = {{uri: "data:image/png;base64,"+Buffer.from(item.LogoRestaurant).toString('base64')}}
-                                    style = {RestaurantsListStyle.images}
-                                />
+                                <View style = {{justifyContent: 'center'}}>
+                                    <Image 
+                                        source = {{uri: "data:image/png;base64,"+Buffer.from(item.LogoRestaurant).toString('base64')}}
+                                        style = {RestaurantsListStyle.images}
+                                    />
+                                </View>
                             </TouchableOpacity>
                         )}
                     />

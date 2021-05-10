@@ -76,6 +76,7 @@ class OrdersRestaurant extends React.Component {
 
                                 <Text style = {StyleUserOrders.defaultText}>Заказ №{item.idOrder}</Text>
                                 <Text style = {StyleUserOrders.defaultText}>Клиент: {item.ClientName}</Text>
+                                <Text style = {StyleUserOrders.defaultText}>Номер телефона: {item.PhoneNumber}</Text>
                                 <Text style = {StyleUserOrders.defaultText}>Адрес доставки: {item.deliveryAddress}</Text>
                                 <Text style = {StyleUserOrders.defaultText}>Время заказа: {item.OrderTime.split('-').join('.').split('T').join(' в ').slice(0, 18)}</Text>
                             </View>

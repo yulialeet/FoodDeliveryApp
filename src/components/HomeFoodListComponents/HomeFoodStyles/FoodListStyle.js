@@ -18,8 +18,10 @@ const FoodListStyle = StyleSheet.create({
     pictureFood: {
         width: 100,
         height: 100,
-        borderRadius: 20,
-        flex: 2,
+        borderRadius: 20
+    },
+    leftPart: {
+        maxWidth: 210
     },
     nameOfRestaurant: {
         fontSize: 23,
@@ -34,7 +36,7 @@ const FoodListStyle = StyleSheet.create({
         borderRadius: 5,
         width: 120,
         marginLeft: 15,
-        marginTop: 12,
+        marginTop: 12
     },
     textAdd: {
         fontFamily: 'Montserrat-Regular',
@@ -52,6 +54,7 @@ const FoodListStyle = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         width: 210,
+        marginBottom: 15
     },
 });
 export {FoodListStyle}

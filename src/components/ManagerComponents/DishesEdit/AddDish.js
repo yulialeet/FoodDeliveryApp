@@ -6,8 +6,6 @@ import myURL from '../../../CommonURL/myURL'
 import { AddDishStyle } from './AddDishStyle'
 import {launchImageLibrary} from 'react-native-image-picker'
 
-
-
 class AddDish extends React.Component {
 
     state = {
@@ -17,11 +15,9 @@ class AddDish extends React.Component {
 
         category: '',
         dishName: '',
-        weightDish: '',
-        consist: '',
         priceDish: '',
         descriptionDish: '',
-        imgData: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSw_D80Fz0Hez3_O4hI7QI4IeNDbIE21QDZkA&usqp=CAU'
+        imgData: []
     }
 
     componentDidMount() {
@@ -38,31 +34,48 @@ class AddDish extends React.Component {
         }
     }
     
+
+    
     handleChoosePhoto = () => {
         const options = {
-            mediaType: 'photo'
+            mediaType: 'photo',
+            includeBase64: true
         }
         launchImageLibrary(options, response => {
-            console.log('response', response)
-            const blob = response.blob()
-            this.setState({dishImg: response.uri, imgData: blob})
-            console.log(blob)
+            if (!response.didCancel) {
+                this.setState({dishImg: response.uri})
+                const buf = response.base64
+                this.setState({imgData: buf})
+            }
         })
     }
-
+   
     sendToServer = async() => {
-        console.log(this.state.descriptionDish)
         try {
+            this.setState({isReady: false})
             const res = await fetch(myURL+'/addDishToRestaurant?' + new URLSearchParams({
                 idCategory: this.state.category,
                 nameDish: this.state.dishName,
                 description: this.state.descriptionDish,
-                photoDish: this.state.imgData,
                 priceDish: this.state.priceDish,
                 idRest: Number(this.props.idRest.map((e) => e.RestaurantidRestaurant))
-            }))
-            const resText = res.json()
-            console.log(resText)
+            }) , {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    Imges: this.state.imgData
+                })
+            }
+            )
+            if (res.ok) {
+                this.setState({category: '', dishName: '', descriptionDish: '', priceDish: '', imgData: '', isReady: true})
+                Alert.alert('Успешно добавлено!')
+            } else {
+                Alert.alert('Что-то пошло не так :(')
+            }
         } catch(error) {
             console.log(error);
         }
@@ -93,16 +106,12 @@ class AddDish extends React.Component {
                             onChangeText={(text) => this.setState({dishName: text})}
                         />
 
-                        <Text style = {AddDishStyle.defaultText}>Вес блюда:</Text>
+                        <Text style = {AddDishStyle.defaultText}>Описание блюда:</Text>
                         <TextInput 
                             style = {AddDishStyle.inputs}
-                            onChangeText={(text) => this.setState({weightDish: text})}
-                        />
-
-                        <Text style = {AddDishStyle.defaultText}>Состав блюда:</Text>
-                        <TextInput 
-                            style = {AddDishStyle.inputs}
-                            onChangeText={(text) => this.setState({consist: text})}
+                            multiline = {true}
+                            maxLength = {200}
+                            onChangeText={(text) => this.setState({descriptionDish: text})}
                         />
                         <Text style = {AddDishStyle.defaultText}>Фото блюда:</Text>
                         <View style = {{flexDirection: 'row-reverse', justifyContent: 'space-between', marginBottom: 20}}>
@@ -135,7 +144,7 @@ class AddDish extends React.Component {
                                 } else if (this.state.priceDish.length == 0) {
                                     Alert.alert('Введите стоимость блюда')
                                 } else {
-                                    this.setState({descriptionDish: this.state.weightDish + '\r\n' + this.state.consist}, this.sendToServer)
+                                    this.sendToServer()
                                 }
                             }}
                         >

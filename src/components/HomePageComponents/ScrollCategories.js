@@ -32,12 +32,12 @@ SelectedCategoryState = (key) => {
 
 changeCategory = async() => {
     try {
-    const res = await fetch(myURL+'/restaurantsForCategory?idCategory='+this.state.isCategorySelected)
-    const resText = await res.json();
-    await this.props.setRestList(resText)
-    this.props.setLoading(false)
+        const res = await fetch(myURL+'/restaurantsForCategory?idCategory='+this.state.isCategorySelected)
+        const resText = await res.json();
+        await this.props.setRestList(resText)
+        this.props.setLoading(false)
     } catch(error) {
-    console.log(error);
+        console.log(error);
     }
 }
 

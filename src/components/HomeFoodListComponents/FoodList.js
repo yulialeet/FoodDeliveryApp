@@ -75,7 +75,7 @@ class FoodList extends React.Component {
                                 navigation.navigate('FoodPage')
                             }}
                             >
-                                    <View>
+                                    <View style = {FoodListStyle.leftPart}>
                                         <Text style = {FoodListStyle.nameOfRestaurant}>{item.NameDish}</Text>
                                         <View style = {FoodListStyle.buttonAndPriceView}>
                                             <TouchableOpacity 
@@ -90,7 +90,7 @@ class FoodList extends React.Component {
                                         </View>
                                     </View>
 
-                                    <View>
+                                    <View style = {{justifyContent: 'center'}}>
                                         <Image
                                             source = {{uri: "data:image/png;base64,"+Buffer.from(item.PhotoDish).toString('base64')}}
                                             style = {FoodListStyle.pictureFood}

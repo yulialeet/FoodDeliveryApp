@@ -59,6 +59,9 @@ class MainPage extends React.Component {
 
                     <TouchableOpacity
                         style = {StyleMainPage.touchBox}
+                        onPress = {() => {
+                            navigation.navigate('Statistic')
+                        }}
                     >
                         <Text style = {StyleMainPage.defaultText}>Статистика</Text>
                     </TouchableOpacity>
