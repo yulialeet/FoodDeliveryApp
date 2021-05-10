@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { FlatList, SafeAreaView, ScrollView, Text, LogBox, View } from 'react-native'
+import { ScrollView, ActivityIndicator, LogBox, View } from 'react-native'
 import myURL from '../../../CommonURL/myURL'
 import MostPopularDishes from './MostPopularDishes'
 import { connect } from 'react-redux';
@@ -120,7 +120,12 @@ MainPageStatistic = (props) => {
             )
         } else {
             return (
-                <Text>Ждем...</Text>
+                <View style = {{flex: 1, justifyContent: 'center'}}>
+                    <ActivityIndicator 
+                        size = "large" 
+                        color="#FECA57"
+                    />
+                </View>
             )
         }
     

@@ -33,7 +33,11 @@ export default MainProfilePage = () => {
                     </TouchableOpacity>
                 </View>
                 <View style = {StyleMainProfilePage.viewComp}>
-                    <TouchableOpacity style = {StyleMainProfilePage.components}>
+                    <TouchableOpacity 
+                        style = {StyleMainProfilePage.components}
+                        onPress = {() => {
+                            navigation.navigate('Statistic')
+                        }}>
                         <MaterialCommunityIcons name = 'podium' color = {"#FECA57"} size={30}/>
                         <Text style = {StyleMainProfilePage.textComponents}>Моя статистика</Text>
                     </TouchableOpacity>
