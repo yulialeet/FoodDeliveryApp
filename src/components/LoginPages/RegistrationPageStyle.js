@@ -34,8 +34,9 @@ const RegistrationPageStyle = StyleSheet.create({
         fontFamily: "Montserrat-Medium",
         fontSize: 22,
         textAlign: 'center',
+        color: 'white',
         textShadowColor: 'black',
-        textShadowRadius: 2
+        textShadowRadius: 4
     },
     addressView: {
         flexDirection: 'row',

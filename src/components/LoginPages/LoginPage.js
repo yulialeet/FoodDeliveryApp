@@ -6,7 +6,8 @@ import {
     TouchableOpacity,
     Alert,
     TextInput,
-    ActivityIndicator
+    ActivityIndicator,
+    ScrollView
   } from 'react-native';
 import { connect } from 'react-redux';
 import { ActionIsLoggedIn } from '../../store/actions/ActionIsLoggedIn';
@@ -55,6 +56,7 @@ class LoginPage extends React.Component {
             } else {
                 this.props.userLogIn(false)
                 Alert.alert('Неправильный логин или пароль')
+                this.setState({isLoad: false})
             }
         } catch(error) {
             console.log(error);
@@ -80,6 +82,7 @@ class LoginPage extends React.Component {
         } else {
             const { navigation } = this.props;
                 return(
+                    <ScrollView>
                     <View style = {LoginPageStyle.defaultView}>
                         <View style = {LoginPageStyle.viewForInputs}>
                             <TextInput 
@@ -113,8 +116,19 @@ class LoginPage extends React.Component {
                             >
                                 <Text style = {LoginPageStyle.textSignIn}>Регистрация</Text>
                             </TouchableOpacity>
+
+                            <Text style = {LoginPageStyle.textForRequest}>Вы ресторан и хотите оставить заявку?</Text>
+                            <TouchableOpacity 
+                                style = {LoginPageStyle.buttonOpacity}
+                                onPress = {() => {
+                                    navigation.navigate('Request')
+                                }}
+                            >
+                                <Text style = {LoginPageStyle.textSignIn}>Оставить заявку</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
+                    </ScrollView>
                 )
         }
     }

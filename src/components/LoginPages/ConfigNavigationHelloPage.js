@@ -5,6 +5,7 @@ import RegistrationPage from './RegistrationPage';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import AppNavigator from '../../AppNavigator';
 import ContainerRegistration from './ContainerRegistration';
+import RequestForRestaurants from './RequestForRestaurants';
 
 
 const Stack = createStackNavigator();
@@ -24,6 +25,13 @@ ConfigNavigationHelloPage = () => {
                 <Stack.Screen 
                     name = 'Registration' 
                     component = {ContainerRegistration}
+                    options={
+                        {headerShown: false}
+                    }
+                />
+                <Stack.Screen 
+                    name = 'Request' 
+                    component = {RequestForRestaurants}
                     options={
                         {headerShown: false}
                     }

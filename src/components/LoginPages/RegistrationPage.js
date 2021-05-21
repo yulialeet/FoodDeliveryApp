@@ -144,7 +144,7 @@ export default class RegistrationPage extends React.Component {
                             }}
                             
                         >
-                            <Text style = {RegistrationPageStyle.textSignIn}>Регистрация</Text>
+                            <Text style = {RegistrationPageStyle.textSignIn}>Зарегистрироваться</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

@@ -7,7 +7,7 @@ const LoginPageStyle = StyleSheet.create({
         flex: 1,
     },
     viewForInputs: {
-        paddingTop: 250,
+        paddingTop: 200,
         marginHorizontal: 20,
     },
     textsOptions: {
@@ -33,13 +33,19 @@ const LoginPageStyle = StyleSheet.create({
         fontFamily: "Montserrat-Medium",
         fontSize: 22,
         textAlign: 'center',
+        color: 'white',
         textShadowColor: 'black',
-        textShadowRadius: 2
+        textShadowRadius: 4
     },
     textForRegistration: {
         fontFamily: "Montserrat-Light",
         fontSize: 18,
         marginTop: 70
+    },
+    textForRequest: {
+        fontFamily: "Montserrat-Light",
+        fontSize: 18,
+        marginTop: 20
     }
 })
 

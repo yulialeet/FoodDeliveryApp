@@ -9,7 +9,7 @@ class StatisticForToday extends React.Component {
         return (
             <View style = {StyleStatistic.componentsMainView1}>
                 <View style = {StyleStatistic.headlineContainer}>
-                    <Text style = {StyleStatistic.headline}>Среднее количество заказов</Text>
+                    <Text style = {StyleStatistic.headline}>Заказы на сегодня</Text>
                 </View>
                 <FlatList
                     data = {this.props.data}
