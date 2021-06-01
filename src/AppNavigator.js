@@ -4,17 +4,15 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import {AppNavigatorStyle} from './styles/AppNavigatorStyle.js'
-import HomeScreen from './components/HomeScreen.js';
-import MainPageShoppingCart from './components/ShoppingCart/MainPageShoppingCart'
-import LoginPage from './components/LoginPages/LoginPage.js';
-import { Alert, Text } from 'react-native';
+import {ActionTakeRestaurantsList} from './store/actions/ActionTakeRestaurantsList'
 import { connect } from 'react-redux'
 import myURL from './CommonURL/myURL'
 import { ActionDishInfoInCart, ActionRemoveAllFromCart } from './store/actions/ActionDishInfoInCart.js';
 import ContainerShopCart from './components/ShoppingCart/ContainerShopCart.js';
 import { ActionCurrentRestaurantDeliveryPrice } from './store/actions/ActionCurrentIdRestaurantCart.js';
-import MainProfilePage from './components/ProfilePage/MainProfilePage.js';
 import NavigatorProfilePage from './components/ProfilePage/NavigatorProfilePage.js';
+import HomeScreen from './components/HomeScreen.js';
+import {ActionIsLoading} from './store/actions/ActionIsLoading'
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -49,6 +47,19 @@ getThis = async() => {
     }
 }
 
+    updateRests = async() => {
+        try {
+            this.props.setLoading(true)
+            const res = await fetch(myURL+'/restaurantsList')
+            const resText = await res.json();
+            await this.props.setRestList(resText)
+            this.props.setLoading(false)
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+
     render(){
   return (
       <NavigationContainer>
@@ -56,13 +67,19 @@ getThis = async() => {
       
         <Tab.Screen 
             name = "Home" 
-            component = {HomeScreen}
+            //component = {HomeScreen}
+            children = {() => <HomeScreen/>}
             options = {{
                 tabBarLabel: "",
                 tabBarIcon: ({color, focused}) => (
                     <MaterialCommunityIcons style = {focused ? AppNavigatorStyle.focus : AppNavigatorStyle.notfocus} name = 'silverware-fork-knife' color = {color} size={26} />
                 )
             }}
+            listeners={{
+                tabPress: e => {
+                    this.updateRests()
+                },
+              }}
         />
         <Tab.Screen 
             name = "ShopBasket" 
@@ -108,7 +125,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         removeCart: () => dispatch(ActionRemoveAllFromCart()),
         addInListCart: (arrInfo) => dispatch(ActionDishInfoInCart(arrInfo)),
-        addDeliveryPrices: (delPrice) => dispatch(ActionCurrentRestaurantDeliveryPrice(delPrice))
+        addDeliveryPrices: (delPrice) => dispatch(ActionCurrentRestaurantDeliveryPrice(delPrice)),
+        setLoading: (isLoad) => dispatch(ActionIsLoading(isLoad)),
+        setRestList: (listOfRestaurants) => dispatch(ActionTakeRestaurantsList(listOfRestaurants)),
     }
 }
 

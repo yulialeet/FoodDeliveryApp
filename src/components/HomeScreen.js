@@ -20,7 +20,8 @@ class HomeScreen extends React.Component {
             <Stack.Navigator initialRouteName = 'Restaurants'>
                 <Stack.Screen 
                     name="Restaurants"
-                    component={HomeRestaurantList}
+                    //component={HomeRestaurantList}
+                    children = {() => <HomeRestaurantList/>}
                     options={{
                       title: 'Рестораны',
                       headerStyle: {

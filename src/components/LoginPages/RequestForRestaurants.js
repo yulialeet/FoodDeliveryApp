@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native'
+import { ScrollView, Text, TextInput, TouchableOpacity, View, Alert, ActivityIndicator } from 'react-native'
 import { RequestForRestaurantsStyle } from './RequestForRestaurantsStyle'
 
 
@@ -19,6 +19,7 @@ class RequestForRestaurants extends React.Component {
 
     sendToServer = async() => {
         try {
+            this.setState({isReady: false})
             const res = await fetch(myURL+'/sendemail' , {
                 method: 'POST',
                 headers: {
@@ -41,6 +42,7 @@ class RequestForRestaurants extends React.Component {
             console.log(res)
             if (res.ok) {
                 Alert.alert('Успешно отправлено!')
+                this.setState({stName: '', phoneNumber: '', email: '', innorg: '', ogrn: '', yraddr: '' , factaddr: '', bik: '', checkaccount: '', isReady: true})
             } else {
                 Alert.alert('Что-то пошло не так :(')
             }
@@ -135,13 +137,26 @@ class RequestForRestaurants extends React.Component {
                     <TouchableOpacity 
                         style = {RequestForRestaurantsStyle.buttonArea}
                         onPress = {() => {
-                            this.sendToServer()
+                            if (this.state.bik.length == 0 || this.state.checkaccount.length == 0 || this.state.email.length == 0 || this.state.factaddr.length == 0 || this.state.innorg.length == 0 || this.state.ogrn.length == 0  || this.state.phoneNumber.length == 0 || this.state.stName.length == 0 || this.state.yraddr.length == 0) {
+                                Alert.alert('Заполните все поля формы!')
+                            } else {
+                                this.sendToServer()
+                            }
                         }}
                     >
                         <Text style = {RequestForRestaurantsStyle.buttonText}> Отправить заявку</Text>
                     </TouchableOpacity>
                 </View>
                 </ScrollView>
+            )
+        } else {
+            return (
+                <View style = {{flex: 1, justifyContent: 'center'}}>
+                        <ActivityIndicator 
+                            size = "large" 
+                            color="#FECA57"
+                        />
+                </View>
             )
         }
     }

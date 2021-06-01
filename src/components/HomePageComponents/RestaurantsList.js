@@ -63,12 +63,9 @@ class RestaurantsList extends React.Component{
                                 this.props.setNameRestaurant(item.NameRestaurant)
                                 this.isRestaurantWork(item.WorkTimeFrom, item.WorkTimeTo)
                             }}> 
-                                <View style = {{maxWidth: 195}}>
+                                <View style = {{width: 170}}>
                                         <Text style = {RestaurantsListStyle.namerest}>{item.NameRestaurant}</Text>
-                                        <View style = {RestaurantsListStyle.ratingcontainer}>
-                                            <MaterialCommunityIcons name = 'star' color = {"#FECA57"} borderWidth = {2} borderColor = {'#FFFFFF'}size={20}/> 
-                                            <Text style = {{fontFamily: "Montserrat-Light"}}> {item.RatingRest}</Text>
-                                        </View>
+                                        
                                     
                                     <View style = {RestaurantsListStyle.descr}> 
                                         <MaterialCommunityIcons name = 'clock-outline' color = {"#FECA57"} size={20}  style = {{flex:1}}/>
@@ -78,11 +75,18 @@ class RestaurantsList extends React.Component{
                                         </Text>
                                     </View>
                                 </View>
+                                <View style = {{flexDirection: 'row'}}>
+                                <View style = {RestaurantsListStyle.ratingcontainer}>
+                                            <MaterialCommunityIcons name = 'star' color = {"#FECA57"} borderWidth = {2} borderColor = {'#FFFFFF'}size={20}/> 
+                                            <Text style = {{fontFamily: "Montserrat-Light"}}> {item.RatingRest}</Text>
+                                        </View>
                                 <View style = {{justifyContent: 'center'}}>
+                                    
                                     <Image 
                                         source = {{uri: "data:image/png;base64,"+Buffer.from(item.LogoRestaurant).toString('base64')}}
                                         style = {RestaurantsListStyle.images}
                                     />
+                                </View>
                                 </View>
                             </TouchableOpacity>
                         )}

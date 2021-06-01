@@ -19,7 +19,6 @@ constructor(props){
 
 async componentDidMount() {
     try {
-        const res1 = await fetch(myURL+'/updateRatingRestaurants')
         const res = await fetch(myURL+'/restaurantsList')
         const resText = await res.json();
         await this.props.setRestList(resText)

@@ -228,7 +228,7 @@ class DishesListBasket extends React.Component {
                             this.newOrder(totalPrice.totalPrice)
                         }}
                     >
-                        <Text style = {StyleDishesListBasket.bottomViewText}>Оплатить</Text>
+                        <Text style = {StyleDishesListBasket.bottomViewText}>Оформить заказ</Text>
                     </TouchableOpacity>
                 </View>
             </View>

@@ -27,7 +27,12 @@ SelectedCategoryState = (key) => {
         isCategorySelected: key
     }, this.changeCategory
     )
-
+}
+componentDidMount() {
+    this.obnul()
+}
+obnul = () => {
+    this.setState({isCategorySelected: ''})
 }
 
 changeCategory = async() => {
@@ -53,7 +58,6 @@ render(){
                     <TouchableOpacity onPress = {() => {
                         this.props.setLoading(true)
                         this.SelectedCategoryState(item.idCategoryRestaurant)
-                        
                     }} >
                         <Text style = {[item.idCategoryRestaurant === this.state.isCategorySelected ? ScrollCategoriesStyle.txte: ScrollCategoriesStyle.txt]} >
                             {item.NameCategoryRestaurant}
@@ -78,6 +82,5 @@ const mapDispatchToProps = (dispatch) => {
         setLoading: (isLoad) => dispatch(ActionIsLoading(isLoad))
     }
   }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(ScrollCategories)
