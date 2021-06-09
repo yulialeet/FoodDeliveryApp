@@ -6,7 +6,8 @@ import {
     TouchableOpacity,
     Alert,
     TextInput, 
-    ActivityIndicator
+    ActivityIndicator,
+    ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
 import {RegistrationPageStyle} from './RegistrationPageStyle'
@@ -76,7 +77,7 @@ export default class RegistrationPage extends React.Component {
             )
         } else {
             return(
-                <View style = {RegistrationPageStyle.defaultView}>
+                <ScrollView style = {RegistrationPageStyle.defaultView}>
                     <View style = {RegistrationPageStyle.viewForInputs}>
                         <TextInput 
                             style = {RegistrationPageStyle.loginInput}
@@ -147,7 +148,7 @@ export default class RegistrationPage extends React.Component {
                             <Text style = {RegistrationPageStyle.textSignIn}>Зарегистрироваться</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
+                </ScrollView>
             )
         }
     }

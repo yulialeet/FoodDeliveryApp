@@ -53,7 +53,7 @@ ContainerOrdersRestaurant = (props) => {
       if (isRender && list.length !== 0) {
         return(
           <SafeAreaView style = {{flex: 1}}>
-              <OrdersRestaurant ordersList = {list} navigation = {navigation}/>
+              <OrdersRestaurant ordersList = {list.reverse()} navigation = {navigation} />
           </SafeAreaView>
         )
       }

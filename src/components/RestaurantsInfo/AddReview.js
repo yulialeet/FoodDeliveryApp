@@ -60,6 +60,7 @@ class AddReview extends React.Component {
             }))
             const resText = await res.json();
             Alert.alert('Отзыв успешно отправлен!')
+            const resа = await fetch(myURL+'/restaurantsList')
             this.setState({textReview: ''})
         } catch(error) {
             console.log(error);

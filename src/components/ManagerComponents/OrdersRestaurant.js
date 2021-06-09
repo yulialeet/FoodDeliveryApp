@@ -11,7 +11,8 @@ class OrdersRestaurant extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          test: true // Make it explicit there's no value at the beginning.
+          test: true, // Make it explicit there's no value at the beginning.
+         // statnow: 
         };
       }
 
@@ -34,6 +35,7 @@ class OrdersRestaurant extends React.Component {
         console.log('upd')
     }
     setColorForStatus = (stat) => {
+        console.log('setcol')
         if (stat == "Выполнен") {
             return {color: 'green', fontFamily: 'Montserrat-Medium', fontSize: 16}
         } else if (stat == 'Обрабатывается'){
@@ -70,6 +72,7 @@ class OrdersRestaurant extends React.Component {
                                     onChangeItem={(stat) => {
                                         this.updateOrderStatus(item.idOrder, stat.value)
                                         this.fun()
+                                        //updcomp()
                                     }}
                                     dropDownStyle = {{padding: 0}}
                                 />
